@@ -1,0 +1,2 @@
+# adms
+Administasi Sekolah
