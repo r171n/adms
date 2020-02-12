@@ -50,22 +50,30 @@ data-open="click" data-menu="vertical-menu" data-col="1-column">
                     </div>
                   </div>
                   <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
-                    <span>Login with Stack</span>
+                    <span>Login with </span>
                   </h6>
                 </div>
                 <div class="card-content">
                   <div class="card-body">
-                    <form class="form-horizontal form-simple" action="index.html" novalidate>
+                    <?php if($this->session->set_flashdata('login_error')){ ?>
+                    <div class="alert alert-icon-right alert-warning alert-dismissible mb-2" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                          <strong>Warning!</strong> Better check yourself, you're not
+                          <a href="#" class="alert-link">looking too good</a>.
+                    </div>
+                    <?php } ?>
+                    <form class="form-horizontal form-simple" action="<?php echo base_url('auth/login');?>" method="POST">
                       <fieldset class="form-group position-relative has-icon-left mb-0">
-                        <input type="text" class="form-control form-control-lg" id="user-name" placeholder="Your Username"
+                        <input type="text" class="form-control form-control-lg" id="user_nama" name="user_nama" placeholder="Username"
                         required>
                         <div class="form-control-position">
                           <i class="ft-user"></i>
                         </div>
                       </fieldset>
                       <fieldset class="form-group position-relative has-icon-left">
-                        <input type="password" class="form-control form-control-lg" id="user-password" placeholder="Enter Password"
-                        required>
+                        <input type="password" class="form-control form-control-lg" id="user_password" name="user_password" placeholder="Password" required>
                         <div class="form-control-position">
                           <i class="fa fa-key"></i>
                         </div>

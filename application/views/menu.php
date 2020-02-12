@@ -316,14 +316,14 @@
               <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                 <span class="avatar avatar-online">
                   <img src="<?php echo base_url();?>app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"><i></i></span>
-                <span class="user-name">John Doe</span>
+                <span class="user-name"><?php echo $this->session->userdata('user_nama');; ?></span>
               </a>
               <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
                 <a class="dropdown-item" href="email-application.html"><i class="ft-mail"></i> My Inbox</a>
                 <a class="dropdown-item" href="user-cards.html"><i class="ft-check-square"></i> Task</a>
                 <a class="dropdown-item" href="chat-application.html"><i class="ft-message-square"></i> Chats</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="login-with-bg-image.html"><i class="ft-power"></i> Logout</a>
+                <a class="dropdown-item" href="<?php echo base_url('auth/logout');?>"><i class="ft-power"></i> Logout</a>
               </div>
             </li>
           </ul>
