@@ -48,6 +48,7 @@ class Auth extends CI_Controller {
 	    	$dt = array(
 		        'user_nama'  => $user['user_nama'],
 		        'user_email'  => $user['user_email'],
+		        'user_id'  => $user['user_id'],
 		        'logged_in' => TRUE
 			);
 
@@ -66,6 +67,6 @@ class Auth extends CI_Controller {
 	public function logout()
 	{
 		session_destroy();
-		redirect ('login');
+		redirect ('auth');
 	}
 }

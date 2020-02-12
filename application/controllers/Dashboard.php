@@ -8,11 +8,6 @@ class Dashboard extends CI_Controller {
 		if ($this->session->userdata('user_nama')=="") {
 			redirect('auth');
 		}
-		//cek akses
-		// $this->load->model('menu_model');
-		// if ( $this->menu_model->akses('verifikasi') != 1){
-		// 	redirect('dashboard');
-		// }
 	}
 	public function index()
 	{

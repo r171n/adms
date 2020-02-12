@@ -9,15 +9,17 @@ class User extends CI_Controller {
 			redirect('auth');
 		}
 		//cek akses
-		// $this->load->model('menu_model');
-		// if ( $this->menu_model->akses('verifikasi') != 1){
-		// 	redirect('dashboard');
-		// }
+		$this->load->model('menu_model');
+		if ($this->menu_model->akses('user') != 1){
+			redirect('dashboard');
+		}
 	}
 
 	public function index()
 	{
-	    echo "User Page";
-	}
+		$data = array(
+				'namepage' => 'Users'
+		);
+		$this->template->render('user',$data);	}
 
 }
