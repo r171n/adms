@@ -12,15 +12,26 @@
 			</div>
 			<div class="card-content">
 				<div class="card-body">
-					<form class="form">
+					<form class="form" method="post" action="<?php echo base_url(); ?>siswa/biodatasave">
 						<div class="form-body">
+							<?php if ($this->session->flashdata('success')) : ?>
+								<div class="alert alert-success" role="alert">
+									<?php echo $this->session->flashdata('success'); ?>
+								</div>
+							<?php endif; ?>
 							<h4 class="form-section"><i class="ft-user"></i> Data Pribadi</h4>
+							<?php
+							$cekdata = $siswa->num_rows();
+							if ($cekdata == 1) {
+								$datasiswa = $siswa->row();
+							}
+							?>
 							<div class="row">
 								<div class="col-md-6 col-sm-12">
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_nama">Nama Lengkap</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_nama" class="form-control" placeholder="Nama Lengkap" name="siswa_nama" required>
+											<input type="text" id="siswa_nama" class="form-control" placeholder="Nama Lengkap" name="siswa_nama" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nama; ?>" required>
 										</div>
 									</div>
 								</div>
@@ -32,11 +43,11 @@
 										<div class="col-md-9">
 											<div class="input-group">
 												<div class="d-inline-block custom-control custom-radio mr-1">
-													<input type="radio" name="siswa_jeniskelamin" class="custom-control-input" id="Laki-Laki">
+													<input type="radio" name="siswa_jeniskelamin" class="custom-control-input" value="Laki-Laki" id="Laki-Laki" <?php if ($cekdata == 1) if ($datasiswa->siswa_jeniskelamin == "L") echo "checked"; ?>>
 													<label class="custom-control-label" for="Laki-Laki">Laki-Laki</label>
 												</div>
 												<div class="d-inline-block custom-control custom-radio">
-													<input type="radio" name="siswa_jeniskelamin" class="custom-control-input" id="Perempuan">
+													<input type="radio" name="siswa_jeniskelamin" class="custom-control-input" value="Perempuan" id="Perempuan" <?php if ($cekdata == 1) if ($datasiswa->siswa_jeniskelamin == "P") echo "checked"; ?>>
 													<label class="custom-control-label" for="Perempuan">Perempuan</label>
 												</div>
 											</div>
@@ -49,7 +60,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_nisn">NISN</label>
 										<div class="col-md-9">
-											<input type="number" onKeyPress="if(this.value.length==10) return false;" id="siswa_nisn" class="form-control" placeholder="NISN" name="siswa_nisn" required>
+											<input type="number" onKeyPress="if(this.value.length==10) return false;" id="siswa_nisn" class="form-control" placeholder="NISN" name="siswa_nisn" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nisn; ?>" required>
 										</div>
 									</div>
 								</div>
@@ -59,7 +70,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_nik">NIK</label>
 										<div class="col-md-9">
-											<input type="number" onKeyPress="if(this.value.length==16) return false;" id="siswa_nik" class="form-control" placeholder="NIK" name="siswa_nik" required>
+											<input type="number" onKeyPress="if(this.value.length==16) return false;" id="siswa_nik" class="form-control" placeholder="NIK" name="siswa_nik" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nik; ?>" required>
 										</div>
 									</div>
 								</div>
@@ -69,7 +80,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_kk">No Kartu Keluarga</label>
 										<div class="col-md-9">
-											<input type="number" onKeyPress="if(this.value.length==16) return false;" id="siswa_kk" class="form-control" placeholder="No KK" name="siswa_kk">
+											<input type="number" onKeyPress="if(this.value.length==16) return false;" id="siswa_kk" class="form-control" placeholder="No KK" name="siswa_kk" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_kk; ?>">
 										</div>
 									</div>
 								</div>
@@ -109,14 +120,12 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_agama">Agama</label>
 										<div class="col-md-9">
-											<fieldset class="form-group">
-												<select class="form-control" id="siswa_agama">
-													<option>Pilih</option>
-													<?php foreach ($agama->result() as $agama) : ?>
-														<option value="<?php echo $agama->agama_id ?>"><?php echo $agama->agama_keterangan ?></option>
-													<?php endforeach; ?>
-												</select>
-											</fieldset>
+											<select class="form-control" id="siswa_agama" name="siswa_agama">
+												<option>Pilih</option>
+												<?php foreach ($agama->result() as $agama) : ?>
+													<option value="<?php echo $agama->agama_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_agama == $agama->agama_id) echo "selected"; ?>><?php echo $agama->agama_keterangan ?></option>
+												<?php endforeach; ?>
+											</select>
 										</div>
 									</div>
 								</div>
@@ -206,14 +215,12 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_jenistinggal">Tempat Tinggal</label>
 										<div class="col-md-9">
-											<fieldset class="form-group">
-												<select class="form-control" id="siswa_jenistinggal">
-													<option>Pilih</option>
-													<?php foreach ($tempattinggal->result() as $tempattinggal) : ?>
-														<option value="<?php echo $tempattinggal->tempattinggal_id ?>"><?php echo $tempattinggal->tempattinggal_keterangan ?></option>
-													<?php endforeach; ?>
-												</select>
-											</fieldset>
+											<select class="form-control" id="siswa_jenistinggal">
+												<option>Pilih</option>
+												<?php foreach ($tempattinggal->result() as $tempattinggal) : ?>
+													<option value="<?php echo $tempattinggal->tempattinggal_id ?>"><?php echo $tempattinggal->tempattinggal_keterangan ?></option>
+												<?php endforeach; ?>
+											</select>
 										</div>
 									</div>
 								</div>
@@ -223,14 +230,11 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_jenistinggal">Moda Transportasi</label>
 										<div class="col-md-9">
-											<fieldset class="form-group">
-												<select class="form-control" id="siswa_jenistinggal">
-													<option>Pilih</option>
-													<?php foreach ($transportasi->result() as $transportasi) : ?>
-														<option value="<?php echo $transportasi->transportasi_id ?>"><?php echo $transportasi->transportasi_keterangan ?></option>
-													<?php endforeach; ?>
-												</select>
-											</fieldset>
+											<select class="form-control" id="siswa_jenistinggal">
+												<?php foreach ($transportasi->result() as $transportasi) : ?>
+													<option value="<?php echo $transportasi->transportasi_id ?>"><?php echo $transportasi->transportasi_keterangan ?></option>
+												<?php endforeach; ?>
+											</select>
 										</div>
 									</div>
 								</div>
@@ -325,12 +329,228 @@
 								</div>
 							</div>
 						</div>
+						<h4 class="form-section"><i class="ft-user"></i> Data Ayah</h4>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_nama_ayah">Nama</label>
+									<div class="col-md-9">
+										<input type="text" id="siswa_nama_ayah" class="form-control" placeholder="Nama Ayah" name="siswa_nama_ayah" required>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_nik_ayah">NIK Ayah</label>
+									<div class="col-md-9">
+										<input type="number" onKeyPress="if(this.value.length==16) return false;" id=" siswa_nik_ayah" class="form-control" placeholder="NIK Ayah" name="siswa_nik_ayah">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_tahunlahir_ayah">Tahun Lahir</label>
+									<div class="col-md-9">
+										<input type="number" onKeyPress="if(this.value.length==4) return false;" id="siswa_tahunlahir_ayah" class="form-control" placeholder="Tahun Lahir" name="siswa_tahunlahir_ayah">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_pendidikan_ayah">Pendidikan</label>
+									<div class="col-md-9">
+										<select class="form-control" id="siswa_pendidikan_ayah">
+											<?php foreach ($pendidikan->result() as $pendidikan_ayah) : ?>
+												<option value="<?php echo $pendidikan_ayah->pendidikan_id ?>"><?php echo $pendidikan_ayah->pendidikan_nama ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_pekerjaan_ayah">Pekerjaan</label>
+									<div class="col-md-9">
+										<select class="form-control" id="siswa_pekerjaan_ayah">
+											<?php foreach ($pekerjaan->result() as $pekerjaan_ayah) : ?>
+												<option value="<?php echo $pekerjaan_ayah->pekerjaan_id ?>"><?php echo $pekerjaan_ayah->pekerjaan_keterangan ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_penghasilan_ayah">Penghasilan</label>
+									<div class="col-md-9">
+										<select class="form-control" id="siswa_penghasilan_ayah">
+											<?php foreach ($penghasilan->result() as $penghasilan_ayah) : ?>
+												<option value="<?php echo $penghasilan_ayah->penghasilan_id ?>"><?php echo $penghasilan_ayah->penghasilan_keterangan ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<h4 class="form-section"><i class="ft-user"></i> Data Ibu Kandung</h4>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_nama_ibu">Nama</label>
+									<div class="col-md-9">
+										<input type="text" id="siswa_nama_ibu" class="form-control" placeholder="Nama Ibu" name="siswa_nama_ibu" required>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_nik_ibu">NIK Ibu</label>
+									<div class="col-md-9">
+										<input type="number" onKeyPress="if(this.value.length==16) return false;" id=" siswa_nik_ibu" class="form-control" placeholder="NIK Ibu" name="siswa_nik_ibu">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_tahunlahir_ibu">Tahun Lahir</label>
+									<div class="col-md-9">
+										<input type="number" onKeyPress="if(this.value.length==4) return false;" id="siswa_tahunlahir_ibu" class="form-control" placeholder="Tahun Lahir" name="siswa_tahunlahir_ibu">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_pendidikan_ibu">Pendidikan</label>
+									<div class="col-md-9">
+										<select class="form-control" id="siswa_pendidikan_ibu">
+											<?php foreach ($pendidikan->result() as $pendidikan_ibu) : ?>
+												<option value="<?php echo $pendidikan_ibu->pendidikan_id ?>"><?php echo $pendidikan_ibu->pendidikan_nama ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_pekerjaan_ibu">Pekerjaan</label>
+									<div class="col-md-9">
+										<select class="form-control" id="siswa_pekerjaan_ibu">
+											<?php foreach ($pekerjaan->result() as $pekerjaan_ibu) : ?>
+												<option value="<?php echo $pekerjaan_ibu->pekerjaan_id ?>"><?php echo $pekerjaan_ibu->pekerjaan_keterangan ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_penghasilan_ibu">Penghasilan</label>
+									<div class="col-md-9">
+										<select class="form-control" id="siswa_penghasilan_ibu">
+											<?php foreach ($penghasilan->result() as $penghasilan_ibu) : ?>
+												<option value="<?php echo $penghasilan_ibu->penghasilan_id ?>"><?php echo $penghasilan_ibu->penghasilan_keterangan ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<h4 class="form-section"><i class="ft-user"></i> Data Wali</h4>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_nama_wali">Nama</label>
+									<div class="col-md-9">
+										<input type="text" id="siswa_nama_wali" class="form-control" placeholder="Nama Wali" name="siswa_nama_wali">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_nik_wali">NIK Wali</label>
+									<div class="col-md-9">
+										<input type="number" onKeyPress="if(this.value.length==16) return false;" id=" siswa_nik_wali" class="form-control" placeholder="NIK Wali" name="siswa_nik_wali">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_tahunlahir_wali">Tahun Lahir</label>
+									<div class="col-md-9">
+										<input type="number" onKeyPress="if(this.value.length==4) return false;" id="siswa_tahunlahir_wali" class="form-control" placeholder="Tahun Lahir" name="siswa_tahunlahir_wali">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_pendidikan_wali">Pendidikan</label>
+									<div class="col-md-9">
+										<select class="form-control" id="siswa_pendidikan_wali">
+											<?php foreach ($pendidikan->result() as $pendidikan_wali) : ?>
+												<option value="<?php echo $pendidikan_wali->pendidikan_id ?>"><?php echo $pendidikan_wali->pendidikan_nama ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_pekerjaan_wali">Pekerjaan</label>
+									<div class="col-md-9">
+										<select class="form-control" id="siswa_pekerjaan_wali">
+											<?php foreach ($pekerjaan->result() as $pekerjaan_wali) : ?>
+												<option value="<?php echo $pekerjaan_wali->pekerjaan_id ?>"><?php echo $pekerjaan_wali->pekerjaan_keterangan ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="siswa_penghasilan_wali">Penghasilan</label>
+									<div class="col-md-9">
+										<select class="form-control" id="siswa_penghasilan_wali">
+											<?php foreach ($penghasilan->result() as $penghasilan_wali) : ?>
+												<option value="<?php echo $penghasilan_wali->penghasilan_id ?>"><?php echo $penghasilan_wali->penghasilan_keterangan ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="form-actions">
-							<button type="button" class="btn btn-warning mr-1">
-								<i class="ft-x"></i> Cancel
-							</button>
 							<button type="submit" class="btn btn-primary">
-								<i class="fa fa-check-square-o"></i> Save
+								<i class="fa fa-check-square-o"></i> Simpan
 							</button>
 						</div>
 					</form>
