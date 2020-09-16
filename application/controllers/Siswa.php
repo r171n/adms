@@ -31,9 +31,17 @@ class Siswa extends CI_Controller
 			redirect('dashboard');
 		}
 		if ($this->session->userdata('user_type') == 2) {
+			$agama = $this->db->get('app_agama');
+			$tempattinggal = $this->db->get('app_tempattinggal');
+			$transportasi = $this->db->get('app_transportasi');
+
+
 			//akun siswa
 			$data = array(
-				'namepage' => 'Biodata'
+				'namepage' => 'Biodata',
+				'agama' => $agama,
+				'tempattinggal' => $tempattinggal,
+				'transportasi' => $transportasi,
 			);
 			$this->template->render('siswa_biodata', $data);
 		} else {
