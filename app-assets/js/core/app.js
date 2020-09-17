@@ -315,6 +315,17 @@
 				$(this).appendTo($(this).siblings("span.step"));
 			}
 		});
+
+		if ($("#kps_ya").is(":checked")) {
+			$("#siswa_nokps").prop("readonly", false);
+		} else {
+			$("#siswa_nokps").prop("readonly", true);
+		}
+		if ($("#kip_ya").is(":checked")) {
+			$("#siswa_nokip").prop("readonly", false);
+		} else {
+			$("#siswa_nokip").prop("readonly", true);
+		}
 	});
 
 	// Update manual scroller when window is resized

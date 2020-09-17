@@ -74,7 +74,7 @@ class Siswa extends CI_Controller
 				$siswa->save();
 				$this->session->set_flashdata('success', 'Berhasil disimpan');
 			} else {
-				$siswa->save();
+				$siswa->update();
 			}
 
 			redirect('siswa/biodata');

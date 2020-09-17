@@ -90,7 +90,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_tempatlahir">Tempat Lahir</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_tempatlahir" class="form-control" placeholder="Tempat Lahir" name="siswa_tempatlahir" required>
+											<input type="text" id="siswa_tempatlahir" class="form-control" placeholder="Tempat Lahir" name="siswa_tempatlahir" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_tempatlahir; ?>" required>
 										</div>
 									</div>
 								</div>
@@ -100,7 +100,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_tanggallahir">Tanggal Lahir</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_tanggallahir" class="form-control" placeholder="Tanggal Lahir" name="siswa_tanggallahir" required>
+											<input type="text" id="siswa_tanggallahir" class="form-control" placeholder="Tanggal Lahir" name="siswa_tanggallahir" value="<?php if ($cekdata == 1) echo date("d-m-Y", strtotime($datasiswa->siswa_tanggallahir)); ?>" required>
 										</div>
 									</div>
 								</div>
@@ -110,7 +110,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_aktalahir">No Registrasi Akta Lahir</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_aktalahir" class="form-control" placeholder="No Registrasi Akta Lahir" name="siswa_aktalahir">
+											<input type="text" id="siswa_aktalahir" class="form-control" placeholder="No Registrasi Akta Lahir" name="siswa_aktalahir" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_aktalahir; ?>">
 										</div>
 									</div>
 								</div>
@@ -135,7 +135,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_alamat">Alamat Jalan</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_alamat" class="form-control" placeholder="Alamat Jalan" name="siswa_alamat" required>
+											<input type="text" id="siswa_alamat" class="form-control" placeholder="Alamat Jalan" name="siswa_alamat" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_alamat; ?>" required>
 										</div>
 									</div>
 								</div>
@@ -145,7 +145,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_rt">RT</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_rt" class="form-control" placeholder="RT" name="siswa_rt">
+											<input type="text" id="siswa_rt" class="form-control" placeholder="RT" name="siswa_rt" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_rt; ?>">
 										</div>
 									</div>
 								</div>
@@ -155,7 +155,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_rw">RW</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_rw" class="form-control" placeholder="RW" name="siswa_rw">
+											<input type="text" id="siswa_rw" class="form-control" placeholder="RW" name="siswa_rw" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_rw; ?>">
 										</div>
 									</div>
 								</div>
@@ -165,7 +165,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_kelurahan">Desa/Kelurahan</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_kelurahan" class="form-control" placeholder="Desa/Kelurahan" name="siswa_kelurahan">
+											<input type="text" id="siswa_kelurahan" class="form-control" placeholder="Desa/Kelurahan" name="siswa_kelurahan" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_kelurahan; ?>">
 										</div>
 									</div>
 								</div>
@@ -173,9 +173,9 @@
 							<div class="row">
 								<div class="col-md-6 col-sm-12">
 									<div class="form-group row">
-										<label class="col-md-3 label-control" for="siswa_kelurahan">Kecamatan</label>
+										<label class="col-md-3 label-control" for="siswa_kecamatan">Kecamatan</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_kelurahan" class="form-control" placeholder="Kecamatan" name="siswa_kelurahan">
+											<input type="text" id="siswa_kecamatan" class="form-control" placeholder="Kecamatan" name="siswa_kecamatan" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_kecamatan; ?>">
 										</div>
 									</div>
 								</div>
@@ -185,7 +185,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_kabupaten">Kabupaten/Kota</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_kabupaten" class="form-control" placeholder="Kabupaten/Kota" name="siswa_kabupaten">
+											<input type="text" id="siswa_kabupaten" class="form-control" placeholder="Kabupaten/Kota" name="siswa_kabupaten" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_kabupaten; ?>">
 										</div>
 									</div>
 								</div>
@@ -195,7 +195,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_provinsi">Provinsi</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_provinsi" class="form-control" placeholder="Provinsi" name="siswa_provinsi">
+											<input type="text" id="siswa_provinsi" class="form-control" placeholder="Provinsi" name="siswa_provinsi" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_provinsi; ?>">
 										</div>
 									</div>
 								</div>
@@ -205,7 +205,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_kodepos">Kode POS</label>
 										<div class="col-md-9">
-											<input type="number" id="siswa_kodepos" class="form-control" placeholder="Kode POS" name="siswa_kodepos">
+											<input type="number" id="siswa_kodepos" class="form-control" placeholder="Kode POS" name="siswa_kodepos" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_kodepos; ?>">
 										</div>
 									</div>
 								</div>
@@ -215,10 +215,10 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_jenistinggal">Tempat Tinggal</label>
 										<div class="col-md-9">
-											<select class="form-control" id="siswa_jenistinggal">
+											<select class="form-control" id="siswa_jenistinggal" name="siswa_jenistinggal">
 												<option>Pilih</option>
 												<?php foreach ($tempattinggal->result() as $tempattinggal) : ?>
-													<option value="<?php echo $tempattinggal->tempattinggal_id ?>"><?php echo $tempattinggal->tempattinggal_keterangan ?></option>
+													<option value="<?php echo $tempattinggal->tempattinggal_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_jenistinggal == $tempattinggal->tempattinggal_id) echo "selected"; ?>><?php echo $tempattinggal->tempattinggal_keterangan ?></option>
 												<?php endforeach; ?>
 											</select>
 										</div>
@@ -228,11 +228,11 @@
 							<div class="row">
 								<div class="col-md-6 col-sm-12">
 									<div class="form-group row">
-										<label class="col-md-3 label-control" for="siswa_jenistinggal">Moda Transportasi</label>
+										<label class="col-md-3 label-control" for="siswa_alattransport">Moda Transportasi</label>
 										<div class="col-md-9">
-											<select class="form-control" id="siswa_jenistinggal">
+											<select class="form-control" id="siswa_alattransport" name="siswa_alattransport">
 												<?php foreach ($transportasi->result() as $transportasi) : ?>
-													<option value="<?php echo $transportasi->transportasi_id ?>"><?php echo $transportasi->transportasi_keterangan ?></option>
+													<option value="<?php echo $transportasi->transportasi_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_alattransport == $transportasi->transportasi_id) echo "selected"; ?>><?php echo $transportasi->transportasi_keterangan ?></option>
 												<?php endforeach; ?>
 											</select>
 										</div>
@@ -244,7 +244,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_anakke">Anak Ke-Berapa (Berdasarkan KK)</label>
 										<div class="col-md-9">
-											<input type="number" id="siswa_anakke" class="form-control" placeholder="Anak Ke-Berapa" name="siswa_anakke" required>
+											<input type="number" id="siswa_anakke" class="form-control" placeholder="Anak Ke-Berapa" name="siswa_anakke" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_anakke; ?>" required>
 										</div>
 									</div>
 								</div>
@@ -256,11 +256,11 @@
 										<div class="col-md-9">
 											<div class="input-group">
 												<div class="d-inline-block custom-control custom-radio mr-1">
-													<input type="radio" name="siswa_kps" class="custom-control-input" value="YA" id="kps_ya">
+													<input type="radio" name="siswa_kps" class="custom-control-input" value="YA" id="kps_ya" <?php if ($cekdata == 1) if ($datasiswa->siswa_kps == "YA") echo "checked"; ?>>
 													<label class="custom-control-label" for="kps_ya">YA</label>
 												</div>
 												<div class="d-inline-block custom-control custom-radio">
-													<input type="radio" name="siswa_kps" class="custom-control-input" value="TIDAK" id="kps_tidak" checked>
+													<input type="radio" name="siswa_kps" class="custom-control-input" value="TIDAK" id="kps_tidak" <?php if ($cekdata == 1) if ($datasiswa->siswa_kps == "TIDAK") echo "checked"; ?>>
 													<label class="custom-control-label" for="kps_tidak">TIDAK</label>
 												</div>
 											</div>
@@ -273,7 +273,7 @@
 									<div class="form-group row">
 										<label class="col-md-3 label-control" for="siswa_nokps">NO KPS/PKH</label>
 										<div class="col-md-9">
-											<input type="text" id="siswa_nokps" class="form-control" placeholder="NO KPS/PKH" name="siswa_nokps" readonly>
+											<input type="text" id="siswa_nokps" class="form-control" placeholder="NO KPS/PKH" name="siswa_nokps" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nokps; ?>" readonly>
 										</div>
 									</div>
 								</div>
@@ -285,11 +285,11 @@
 										<div class="col-md-9">
 											<div class="input-group">
 												<div class="d-inline-block custom-control custom-radio mr-1">
-													<input type="radio" name="siswa_kip" class="custom-control-input" value="YA" id="kip_ya">
+													<input type="radio" name="siswa_kip" class="custom-control-input" value="YA" id="kip_ya" <?php if ($cekdata == 1) if ($datasiswa->siswa_kip == "YA") echo "checked"; ?>>
 													<label class="custom-control-label" for="kip_ya">YA</label>
 												</div>
 												<div class="d-inline-block custom-control custom-radio">
-													<input type="radio" name="siswa_kip" class="custom-control-input" value="TIDAK" id="kip_tidak" checked>
+													<input type="radio" name="siswa_kip" class="custom-control-input" value="TIDAK" id="kip_tidak" <?php if ($cekdata == 1) if ($datasiswa->siswa_kip == "TIDAK") echo "checked"; ?>>
 													<label class="custom-control-label" for="kip_tidak">TIDAK</label>
 												</div>
 											</div>
@@ -303,7 +303,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_nokip">NO KIP</label>
 									<div class="col-md-9">
-										<input type="text" id="siswa_nokip" class="form-control" placeholder="NO KIP" name="siswa_nokip" readonly>
+										<input type="text" id="siswa_nokip" class="form-control" placeholder="NO KIP" name="siswa_nokip" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nokip; ?>" readonly>
 									</div>
 								</div>
 							</div>
@@ -314,7 +314,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_notelp">NO HP</label>
 									<div class="col-md-9">
-										<input type="number" onKeyPress="if(this.value.length==12) return false;" id="siswa_notelp" class="form-control" placeholder="NO HP Siswa" name="siswa_notelp">
+										<input type="number" onKeyPress="if(this.value.length==12) return false;" id="siswa_notelp" class="form-control" placeholder="NO HP Siswa" name="siswa_notelp" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_notelp; ?>">
 									</div>
 								</div>
 							</div>
@@ -324,7 +324,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_email">Email Aktif</label>
 									<div class="col-md-9">
-										<input type="email" id="siswa_email" class="form-control" placeholder="Email Yang Aktif" name="siswa_email">
+										<input type="email" id="siswa_email" class="form-control" placeholder="Email Yang Aktif" name="siswa_email" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_email; ?>">
 									</div>
 								</div>
 							</div>
@@ -335,7 +335,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_nama_ayah">Nama</label>
 									<div class="col-md-9">
-										<input type="text" id="siswa_nama_ayah" class="form-control" placeholder="Nama Ayah" name="siswa_nama_ayah" required>
+										<input type="text" id="siswa_nama_ayah" class="form-control" placeholder="Nama Ayah" name="siswa_nama_ayah" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nama_ayah; ?>" required>
 									</div>
 								</div>
 							</div>
@@ -345,7 +345,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_nik_ayah">NIK Ayah</label>
 									<div class="col-md-9">
-										<input type="number" onKeyPress="if(this.value.length==16) return false;" id=" siswa_nik_ayah" class="form-control" placeholder="NIK Ayah" name="siswa_nik_ayah">
+										<input type="number" onKeyPress="if(this.value.length==16) return false;" id=" siswa_nik_ayah" class="form-control" placeholder="NIK Ayah" name="siswa_nik_ayah" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nik_ayah; ?>">
 									</div>
 								</div>
 							</div>
@@ -355,7 +355,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_tahunlahir_ayah">Tahun Lahir</label>
 									<div class="col-md-9">
-										<input type="number" onKeyPress="if(this.value.length==4) return false;" id="siswa_tahunlahir_ayah" class="form-control" placeholder="Tahun Lahir" name="siswa_tahunlahir_ayah">
+										<input type="number" onKeyPress="if(this.value.length==4) return false;" id="siswa_tahunlahir_ayah" class="form-control" placeholder="Tahun Lahir" name="siswa_tahunlahir_ayah" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_tahunlahir_ayah; ?>">
 									</div>
 								</div>
 							</div>
@@ -365,9 +365,9 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_pendidikan_ayah">Pendidikan</label>
 									<div class="col-md-9">
-										<select class="form-control" id="siswa_pendidikan_ayah">
+										<select class="form-control" id="siswa_pendidikan_ayah" name="siswa_pendidikan_ayah">
 											<?php foreach ($pendidikan->result() as $pendidikan_ayah) : ?>
-												<option value="<?php echo $pendidikan_ayah->pendidikan_id ?>"><?php echo $pendidikan_ayah->pendidikan_nama ?></option>
+												<option value="<?php echo $pendidikan_ayah->pendidikan_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_pendidikan_ayah == $pendidikan_ayah->pendidikan_id) echo "selected"; ?>><?php echo $pendidikan_ayah->pendidikan_nama ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
@@ -379,9 +379,9 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_pekerjaan_ayah">Pekerjaan</label>
 									<div class="col-md-9">
-										<select class="form-control" id="siswa_pekerjaan_ayah">
+										<select class="form-control" id="siswa_pekerjaan_ayah" name="siswa_pekerjaan_ayah">
 											<?php foreach ($pekerjaan->result() as $pekerjaan_ayah) : ?>
-												<option value="<?php echo $pekerjaan_ayah->pekerjaan_id ?>"><?php echo $pekerjaan_ayah->pekerjaan_keterangan ?></option>
+												<option value="<?php echo $pekerjaan_ayah->pekerjaan_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_pekerjaan_ayah == $pekerjaan_ayah->pekerjaan_id)  echo "selected"; ?>><?php echo $pekerjaan_ayah->pekerjaan_keterangan ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
@@ -393,9 +393,9 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_penghasilan_ayah">Penghasilan</label>
 									<div class="col-md-9">
-										<select class="form-control" id="siswa_penghasilan_ayah">
+										<select class="form-control" id="siswa_penghasilan_ayah" name="siswa_penghasilan_ayah">
 											<?php foreach ($penghasilan->result() as $penghasilan_ayah) : ?>
-												<option value="<?php echo $penghasilan_ayah->penghasilan_id ?>"><?php echo $penghasilan_ayah->penghasilan_keterangan ?></option>
+												<option value="<?php echo $penghasilan_ayah->penghasilan_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_penghasilan_ayah == $penghasilan_ayah->penghasilan_id)  echo "selected"; ?>><?php echo $penghasilan_ayah->penghasilan_keterangan ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
@@ -408,7 +408,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_nama_ibu">Nama</label>
 									<div class="col-md-9">
-										<input type="text" id="siswa_nama_ibu" class="form-control" placeholder="Nama Ibu" name="siswa_nama_ibu" required>
+										<input type="text" id="siswa_nama_ibu" class="form-control" placeholder="Nama Ibu" name="siswa_nama_ibu" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nama_ibu; ?>" required>
 									</div>
 								</div>
 							</div>
@@ -418,7 +418,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_nik_ibu">NIK Ibu</label>
 									<div class="col-md-9">
-										<input type="number" onKeyPress="if(this.value.length==16) return false;" id=" siswa_nik_ibu" class="form-control" placeholder="NIK Ibu" name="siswa_nik_ibu">
+										<input type="number" onKeyPress="if(this.value.length==16) return false;" id=" siswa_nik_ibu" class="form-control" placeholder="NIK Ibu" name="siswa_nik_ibu" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nik_ibu; ?>">
 									</div>
 								</div>
 							</div>
@@ -428,7 +428,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_tahunlahir_ibu">Tahun Lahir</label>
 									<div class="col-md-9">
-										<input type="number" onKeyPress="if(this.value.length==4) return false;" id="siswa_tahunlahir_ibu" class="form-control" placeholder="Tahun Lahir" name="siswa_tahunlahir_ibu">
+										<input type="number" onKeyPress="if(this.value.length==4) return false;" id="siswa_tahunlahir_ibu" class="form-control" placeholder="Tahun Lahir" name="siswa_tahunlahir_ibu" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_tahunlahir_ibu; ?>">
 									</div>
 								</div>
 							</div>
@@ -438,9 +438,9 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_pendidikan_ibu">Pendidikan</label>
 									<div class="col-md-9">
-										<select class="form-control" id="siswa_pendidikan_ibu">
+										<select class="form-control" id="siswa_pendidikan_ibu" name="siswa_pendidikan_ibu">
 											<?php foreach ($pendidikan->result() as $pendidikan_ibu) : ?>
-												<option value="<?php echo $pendidikan_ibu->pendidikan_id ?>"><?php echo $pendidikan_ibu->pendidikan_nama ?></option>
+												<option value="<?php echo $pendidikan_ibu->pendidikan_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_pendidikan_ibu == $pendidikan_ibu->pendidikan_id)  echo "selected"; ?>><?php echo $pendidikan_ibu->pendidikan_nama ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
@@ -452,9 +452,9 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_pekerjaan_ibu">Pekerjaan</label>
 									<div class="col-md-9">
-										<select class="form-control" id="siswa_pekerjaan_ibu">
+										<select class="form-control" id="siswa_pekerjaan_ibu" name="siswa_pekerjaan_ibu">
 											<?php foreach ($pekerjaan->result() as $pekerjaan_ibu) : ?>
-												<option value="<?php echo $pekerjaan_ibu->pekerjaan_id ?>"><?php echo $pekerjaan_ibu->pekerjaan_keterangan ?></option>
+												<option value="<?php echo $pekerjaan_ibu->pekerjaan_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_pekerjaan_ibu == $pekerjaan_ibu->pekerjaan_id)  echo "selected"; ?>><?php echo $pekerjaan_ibu->pekerjaan_keterangan ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
@@ -466,9 +466,9 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_penghasilan_ibu">Penghasilan</label>
 									<div class="col-md-9">
-										<select class="form-control" id="siswa_penghasilan_ibu">
+										<select class="form-control" id="siswa_penghasilan_ibu" name="siswa_penghasilan_ibu">
 											<?php foreach ($penghasilan->result() as $penghasilan_ibu) : ?>
-												<option value="<?php echo $penghasilan_ibu->penghasilan_id ?>"><?php echo $penghasilan_ibu->penghasilan_keterangan ?></option>
+												<option value="<?php echo $penghasilan_ibu->penghasilan_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_penghasilan_ibu == $penghasilan_ibu->penghasilan_id)  echo "selected"; ?>><?php echo $penghasilan_ibu->penghasilan_keterangan ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
@@ -481,7 +481,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_nama_wali">Nama</label>
 									<div class="col-md-9">
-										<input type="text" id="siswa_nama_wali" class="form-control" placeholder="Nama Wali" name="siswa_nama_wali">
+										<input type="text" id="siswa_nama_wali" class="form-control" placeholder="Nama Wali" name="siswa_nama_wali" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nama_wali; ?>">
 									</div>
 								</div>
 							</div>
@@ -491,7 +491,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_nik_wali">NIK Wali</label>
 									<div class="col-md-9">
-										<input type="number" onKeyPress="if(this.value.length==16) return false;" id=" siswa_nik_wali" class="form-control" placeholder="NIK Wali" name="siswa_nik_wali">
+										<input type="number" onKeyPress="if(this.value.length==16) return false;" id=" siswa_nik_wali" class="form-control" placeholder="NIK Wali" name="siswa_nik_wali" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nik_wali; ?>">
 									</div>
 								</div>
 							</div>
@@ -501,7 +501,7 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_tahunlahir_wali">Tahun Lahir</label>
 									<div class="col-md-9">
-										<input type="number" onKeyPress="if(this.value.length==4) return false;" id="siswa_tahunlahir_wali" class="form-control" placeholder="Tahun Lahir" name="siswa_tahunlahir_wali">
+										<input type="number" onKeyPress="if(this.value.length==4) return false;" id="siswa_tahunlahir_wali" class="form-control" placeholder="Tahun Lahir" name="siswa_tahunlahir_wali" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_tahunlahir_wali; ?>">
 									</div>
 								</div>
 							</div>
@@ -511,9 +511,9 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_pendidikan_wali">Pendidikan</label>
 									<div class="col-md-9">
-										<select class="form-control" id="siswa_pendidikan_wali">
+										<select class="form-control" id="siswa_pendidikan_wali" name="siswa_pendidikan_wali">
 											<?php foreach ($pendidikan->result() as $pendidikan_wali) : ?>
-												<option value="<?php echo $pendidikan_wali->pendidikan_id ?>"><?php echo $pendidikan_wali->pendidikan_nama ?></option>
+												<option value="<?php echo $pendidikan_wali->pendidikan_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_pendidikan_wali == $pendidikan_wali->pendidikan_id)  echo "selected"; ?>><?php echo $pendidikan_wali->pendidikan_nama ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
@@ -525,9 +525,9 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_pekerjaan_wali">Pekerjaan</label>
 									<div class="col-md-9">
-										<select class="form-control" id="siswa_pekerjaan_wali">
+										<select class="form-control" id="siswa_pekerjaan_wali" name="siswa_pekerjaan_wali">
 											<?php foreach ($pekerjaan->result() as $pekerjaan_wali) : ?>
-												<option value="<?php echo $pekerjaan_wali->pekerjaan_id ?>"><?php echo $pekerjaan_wali->pekerjaan_keterangan ?></option>
+												<option value="<?php echo $pekerjaan_wali->pekerjaan_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_pekerjaan_wali == $pekerjaan_wali->pekerjaan_id)  echo "selected"; ?>><?php echo $pekerjaan_wali->pekerjaan_keterangan ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
@@ -539,9 +539,9 @@
 								<div class="form-group row">
 									<label class="col-md-3 label-control" for="siswa_penghasilan_wali">Penghasilan</label>
 									<div class="col-md-9">
-										<select class="form-control" id="siswa_penghasilan_wali">
+										<select class="form-control" id="siswa_penghasilan_wali" name="siswa_penghasilan_wali">
 											<?php foreach ($penghasilan->result() as $penghasilan_wali) : ?>
-												<option value="<?php echo $penghasilan_wali->penghasilan_id ?>"><?php echo $penghasilan_wali->penghasilan_keterangan ?></option>
+												<option value="<?php echo $penghasilan_wali->penghasilan_id ?>" <?php if ($cekdata == 1) if ($datasiswa->siswa_penghasilan_wali == $penghasilan_wali->penghasilan_id)  echo "selected"; ?>><?php echo $penghasilan_wali->penghasilan_keterangan ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
