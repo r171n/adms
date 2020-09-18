@@ -15,7 +15,7 @@ $config = $this->db->get()->row();
 	<meta name="description" content="Stack admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
 	<meta name="keywords" content="admin template, stack admin template, dashboard template, flat admin template, responsive admin template, web app">
 	<meta name="author" content="PIXINVENT">
-	<title><?php echo $namepage; ?></title>
+	<title><?php echo $namepage; ?> <?php echo $config->cf_nama; ?></title>
 	<link rel="apple-touch-icon" href="<?php echo base_url(); ?>app-assets/images/ico/apple-icon-120.png">
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url(); ?>app-assets/images/ico/favicon.ico">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
@@ -54,21 +54,20 @@ $config = $this->db->get()->row();
 											<img src="<?php echo base_url(); ?>app-assets/images/logo/<?php echo $config->cf_logo; ?>" height="75px" alt="branding logo">
 										</div>
 									</div>
-									<h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
-										<span>Login with </span>
-									</h6>
+									<h4 class="text-muted text-center">
+										<?php echo $config->cf_nama; ?>
+									</h4>
 								</div>
 								<div class="card-content">
 									<div class="card-body">
-										<?php if ($this->session->set_flashdata('login_error')) { ?>
+										<?php if ($this->session->flashdata('login_error')) : ?>
 											<div class="alert alert-icon-right alert-warning alert-dismissible mb-2" role="alert">
 												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 													<span aria-hidden="true">×</span>
 												</button>
-												<strong>Warning!</strong> Better check yourself, you're not
-												<a href="#" class="alert-link">looking too good</a>.
+												<strong>Login Gagal! </strong><?php echo $this->session->flashdata('login_error'); ?>
 											</div>
-										<?php } ?>
+										<?php endif; ?>
 										<form class="form-horizontal form-simple" action="<?php echo base_url('auth/login'); ?>" method="POST">
 											<fieldset class="form-group position-relative has-icon-left mb-0">
 												<input type="text" class="form-control form-control-lg" id="user_nama" name="user_nama" placeholder="Username" required>
@@ -82,7 +81,7 @@ $config = $this->db->get()->row();
 													<i class="fa fa-key"></i>
 												</div>
 											</fieldset>
-											<div class="form-group row">
+											<!-- <div class="form-group row">
 												<div class="col-md-6 col-12 text-center text-md-left">
 													<fieldset>
 														<input type="checkbox" id="remember-me" class="chk-remember">
@@ -90,17 +89,17 @@ $config = $this->db->get()->row();
 													</fieldset>
 												</div>
 												<div class="col-md-6 col-12 text-center text-md-right"><a href="recover-password.html" class="card-link">Forgot Password?</a></div>
-											</div>
+											</div> -->
 											<button type="submit" class="btn btn-primary btn-lg btn-block"><i class="ft-unlock"></i> Login</button>
 										</form>
 									</div>
 								</div>
-								<div class="card-footer">
+								<!-- <div class="card-footer">
 									<div class="">
 										<p class="float-sm-left text-center m-0"><a href="recover-password.html" class="card-link">Recover password</a></p>
 										<p class="float-sm-right text-center m-0">New to Stack? <a href="register-simple.html" class="card-link">Sign Up</a></p>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>

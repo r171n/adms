@@ -8,6 +8,11 @@ $this->db->where('ms_user_group.user_id', $this->session->userdata('user_id'));
 $this->db->group_by('ms_menu.mn_parent_id');
 $this->db->order_by('ms_menu.mn_kode');
 $parentid = $this->db->get();
+
+$this->db->select('*');
+$this->db->from('config');
+$this->db->where('config.cf_id', 1);
+$config = $this->db->get()->row();
 ?>
 <!-- fixed-top-->
 <nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-light bg-gradient-x-grey-blue">
@@ -16,9 +21,9 @@ $parentid = $this->db->get();
 			<ul class="nav navbar-nav flex-row">
 				<li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
 				<li class="nav-item">
-					<a class="navbar-brand" href="index.html">
-						<img class="brand-logo" alt="stack admin logo" src="<?php echo base_url(); ?>app-assets/images/logo/stack-logo.png">
-						<h2 class="brand-text">Stack</h2>
+					<a class="navbar-brand" href="<?php echo base_url(); ?>">
+						<img class="brand-logo" alt="stack admin logo" src="<?php echo base_url(); ?>app-assets/images/logo/<?php echo $config->cf_logo; ?>" height="32px">
+						<h2 class="brand-text"><?php echo $config->cf_nama; ?></h2>
 					</a>
 				</li>
 				<li class="nav-item d-md-none">
@@ -38,10 +43,7 @@ $parentid = $this->db->get();
 								<img src="<?php echo base_url(); ?>app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"><i></i></span>
 							<span class="user-name"><?php echo $this->session->userdata('user_nama');; ?></span>
 						</a>
-						<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
-							<a class="dropdown-item" href="email-application.html"><i class="ft-mail"></i> My Inbox</a>
-							<a class="dropdown-item" href="user-cards.html"><i class="ft-check-square"></i> Task</a>
-							<a class="dropdown-item" href="chat-application.html"><i class="ft-message-square"></i> Chats</a>
+						<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href=""><i class="ft-user"></i> Pengaturan Akun</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="<?php echo base_url('auth/logout'); ?>"><i class="ft-power"></i> Logout</a>
 						</div>

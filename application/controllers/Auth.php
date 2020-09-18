@@ -59,11 +59,10 @@ class Auth extends CI_Controller
 			redirect('dashboard');
 		} else {
 			$data = array(
-				'namepage' => "Login"
+				'namepage' => "Login ADMS | "
 			);
+			$this->session->set_flashdata('login_error', 'Username atau Password Salah');
 			$this->load->view('login', $data);
-			$this->session->set_flashdata('login_error', 'Login Gagal');
-			$this->load->view('login');
 		}
 	}
 
