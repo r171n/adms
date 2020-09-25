@@ -19,6 +19,13 @@
 									<?php echo $this->session->flashdata('success'); ?>
 								</div>
 							<?php endif; ?>
+							<?php if ($this->session->userdata('user_type') == 2) : ?>
+								<div class="alert alert-icon-right alert-warning alert-dismissible mb-2" role="alert">
+									<strong>Pengisian Biodata Harus Sesuai Dengan Data Asli!</strong>
+									<br>
+									Isian Biodata menjadi tanggung jawab siswa masing masing.
+								</div>
+							<?php endif; ?>
 							<h4 class="form-section"><i class="ft-user"></i> Data Pribadi</h4>
 							<?php
 							$cekdata = $siswa->num_rows();
@@ -32,6 +39,9 @@
 										<label class="col-md-3 label-control" for="siswa_nama">Nama Lengkap</label>
 										<div class="col-md-9">
 											<input type="text" id="siswa_nama" class="form-control" placeholder="Nama Lengkap" name="siswa_nama" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nama; ?>" required>
+											<p class="text-right">
+												<small class="warning text-muted">Nama Lengkap Harus Sesuai Dengan Ijazah SMP/SD</small>
+											</p>
 										</div>
 									</div>
 								</div>
@@ -71,6 +81,9 @@
 										<label class="col-md-3 label-control" for="siswa_nik">NIK</label>
 										<div class="col-md-9">
 											<input type="number" onKeyPress="if(this.value.length==16) return false;" id="siswa_nik" class="form-control" placeholder="NIK" name="siswa_nik" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nik; ?>" required>
+											<p class="text-right">
+												<small class="warning text-muted">NIK Harus Sesuai Dengan Kartu Keluarga</small>
+											</p>
 										</div>
 									</div>
 								</div>
@@ -81,6 +94,9 @@
 										<label class="col-md-3 label-control" for="siswa_kk">No Kartu Keluarga</label>
 										<div class="col-md-9">
 											<input type="number" onKeyPress="if(this.value.length==16) return false;" id="siswa_kk" class="form-control" placeholder="No KK" name="siswa_kk" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_kk; ?>">
+											<p class="text-right">
+												<small class="warning text-muted">No Kartu Keluarga Harus Sesuai Dengan Kartu Keluarga</small>
+											</p>
 										</div>
 									</div>
 								</div>
@@ -91,6 +107,9 @@
 										<label class="col-md-3 label-control" for="siswa_tempatlahir">Tempat Lahir</label>
 										<div class="col-md-9">
 											<input type="text" id="siswa_tempatlahir" class="form-control" placeholder="Tempat Lahir" name="siswa_tempatlahir" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_tempatlahir; ?>" required>
+											<p class="text-right">
+												<small class="warning text-muted">Tempat Lahir Harus Sesuai Dengan Ijazah SMP/SD</small>
+											</p>
 										</div>
 									</div>
 								</div>
@@ -101,6 +120,9 @@
 										<label class="col-md-3 label-control" for="siswa_tanggallahir">Tanggal Lahir</label>
 										<div class="col-md-9">
 											<input type="text" id="siswa_tanggallahir" class="form-control" placeholder="Tanggal Lahir" name="siswa_tanggallahir" value="<?php if ($cekdata == 1) echo date("d-m-Y", strtotime($datasiswa->siswa_tanggallahir)); ?>" required>
+											<p class="text-right">
+												<small class="warning text-muted">Tanggal Lahir Harus Sesuai Dengan Ijazah SMP/SD</small>
+											</p>
 										</div>
 									</div>
 								</div>
@@ -274,6 +296,9 @@
 										<label class="col-md-3 label-control" for="siswa_nokps">NO KPS/PKH</label>
 										<div class="col-md-9">
 											<input type="text" id="siswa_nokps" class="form-control" placeholder="NO KPS/PKH" name="siswa_nokps" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nokps; ?>" readonly>
+											<p class="text-right">
+												<small class="warning text-muted">Jika Ada PKH, Isi No Dengan Benar</small>
+											</p>
 										</div>
 									</div>
 								</div>
@@ -304,6 +329,9 @@
 									<label class="col-md-3 label-control" for="siswa_nokip">NO KIP</label>
 									<div class="col-md-9">
 										<input type="text" id="siswa_nokip" class="form-control" placeholder="NO KIP" name="siswa_nokip" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_nokip; ?>" readonly>
+										<p class="text-right">
+											<small class="warning text-muted">Jika Ada KIP, Isi No Dengan Benar</small>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -315,6 +343,9 @@
 									<label class="col-md-3 label-control" for="siswa_notelp">NO HP</label>
 									<div class="col-md-9">
 										<input type="number" onKeyPress="if(this.value.length==12) return false;" id="siswa_notelp" class="form-control" placeholder="NO HP Siswa" name="siswa_notelp" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_notelp; ?>">
+										<p class="text-right">
+											<small class="warning text-muted">NO HP Aktif</small>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -325,6 +356,9 @@
 									<label class="col-md-3 label-control" for="siswa_email">Email Aktif</label>
 									<div class="col-md-9">
 										<input type="email" id="siswa_email" class="form-control" placeholder="Email Yang Aktif" name="siswa_email" value="<?php if ($cekdata == 1) echo $datasiswa->siswa_email; ?>">
+										<p class="text-right">
+											<small class="warning text-muted">Email Harus Aktif</small>
+										</p>
 									</div>
 								</div>
 							</div>
