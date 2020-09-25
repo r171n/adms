@@ -13,7 +13,13 @@
 			</div>
 			<div class="card-content">
 				<div class="card-body">
-
+					<?php if ($this->session->userdata('user_type') == 2) : ?>
+						<div class="alert alert-icon-right alert-warning alert-dismissible mb-2" role="alert">
+							<strong>Pastikan Biodata Sudah Terupdate !</strong>
+							<br>
+							Biodata Akan Digunakan Untuk Raport dan Ijazah
+						</div>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>
