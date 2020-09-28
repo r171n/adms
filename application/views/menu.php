@@ -15,7 +15,7 @@ $this->db->where('config.cf_id', 1);
 $config = $this->db->get()->row();
 ?>
 <!-- fixed-top-->
-<nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-light bg-gradient-x-grey-blue">
+<nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-light bg-red bg-darken-1">
 	<div class="navbar-wrapper">
 		<div class="navbar-header">
 			<ul class="nav navbar-nav flex-row">
@@ -23,7 +23,7 @@ $config = $this->db->get()->row();
 				<li class="nav-item">
 					<a class="navbar-brand" href="<?php echo base_url(); ?>">
 						<img class="brand-logo" alt="stack admin logo" src="<?php echo base_url(); ?>app-assets/images/logo/<?php echo $config->cf_logo; ?>" height="32px">
-						<h2 class="brand-text"><?php echo $config->cf_nama; ?></h2>
+						<h2 class="brand-text">WEBSIS</h2>
 					</a>
 				</li>
 				<li class="nav-item d-md-none">
@@ -41,7 +41,7 @@ $config = $this->db->get()->row();
 						<a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
 							<span class="avatar avatar-online">
 								<img src="<?php echo base_url(); ?>app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"><i></i></span>
-							<span class="user-name"><?php echo $this->session->userdata('user_nama');; ?></span>
+							<span class="user-name"><?php echo $this->session->userdata('user_nama'); ?></span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href=""><i class="ft-user"></i> Pengaturan Akun</a>
 							<div class="dropdown-divider"></div>
@@ -70,7 +70,7 @@ $config = $this->db->get()->row();
 				$mn = $this->db->get()->row();
 				?>
 				<li class=" nav-item">
-					<a href="index.html">
+					<a href="">
 						<i class="<?php echo $mn->mn_icon ?>"></i>
 						<span class="menu-title" data-i18n=""><?php echo $mn->mn_nama ?></span>
 					</a>
