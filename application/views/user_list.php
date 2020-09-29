@@ -6,16 +6,17 @@
 								</div>
 								<div class="card-content">
 									<div class="card-body">
-										<button class="btn btn-success" onclick="add_akun()">Tambah Akun</button>
+										<button class="btn btn-success btn-secondary" onclick="add_akun()"><i class="ft-plus"></i>Tambah Akun</button>
 										<br>
 										<br>
-										<table class="table table-striped table-bordered zero-configuration dataTable" id="table_user" role="grid" aria-describedby="table_user">
+										<table class="table table-striped table-bordered zero-configuration dataTable" id="table_user" role="grid" aria-describedby="table_user" style="width:100%">
 											<thead>
 												<tr>
 													<th>No</th>
-													<th>User</th>
-													<th>Nama</th>
+													<th data-priority="1">User</th>
+													<th data-priority="2">Nama</th>
 													<th>Type Akun</th>
+													<th>Login Terakhir</th>
 													<th>Opsi</th>
 
 												</tr>
@@ -26,9 +27,10 @@
 											<tfoot>
 												<tr>
 													<th>No</th>
-													<th>User</th>
-													<th>Nama</th>
+													<th data-priority="1">User</th>
+													<th data-priority="2">Nama</th>
 													<th>Type Akun</th>
+													<th>Login Terakhir</th>
 													<th>Opsi</th>
 												</tr>
 											</tfoot>
@@ -63,6 +65,17 @@
 														<label class="col-md-3 label-control" for="user_nama">User</label>
 														<div class="col-md-9">
 															<input type="text" id="user_nama" class="form-control" placeholder="User" name="user_nama" value="" required>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-12 col-sm-12">
+													<div class="form-group row">
+														<label class="col-md-3 label-control" for="ganti_password">Ganti Password</label>
+														<div class="col-md-9">
+															<div class="d-inline-block custom-control custom-checkbox mr-1">
+																<input type="checkbox" name="ganti_password" class="custom-control-input" id="ganti_password">
+																<label class="custom-control-label" for="ganti_password">YA</label>
+															</div>
 														</div>
 													</div>
 												</div>

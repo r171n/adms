@@ -300,28 +300,6 @@
 		}
 	}
 
-	var table;
-	$(document).ready(function () {
-		//datatables
-		table = $("#table_user").DataTable({
-			processing: true,
-			serverSide: true,
-			order: [],
-
-			ajax: {
-				url: "get_data_user",
-				type: "POST",
-			},
-
-			columnDefs: [
-				{
-					targets: [0],
-					orderable: false,
-				},
-			],
-		});
-	});
-
 	$(document).on("click", ".mega-dropdown-menu", function (e) {
 		e.stopPropagation();
 	});
@@ -409,14 +387,50 @@
 			$("#siswa_nokip").prop("readonly", true);
 		}
 	});
+	$('[name="ganti_password"]').change(function () {
+		if ($(this).is(":checked")) {
+			$("#user_password").prop("readonly", false);
+		} else {
+			$("#user_password").prop("readonly", true);
+		}
+	});
 })(window, document, jQuery);
+
+var table_user;
+$(document).ready(function () {
+	//datatables
+	table_user = $("#table_user").DataTable({
+		responsive: true,
+		processing: true,
+		serverSide: true,
+		order: [],
+
+		ajax: {
+			url: "get_data_user",
+			type: "POST",
+		},
+
+		columnDefs: [
+			{
+				targets: [0],
+				orderable: false,
+			},
+			{ responsivePriority: 1, targets: 0 },
+			{ responsivePriority: 10001, targets: 4 },
+			{ responsivePriority: 2, targets: -2 },
+		],
+	});
+});
 
 function add_akun() {
 	save_method = "add";
 	$("#form_akun")[0].reset(); // reset form on modals
+	$("#user_nama").prop("readonly", false);
+	$("#user_password").prop("readonly", false);
 	$("#modal_akun").modal("show"); // show bootstrap modal
 	$(".modal-title").text("Tambah Akun"); // Set Title to Bootstrap modal title
 }
+
 function saveakun() {
 	var url;
 	if (save_method == "add") {
@@ -440,7 +454,7 @@ function saveakun() {
 					closeButton: true,
 				});
 				$("#modal_akun").modal("hide");
-				reload_table();
+				reload_table_akun();
 			} else {
 				toastr.warning(
 					"Username Sudah Digunakan Sebelumnya, Silahkan Gunakan Username yang Lainnya!",
@@ -459,6 +473,30 @@ function saveakun() {
 	});
 }
 
-function reload_table() {
-	table.ajax.reload(null, false); //reload datatable ajax
+function reload_table_akun() {
+	table_user.ajax.reload(null, false); //reload datatable ajax
+}
+
+function edit_akun(id) {
+	save_method = "update";
+	$("#form_akun")[0].reset(); // reset form on modals
+	//Ajax Load data from ajax
+	$.ajax({
+		url: "get_data_edit/" + id,
+		type: "GET",
+		dataType: "JSON",
+		success: function (data) {
+			$('[name="user_id"]').val(data.user_id);
+			$('[name="user_nama"]').val(data.user_nama);
+			$('[name="user_email"]').val(data.user_email);
+			$('[name="user_type"]').val(data.user_type);
+			$("#user_nama").prop("readonly", true);
+			$("#user_password").prop("readonly", true);
+			$("#modal_akun").modal("show"); // show bootstrap modal when complete loaded
+			$(".modal-title").text("Edit Akun"); // Set title to Bootstrap modal title
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert("Error get data from ajax");
+		},
+	});
 }

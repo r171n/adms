@@ -4,8 +4,8 @@ class User_model extends CI_Model
 {
 
 	private $table = 'users'; //nama tabel dari database
-	var $column_order = array(null, 'user_nama', 'user_email', 'user_type'); //field yang ada di table user
-	var $column_search = array('user_nama', 'user_email', 'user_type'); //field yang diizin untuk pencarian 
+	var $column_order = array(null, 'user_nama', 'user_email', 'user_type', 'user_lastlogin'); //field yang ada di table user
+	var $column_search = array('user_nama', 'user_email', 'user_type', 'user_lastlogin'); //field yang diizin untuk pencarian 
 	var $order = array('user_id' => 'asc'); // default order 
 
 	public function __construct()
@@ -103,14 +103,24 @@ class User_model extends CI_Model
 	public function update()
 	{
 		$post = $this->input->post();
-		$this->user_nama = $post["user_nama"];
-		$this->user_email = $post["user_email"];
-		$this->user_password = password_hash($post["user_password"], PASSWORD_DEFAULT);
-		$this->user_type = $post["user_type"];
-		$this->user_status = 1;
-		$this->user_updated_by = $this->session->userdata('user_id');
-		$this->user_updated_at = date("Y-m-d H:m:s", time());
-		return $this->db->update($this->_table, $this, array('user_id' => $this->session->userdata('user_id')));
+
+
+		if (isset($_POST['ganti_password'])) {
+			$this->user_email = $post["user_email"];
+			$this->user_password = password_hash($post["user_password"], PASSWORD_DEFAULT);
+			$this->user_type = $post["user_type"];
+			$this->user_status = 1;
+			$this->user_updated_by = $this->session->userdata('user_id');
+			$this->user_updated_at = date("Y-m-d H:m:s", time());
+		} else {
+			$this->user_email = $post["user_email"];
+			// $this->user_password = password_hash($post["user_password"], PASSWORD_DEFAULT);
+			$this->user_type = $post["user_type"];
+			$this->user_status = 1;
+			$this->user_updated_by = $this->session->userdata('user_id');
+			$this->user_updated_at = date("Y-m-d H:m:s", time());
+		}
+		return $this->db->update($this->_table, $this, array('user_id' => $post["user_id"]));
 	}
 
 	public function delete($id)

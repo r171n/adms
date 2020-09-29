@@ -59,10 +59,11 @@ class User extends CI_Controller
 			} else {
 				$row[] = "Siswa";
 			}
+			$row[] = $field->user_lastlogin;
+
 			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void()" title="Edit" onclick="edit_akun(' . "'" . $field->user_id . "'" . ')">Edit</a>
 						<a class="btn btn-sm btn-success" href="javascript:void()" title="Group" onclick="edit_group(' . "'" . $field->user_id . "'" . ')">Group</a>
-            			<a class="btn btn-sm btn-danger" href="javascript:void()" title="Hapus" onclick="delete_akun(' . "'" . $field->user_id . "'" . ')">elete</a>';
-
+            			<a class="btn btn-sm btn-danger" href="javascript:void()" title="Hapus" onclick="delete_akun(' . "'" . $field->user_id . "'" . ')">Delete</a>';
 			$data[] = $row;
 		}
 
@@ -74,6 +75,16 @@ class User extends CI_Controller
 		);
 		//output dalam format JSON
 		echo json_encode($output);
+	}
+
+	public function get_data_edit($id)
+	{
+		if ($this->menu_model->akses('user/list') != 1) {
+			redirect('dashboard');
+		}
+		$user = $this->User_model;
+		$data = $user->getById($id);
+		echo json_encode($data->row());
 	}
 
 	public function save()
@@ -92,5 +103,27 @@ class User extends CI_Controller
 		} else {
 			echo json_encode(array("status" => FALSE));
 		}
+	}
+
+	public function update()
+	{
+		//cek akses
+		if ($this->menu_model->akses('user/list') != 1) {
+			redirect('dashboard');
+		}
+		$user = $this->User_model;
+		$post = $this->input->post();
+		//$data["user"] = $user->getByUsername($post["user_nama"]);
+		$data["id"] = $user->getById($post["user_id"]);
+		// if ($data["user"]->num_rows() == 0) {
+		if ($data["id"]->num_rows() != 0) {
+			$user->update();
+			echo json_encode(array("status" => TRUE));
+		} else {
+			echo json_encode(array("status" => FALSE));
+		}
+		// } else {
+		// 	echo json_encode(array("status" => FALSE));
+		// }
 	}
 }
