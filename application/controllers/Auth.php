@@ -54,7 +54,10 @@ class Auth extends CI_Controller
 				'user_type'  => $user['user_type'],
 				'logged_in' => TRUE
 			);
-
+			$lastlogin = array(
+				'user_lastlogin' => date("Y-m-d H:m:s", time())
+			);
+			$this->db->update("users", $lastlogin, array('user_id' => $user['user_id']));
 			$this->session->set_userdata($dt);
 			redirect('dashboard');
 		} else {
