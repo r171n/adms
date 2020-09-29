@@ -27,6 +27,8 @@ $config = $this->db->get()->row();
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/fonts/meteocons/style.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/vendors/css/charts/morris.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/vendors/css/pickers/datetime/bootstrap-datetimepicker.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/vendors/css/tables/datatable/datatables.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/vendors/css/extensions/toastr.css">
 	<!-- END VENDOR CSS-->
 	<!-- BEGIN STACK CSS-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/css/app.css">
@@ -38,6 +40,7 @@ $config = $this->db->get()->row();
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/css/core/colors/palette-gradient.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/css/pages/timeline.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/css/plugins/forms/checkboxes-radios.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/css/plugins/extensions/toastr.css">
 	<!-- END Page Level CSS-->
 	<!-- BEGIN Custom CSS-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">

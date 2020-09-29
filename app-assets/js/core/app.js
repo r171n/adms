@@ -300,6 +300,28 @@
 		}
 	}
 
+	var table;
+	$(document).ready(function () {
+		//datatables
+		table = $("#table_user").DataTable({
+			processing: true,
+			serverSide: true,
+			order: [],
+
+			ajax: {
+				url: "get_data_user",
+				type: "POST",
+			},
+
+			columnDefs: [
+				{
+					targets: [0],
+					orderable: false,
+				},
+			],
+		});
+	});
+
 	$(document).on("click", ".mega-dropdown-menu", function (e) {
 		e.stopPropagation();
 	});
@@ -388,3 +410,55 @@
 		}
 	});
 })(window, document, jQuery);
+
+function add_akun() {
+	save_method = "add";
+	$("#form_akun")[0].reset(); // reset form on modals
+	$("#modal_akun").modal("show"); // show bootstrap modal
+	$(".modal-title").text("Tambah Akun"); // Set Title to Bootstrap modal title
+}
+function saveakun() {
+	var url;
+	if (save_method == "add") {
+		url = "save";
+	} else {
+		url = "update";
+	}
+
+	// ajax adding data to database
+	$.ajax({
+		url: url,
+		type: "POST",
+		data: $("#form_akun").serialize(),
+		dataType: "JSON",
+		success: function (data) {
+			//if success close modal and reload ajax table
+			if (data.status == true) {
+				toastr.success("Akun Berhasil Ditambahkan", "BERHASIL ", {
+					positionClass: "toast-bottom-full-width",
+					containerId: "toast-bottom-full-width",
+					closeButton: true,
+				});
+				$("#modal_akun").modal("hide");
+				reload_table();
+			} else {
+				toastr.warning(
+					"Username Sudah Digunakan Sebelumnya, Silahkan Gunakan Username yang Lainnya!",
+					"Gagal Menyimpan ",
+					{
+						positionClass: "toast-bottom-full-width",
+						containerId: "toast-bottom-full-width",
+						closeButton: true,
+					}
+				);
+			}
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert("Error adding / update data");
+		},
+	});
+}
+
+function reload_table() {
+	table.ajax.reload(null, false); //reload datatable ajax
+}
