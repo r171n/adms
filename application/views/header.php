@@ -29,6 +29,7 @@ $config = $this->db->get()->row();
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/vendors/css/pickers/datetime/bootstrap-datetimepicker.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/vendors/css/tables/datatable/datatables.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/vendors/css/extensions/toastr.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/css/plugins/forms/validation/form-validation.css">
 	<!-- END VENDOR CSS-->
 	<!-- BEGIN STACK CSS-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/css/app.css">

@@ -49,29 +49,29 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<form class="form" action="#" id="form_akun">
+										<form class="form" action="#" id="form_akun" novalidate>
 											<div class="form-body">
 												<div class="col-md-12 col-sm-12">
 													<div class="form-group row">
 														<label class="col-md-3 label-control" for="user_email">Nama Lengkap</label>
-														<div class="col-md-9">
+														<div class="col-md-9 controls">
 															<input type="hidden" name="user_id" />
-															<input type="text" id="user_email" class="form-control" placeholder="Nama Lengkap" name="user_email" value="" required>
+															<input type="text" id="user_email" class="form-control" placeholder="Nama Lengkap" name="user_email" value="" required data-validation-required-message="Nama Lengkap Wajib Diisi">
 														</div>
 													</div>
 												</div>
 												<div class="col-md-12 col-sm-12">
 													<div class="form-group row">
 														<label class="col-md-3 label-control" for="user_nama">User</label>
-														<div class="col-md-9">
-															<input type="text" id="user_nama" class="form-control" placeholder="User" name="user_nama" value="" required>
+														<div class="col-md-9 controls">
+															<input type="text" id="user_nama" class="form-control" placeholder="User" name="user_nama" value="" required data-validation-required-message="User Wajib Diisi">
 														</div>
 													</div>
 												</div>
-												<div class="col-md-12 col-sm-12">
+												<div class="col-md-12 col-sm-12" id="div_ganti_pw">
 													<div class="form-group row">
 														<label class="col-md-3 label-control" for="ganti_password">Ganti Password</label>
-														<div class="col-md-9">
+														<div class="col-md-9 controls">
 															<div class="d-inline-block custom-control custom-checkbox mr-1">
 																<input type="checkbox" name="ganti_password" class="custom-control-input" id="ganti_password">
 																<label class="custom-control-label" for="ganti_password">YA</label>
@@ -82,8 +82,8 @@
 												<div class="col-md-12 col-sm-12">
 													<div class="form-group row">
 														<label class="col-md-3 label-control" for="user_password">Password</label>
-														<div class="col-md-9">
-															<input type="text" id="user_password" class="form-control" placeholder="Password" name="user_password" value="" required>
+														<div class="col-md-9 controls">
+															<input type="text" id="user_password" class="form-control" placeholder="Password" name="user_password" value="" required data-validation-required-message="Password Wajib Diisi">
 														</div>
 													</div>
 												</div>
@@ -99,11 +99,11 @@
 													</div>
 												</div>
 											</div>
-										</form>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-success" onclick="saveakun()">Simpan</button>
+										<button type="submit" class="btn btn-success">Simpan</button>
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+										</form>
 									</div>
 								</div>
 							</div>

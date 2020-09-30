@@ -34,6 +34,11 @@ $config = $this->db->get()->row();
 <script src="<?php echo base_url(); ?>app-assets/js/scripts/pickers/dateTime/bootstrap-datetime.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>app-assets/vendors/js/tables/datatable/datatables.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>app-assets/js/scripts/extensions/toastr.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
+<!-- <script src="<?php echo base_url(); ?>app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script> -->
+<script src="<?php echo base_url(); ?>app-assets/js/scripts/forms/validation/form-validation.js"></script>
+
+
 <!-- END STACK JS-->
 </body>
 

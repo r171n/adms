@@ -425,13 +425,18 @@ $(document).ready(function () {
 function add_akun() {
 	save_method = "add";
 	$("#form_akun")[0].reset(); // reset form on modals
+	$("div").removeClass("error");
+	$(".help-block").hide();
+	$("#div_ganti_pw").hide();
 	$("#user_nama").prop("readonly", false);
 	$("#user_password").prop("readonly", false);
 	$("#modal_akun").modal("show"); // show bootstrap modal
 	$(".modal-title").text("Tambah Akun"); // Set Title to Bootstrap modal title
 }
 
-function saveakun() {
+$("#form_akun").submit(function (event) {
+	$(".help-block").show();
+	event.preventDefault();
 	var url;
 	if (save_method == "add") {
 		url = "save";
@@ -439,39 +444,47 @@ function saveakun() {
 		url = "update";
 	}
 
-	// ajax adding data to database
-	$.ajax({
-		url: url,
-		type: "POST",
-		data: $("#form_akun").serialize(),
-		dataType: "JSON",
-		success: function (data) {
-			//if success close modal and reload ajax table
-			if (data.status == true) {
-				toastr.success("Akun Berhasil Ditambahkan", "BERHASIL ", {
-					positionClass: "toast-bottom-full-width",
-					containerId: "toast-bottom-full-width",
-					closeButton: true,
-				});
-				$("#modal_akun").modal("hide");
-				reload_table_akun();
-			} else {
-				toastr.warning(
-					"Username Sudah Digunakan Sebelumnya, Silahkan Gunakan Username yang Lainnya!",
-					"Gagal Menyimpan ",
-					{
+	if ($("#form_akun").jqBootstrapValidation()) {
+		// ajax adding data to database
+		$.ajax({
+			url: url,
+			type: "POST",
+			data: $("#form_akun").serialize(),
+			dataType: "JSON",
+			success: function (data) {
+				//if success close modal and reload ajax table
+				if (data.status == true) {
+					toastr.success("Akun Berhasil Ditambahkan", "BERHASIL ", {
 						positionClass: "toast-bottom-full-width",
 						containerId: "toast-bottom-full-width",
 						closeButton: true,
-					}
-				);
-			}
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			alert("Error adding / update data");
-		},
-	});
-}
+					});
+					$("#modal_akun").modal("hide");
+					reload_table_akun();
+				} else {
+					toastr.warning(
+						"Username Sudah Digunakan Sebelumnya, Silahkan Gunakan Username yang Lainnya!",
+						"Gagal Menyimpan ",
+						{
+							positionClass: "toast-bottom-full-width",
+							containerId: "toast-bottom-full-width",
+							closeButton: true,
+						}
+					);
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert("Error adding / update data");
+			},
+		});
+	} else {
+		toastr.warning("Silahkan Isi Semua Form", "Gagal Menyimpan ", {
+			positionClass: "toast-bottom-full-width",
+			containerId: "toast-bottom-full-width",
+			closeButton: true,
+		});
+	}
+});
 
 function reload_table_akun() {
 	table_user.ajax.reload(null, false); //reload datatable ajax
@@ -480,6 +493,9 @@ function reload_table_akun() {
 function edit_akun(id) {
 	save_method = "update";
 	$("#form_akun")[0].reset(); // reset form on modals
+	$("#div_ganti_pw").show();
+	$("div").removeClass("error");
+	$(".help-block").hide();
 	//Ajax Load data from ajax
 	$.ajax({
 		url: "get_data_edit/" + id,
