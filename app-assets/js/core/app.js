@@ -516,3 +516,77 @@ function edit_akun(id) {
 		},
 	});
 }
+
+function edit_akun_group(id) {
+	save_method = "update";
+	$("#form_akun_group")[0].reset(); // reset form on modals
+	//Ajax Load data from ajax
+	$.ajax({
+		url: "get_data_edit_group/" + id,
+		type: "GET",
+		dataType: "JSON",
+		success: function (data) {
+			$('[name="user_id"]').val(data.user_id);
+			$('[name="user_group_nama"]').val(data.user_group_nama);
+			$('[name="user_group_user"]').val(data.user_group_user);
+			$('[name="user_id"]').val(data.user_id);
+			$("#user_group_list").empty();
+			$("#user_group_list").append(data.listgroup);
+			$("#modal_akun_group").modal("show"); // show bootstrap modal when complete loaded
+			$(".modal-title").text("Edit Group Akun "); // Set title to Bootstrap modal title
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert("Error get data from ajax");
+		},
+	});
+}
+
+function add_group(id) {
+	event.preventDefault();
+	if ($("#group_id").val() != 0) {
+		$.ajax({
+			url: "groupsave",
+			type: "POST",
+			data: $("#form_akun_group").serialize(),
+			dataType: "JSON",
+			success: function (data) {
+				//if success close modal and reload ajax table
+				if (data.status == true) {
+					toastr.success("Group Berhasil Disimpan", "BERHASIL ", {
+						positionClass: "toast-bottom-full-width",
+						containerId: "toast-bottom-full-width",
+						closeButton: true,
+					});
+					$("#modal_akun_group").modal("hide");
+				} else {
+					toastr.warning("Group Gagal Disimpan", "Gagal Menyimpan ", {
+						positionClass: "toast-bottom-full-width",
+						containerId: "toast-bottom-full-width",
+						closeButton: true,
+					});
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert("Error adding / update data");
+			},
+		});
+	}
+}
+
+function delete_group(id) {
+	if (confirm("Are you sure delete this data?")) {
+		// ajax delete data to database
+		$.ajax({
+			url: "delete_user_group/" + id,
+			type: "POST",
+			dataType: "JSON",
+			success: function (data) {
+				//if success reload ajax table
+				$("#modal_akun_group").modal("hide");
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert("Error adding / update data");
+			},
+		});
+	}
+}

@@ -108,3 +108,72 @@
 								</div>
 							</div>
 						</div>
+						<div class="modal fade text-left" data-backdrop="false" id="modal_akun_group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="myModalLabel1">Basic Modal</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form class="form" action="#" id="form_akun_group" novalidate>
+											<div class="form-body">
+												<div class="col-md-12 col-sm-12">
+													<div class="form-group row">
+														<label class="col-md-3 label-control" for="user_group_nama">Nama Lengkap</label>
+														<div class="col-md-9 controls">
+															<input type="hidden" name="user_id" />
+															<input type="text" id="user_group_nama" class="form-control" placeholder="Nama Lengkap" name="user_group_nama" value="" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-12 col-sm-12">
+													<div class="form-group row">
+														<label class="col-md-3 label-control" for="user_group_user">User</label>
+														<div class="col-md-9 controls">
+															<input type="text" id="user_group_user" class="form-control" placeholder="User" name="user_group_user" value="" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-12 col-sm-12">
+													<div class="form-group row">
+														<label class="col-md-3 label-control" for="user_group_user">Group</label>
+														<div class="col-md-6 controls">
+															<select class="form-control" name="group_id" id="group_id">
+																<option value="0">Pilih Group</option>
+																<?php foreach ($group->result() as $group) : ?>
+																	<option value="<?php echo $group->group_id ?>"><?php echo $group->group_nama ?></option>
+																<?php endforeach; ?>
+															</select>
+														</div>
+														<div class="col-md-3 controls">
+															<button class="btn btn-primary" onclick="add_group()"> Tambah Group </button>
+														</div>
+													</div>
+												</div>
+												<hr>
+												<div class="form-body">
+													<table class="table table-striped table-bordered zero-configuration dataTable" role="grid" aria-describedby="table_user" style="width:100%">
+														<thead>
+															<tr>
+																<th>No</th>
+																<th data-priority="1">Nama Group</th>
+																<th>Opsi</th>
+
+															</tr>
+														</thead>
+														<tbody id="user_group_list">
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>

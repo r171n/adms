@@ -87,6 +87,13 @@ class User_model extends CI_Model
 		return $this->db->get_where($this->_table, ["user_nama" => $username]);
 	}
 
+	public function getGroupById($id)
+	{
+		$this->db->join('ms_user_group', 'users.user_id = ms_user_group.user_id', 'right');
+		$this->db->join('ms_group', 'ms_user_group.group_id = ms_group.group_id', 'left');
+		return $this->db->get_where($this->_table, ["users.user_id" => $id]);
+	}
+
 	public function save()
 	{
 		$post = $this->input->post();
