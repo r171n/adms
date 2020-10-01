@@ -50,10 +50,11 @@ class Kesiswaan extends CI_Controller
 			$no++;
 			$row = array();
 			$row[] = $no;
-			$row[] = $field->siswa_nama;
+			$row[] = $field->user_email;
 			$row[] = $field->user_nama;
 			$row[] = $field->siswa_nisn;
-			$row[] = '';
+			$row[] = $field->siswa_jeniskelamin;
+			$row[] = $field->kelas_nama;
 			$row[] = $field->siswa_updated_at;
 
 			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void()" title="Edit" onclick="edit_akun(' . "'" . $field->siswa_id . "'" . ')">Edit</a>

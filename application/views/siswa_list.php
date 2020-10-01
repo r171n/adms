@@ -16,6 +16,7 @@
 													<th data-priority="1">Nama</th>
 													<th data-priority="2">NIS</th>
 													<th>NISN</th>
+													<th>L/P</th>
 													<th>Kelas</th>
 													<th>Last Update</th>
 													<th>Opsi</th>
@@ -31,6 +32,7 @@
 													<th data-priority="1">Nama</th>
 													<th data-priority="2">NIS</th>
 													<th>NISN</th>
+													<th>L/P</th>
 													<th>Kelas</th>
 													<th>Last Update</th>
 													<th>Opsi</th>

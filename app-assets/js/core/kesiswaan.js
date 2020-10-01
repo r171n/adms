@@ -394,7 +394,10 @@ $(document).ready(function () {
 		processing: true,
 		serverSide: true,
 		order: [],
-
+		lengthMenu: [
+			[10, 25, 50, 100, 250, 500, -1],
+			[10, 25, 50, 100, 250, 500, "All"],
+		],
 		ajax: {
 			url: "get_data_siswa",
 			type: "POST",

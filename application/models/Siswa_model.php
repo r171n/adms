@@ -3,9 +3,9 @@
 class Siswa_model extends CI_Model
 {
 	private $table = 'siswa'; //nama tabel dari database
-	var $column_order = array(null, 'user_email', 'user_nama', 'user_nis', 'user_lastlogin'); //field yang ada di table user
-	var $column_search = array('user_email', 'user_nama', 'user_nis', 'user_lastlogin'); //field yang diizin untuk pencarian 
-	var $order = array('siswa_id' => 'asc'); // default order 
+	var $column_order = array(null, 'users.user_email', 'users.user_nama', 'siswa.siswa_nisn', 'siswa.siswa_jeniskelamin', 'ms_kelas.kelas_nama', 'siswa.siswa_updated_at'); //field yang ada di table user
+	var $column_search = array('users.user_email', 'users.user_nama', 'siswa.siswa_nisn', 'siswa.siswa_jeniskelamin', 'ms_kelas.kelas_nama', 'siswa.siswa_updated_at'); //field yang diizin untuk pencarian 
+	var $order = array('siswa.siswa_id' => 'asc'); // default order 
 
 	public function __construct()
 	{
@@ -16,9 +16,12 @@ class Siswa_model extends CI_Model
 	private function _get_datatables_query()
 	{
 
-		$this->db->from("users");
-		$this->db->where(["user_type" => 2]);
-		$this->db->join('siswa', 'users.user_id = siswa.siswa_id', 'left');
+		$this->db->from("siswa");
+		$this->db->join('users', 'users.user_id = siswa.siswa_id', 'left');
+		$this->db->join('kelas_siswa', 'kelas_siswa.siswa_id = siswa.siswa_id', 'left');
+		$this->db->join('ms_kelas', 'ms_kelas.kelas_id = kelas_siswa.kelas_id', 'left');
+		$this->db->where('users.user_type', 2);
+		$this->db->where('siswa.siswa_status', 0); //siswa status 0 = aktif, 1 = tidak aktif
 
 		$i = 0;
 

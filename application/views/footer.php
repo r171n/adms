@@ -28,7 +28,7 @@ $config = $this->db->get()->row();
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN STACK JS-->
 <script src="<?php echo base_url(); ?>app-assets/js/core/app-menu.js" type="text/javascript"></script>
-<?php if ($js != "") { ?>
+<?php if (isset($js)) { ?>
 	<script src="<?php echo base_url(); ?>app-assets/js/core/<?php echo $js; ?>" type="text/javascript"></script>
 <?php } else {; ?>
 	<script src="<?php echo base_url(); ?>app-assets/js/core/app.js" type="text/javascript"></script>
