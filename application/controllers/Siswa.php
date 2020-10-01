@@ -72,9 +72,18 @@ class Siswa extends CI_Controller
 
 			if ($data["siswa"]->num_rows() == 0) {
 				$siswa->save();
-				$this->session->set_flashdata('success', 'Berhasil disimpan');
+				$post = $this->input->post();
+				$user_id = $this->session->userdata('user_id');
+				$this->user_email = $post["siswa_nama"];
+				$this->db->update("users", $this, array('user_id' => $user_id));
+				$this->session->set_flashdata('success', 'Berhasil Disimpan');
 			} else {
 				$siswa->update();
+				$post = $this->input->post();
+				$user_id = $this->session->userdata('user_id');
+				$this->user_email = $post["siswa_nama"];
+				$this->db->update("users", $this, array('user_id' => $user_id));
+				$this->session->set_flashdata('success', 'Berhasil Diperbarui');
 			}
 
 			redirect('siswa/biodata');
