@@ -6,7 +6,7 @@
 								</div>
 								<div class="card-content">
 									<div class="card-body">
-										<button class="btn btn-success btn-secondary" onclick="add_akun()"><i class="ft-plus"></i>Tambah Akun</button>
+										<button class="btn bg-blue bg-accent-3 white" onclick="add_akun()"><i class="ft-plus"></i>Tambah Akun</button>
 										<br>
 										<br>
 										<table class="table table-striped table-bordered zero-configuration dataTable" id="table_user" role="grid" aria-describedby="table_user" style="width:100%">
@@ -101,7 +101,7 @@
 											</div>
 									</div>
 									<div class="modal-footer">
-										<button type="submit" class="btn btn-success">Simpan</button>
+										<button type="submit" class="btn bg-blue bg-accent-3 white">Simpan</button>
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
 										</form>
 									</div>
@@ -149,7 +149,7 @@
 															</select>
 														</div>
 														<div class="col-md-3 controls">
-															<button class="btn btn-primary" onclick="add_group()"> Tambah Group </button>
+															<button class="btn bg-blue bg-accent-3 white" onclick="add_group()"> Tambah Group </button>
 														</div>
 													</div>
 												</div>

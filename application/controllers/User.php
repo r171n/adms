@@ -25,10 +25,10 @@ class User extends CI_Controller
 		$this->template->render('welcome_message', $data);
 	}
 
-	public function list()
+	public function akun()
 	{
 		//cek akses
-		if ($this->menu_model->akses('user/list') != 1) {
+		if ($this->menu_model->akses('user/akun') != 1) {
 			redirect('dashboard');
 		}
 		$data = array(
@@ -40,7 +40,7 @@ class User extends CI_Controller
 
 	function get_data_user()
 	{
-		if ($this->menu_model->akses('user/list') != 1) {
+		if ($this->menu_model->akses('user/akun') != 1) {
 			redirect('dashboard');
 		}
 		$list = $this->User_model->get_datatables();
@@ -80,7 +80,7 @@ class User extends CI_Controller
 
 	public function get_data_edit($id)
 	{
-		if ($this->menu_model->akses('user/list') != 1) {
+		if ($this->menu_model->akses('user/akun') != 1) {
 			redirect('dashboard');
 		}
 		$user = $this->User_model;
@@ -90,7 +90,7 @@ class User extends CI_Controller
 
 	public function get_data_edit_group($id)
 	{
-		if ($this->menu_model->akses('user/list') != 1) {
+		if ($this->menu_model->akses('user/akun') != 1) {
 			redirect('dashboard');
 		}
 		$user = $this->User_model;
@@ -117,7 +117,7 @@ class User extends CI_Controller
 	public function save()
 	{
 		//cek akses
-		if ($this->menu_model->akses('user/list') != 1) {
+		if ($this->menu_model->akses('user/akun') != 1) {
 			redirect('dashboard');
 		}
 		$user = $this->User_model;
@@ -135,7 +135,7 @@ class User extends CI_Controller
 	public function update()
 	{
 		//cek akses
-		if ($this->menu_model->akses('user/list') != 1) {
+		if ($this->menu_model->akses('user/akun') != 1) {
 			redirect('dashboard');
 		}
 		$user = $this->User_model;
@@ -157,7 +157,7 @@ class User extends CI_Controller
 	public function groupsave()
 	{
 		//cek akses
-		if ($this->menu_model->akses('user/list') != 1) {
+		if ($this->menu_model->akses('user/akun') != 1) {
 			redirect('dashboard');
 		}
 		$group_id = $this->input->post('group_id');

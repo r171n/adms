@@ -8,7 +8,7 @@ $config = $this->db->get()->row();
 </div>
 </div>
 <!-- ////////////////////////////////////////////////////////////////////////////-->
-<footer class="footer footer-static bg-red bg-darken-1 navbar-border">
+<footer class="footer footer-static bg-gradient-x-blue white navbar-border">
 	<p class="clearfix white lighten-2 text-sm-center mb-0 px-2">
 		<span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2020 <a class="text-bold-800 black darken-2" href=""><?php echo $config->cf_nama; ?> </a>, All rights reserved. </span>
 		<span class="float-md-right d-block d-md-inline-block d-none d-lg-block"><a class="text-bold-800 black darken-2" href="http://www.cumacoder.com">www.cumacoder.com </a></span>
@@ -28,7 +28,11 @@ $config = $this->db->get()->row();
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN STACK JS-->
 <script src="<?php echo base_url(); ?>app-assets/js/core/app-menu.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>app-assets/js/core/app.js" type="text/javascript"></script>
+<?php if ($js != "") { ?>
+	<script src="<?php echo base_url(); ?>app-assets/js/core/<?php echo $js; ?>" type="text/javascript"></script>
+<?php } else {; ?>
+	<script src="<?php echo base_url(); ?>app-assets/js/core/app.js" type="text/javascript"></script>
+<?php }; ?>
 <script src="<?php echo base_url(); ?>app-assets/js/scripts/customizer.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>app-assets/js/scripts/forms/checkbox-radio.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>app-assets/js/scripts/pickers/dateTime/bootstrap-datetime.js" type="text/javascript"></script>

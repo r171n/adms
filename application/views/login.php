@@ -90,7 +90,7 @@ $config = $this->db->get()->row();
 												</div>
 												<div class="col-md-6 col-12 text-center text-md-right"><a href="recover-password.html" class="card-link">Forgot Password?</a></div>
 											</div> -->
-											<button type="submit" class="btn btn-primary btn-lg btn-block"><i class="ft-unlock"></i> Login</button>
+											<button type="submit" class="btn bg-blue bg-accent-3 white btn-lg btn-block"><i class="ft-unlock"></i> Login</button>
 										</form>
 									</div>
 								</div>

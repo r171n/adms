@@ -228,20 +228,20 @@
 	});
 
 	/*$('.modern-nav-toggle').on('click',function(){
-        var $this = $(this),
-        icon = $this.find('.toggle-icon').attr('data-ticon');
+		var $this = $(this),
+		icon = $this.find('.toggle-icon').attr('data-ticon');
 
-        if(icon == 'ft-toggle-right'){
-            $this.find('.toggle-icon').attr('data-ticon','ft-toggle-left')
-            .removeClass('ft-toggle-right').addClass('ft-toggle-left');
-        }
-        else{
-            $this.find('.toggle-icon').attr('data-ticon','ft-toggle-right')
-            .removeClass('ft-toggle-left').addClass('ft-toggle-right');
-        }
+		if(icon == 'ft-toggle-right'){
+			$this.find('.toggle-icon').attr('data-ticon','ft-toggle-left')
+			.removeClass('ft-toggle-right').addClass('ft-toggle-left');
+		}
+		else{
+			$this.find('.toggle-icon').attr('data-ticon','ft-toggle-right')
+			.removeClass('ft-toggle-left').addClass('ft-toggle-right');
+		}
 
-        $.app.menu.toggle();
-    });*/
+		$.app.menu.toggle();
+	});*/
 
 	$(document).on("click", ".open-navbar-container", function (e) {
 		var currentBreakpoint = Unison.fetch.now();
@@ -389,14 +389,14 @@
 var table_user;
 $(document).ready(function () {
 	//datatables
-	table_user = $("#table_user").DataTable({
+	table_user = $("#table").DataTable({
 		responsive: true,
 		processing: true,
 		serverSide: true,
 		order: [],
 
 		ajax: {
-			url: "get_data_user",
+			url: "get_data_siswa",
 			type: "POST",
 		},
 
@@ -505,62 +505,6 @@ function edit_akun(id) {
 			alert("Error get data from ajax");
 		},
 	});
-}
-
-function edit_akun_group(id) {
-	save_method = "update";
-	$("#form_akun_group")[0].reset(); // reset form on modals
-	//Ajax Load data from ajax
-	$.ajax({
-		url: "get_data_edit_group/" + id,
-		type: "GET",
-		dataType: "JSON",
-		success: function (data) {
-			$('[name="user_id"]').val(data.user_id);
-			$('[name="user_group_nama"]').val(data.user_group_nama);
-			$('[name="user_group_user"]').val(data.user_group_user);
-			$('[name="user_id"]').val(data.user_id);
-			$("#user_group_list").empty();
-			$("#user_group_list").append(data.listgroup);
-			$("#modal_akun_group").modal("show"); // show bootstrap modal when complete loaded
-			$(".modal-title").text("Edit Group Akun "); // Set title to Bootstrap modal title
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			alert("Error get data from ajax");
-		},
-	});
-}
-
-function add_group(id) {
-	event.preventDefault();
-	if ($("#group_id").val() != 0) {
-		$.ajax({
-			url: "groupsave",
-			type: "POST",
-			data: $("#form_akun_group").serialize(),
-			dataType: "JSON",
-			success: function (data) {
-				//if success close modal and reload ajax table
-				if (data.status == true) {
-					toastr.success("Group Berhasil Disimpan", "BERHASIL ", {
-						positionClass: "toast-bottom-full-width",
-						containerId: "toast-bottom-full-width",
-						closeButton: true,
-					});
-					$("#modal_akun_group").modal("hide");
-				} else {
-					toastr.warning("Group Gagal Disimpan", "Gagal Menyimpan ", {
-						positionClass: "toast-bottom-full-width",
-						containerId: "toast-bottom-full-width",
-						closeButton: true,
-					});
-				}
-			},
-			error: function (jqXHR, textStatus, errorThrown) {
-				alert("Error adding / update data");
-			},
-		});
-	}
 }
 
 function delete_group(id) {

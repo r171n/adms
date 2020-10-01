@@ -15,7 +15,7 @@ $this->db->where('config.cf_id', 1);
 $config = $this->db->get()->row();
 ?>
 <!-- fixed-top-->
-<nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-light bg-red bg-darken-1">
+<nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-light bg-gradient-x-blue white">
 	<div class="navbar-wrapper">
 		<div class="navbar-header">
 			<ul class="nav navbar-nav flex-row">
