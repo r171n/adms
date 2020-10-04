@@ -386,10 +386,10 @@
 	});
 })(window, document, jQuery);
 
-var table_user;
+var table;
 $(document).ready(function () {
 	//datatables
-	table_user = $("#table").DataTable({
+	table = $("#table").DataTable({
 		responsive: true,
 		processing: true,
 		serverSide: true,
@@ -427,43 +427,34 @@ function add_akun() {
 	$(".modal-title").text("Tambah Akun"); // Set Title to Bootstrap modal title
 }
 
-$("#form_akun").submit(function (event) {
+$("#form_siswa").submit(function (event) {
 	$(".help-block").show();
 	event.preventDefault();
 	var url;
-	if (save_method == "add") {
-		url = "save";
-	} else {
-		url = "update";
-	}
 
-	if ($("#form_akun").jqBootstrapValidation()) {
+	if ($("#form_siswa").jqBootstrapValidation()) {
 		// ajax adding data to database
 		$.ajax({
-			url: url,
+			url: "biodatasave",
 			type: "POST",
-			data: $("#form_akun").serialize(),
+			data: $("#form_siswa").serialize(),
 			dataType: "JSON",
 			success: function (data) {
 				//if success close modal and reload ajax table
 				if (data.status == true) {
-					toastr.success("Akun Berhasil Ditambahkan", "BERHASIL ", {
+					toastr.success("Data Berhasil Disimpan", "BERHASIL ", {
 						positionClass: "toast-bottom-full-width",
 						containerId: "toast-bottom-full-width",
 						closeButton: true,
 					});
-					$("#modal_akun").modal("hide");
-					reload_table_akun();
+					$("#modal_siswa").modal("hide");
+					reload_table();
 				} else {
-					toastr.warning(
-						"Username Sudah Digunakan Sebelumnya, Silahkan Gunakan Username yang Lainnya!",
-						"Gagal Menyimpan ",
-						{
-							positionClass: "toast-bottom-full-width",
-							containerId: "toast-bottom-full-width",
-							closeButton: true,
-						}
-					);
+					toastr.warning("Semua Form Wajib Diisi!", "Gagal Menyimpan ", {
+						positionClass: "toast-bottom-full-width",
+						containerId: "toast-bottom-full-width",
+						closeButton: true,
+					});
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
@@ -479,14 +470,12 @@ $("#form_akun").submit(function (event) {
 	}
 });
 
-function reload_table_akun() {
-	table_user.ajax.reload(null, false); //reload datatable ajax
+function reload_table() {
+	table.ajax.reload(null, false); //reload datatable ajax
 }
 
-function edit_akun(id) {
-	save_method = "update";
-	$("#form_akun")[0].reset(); // reset form on modals
-	$("#div_ganti_pw").show();
+function biodata(id) {
+	$("#form_siswa")[0].reset(); // reset form on modals
 	$("div").removeClass("error");
 	$(".help-block").hide();
 	//Ajax Load data from ajax
@@ -495,14 +484,82 @@ function edit_akun(id) {
 		type: "GET",
 		dataType: "JSON",
 		success: function (data) {
-			$('[name="user_id"]').val(data.user_id);
-			$('[name="user_nama"]').val(data.user_nama);
-			$('[name="user_email"]').val(data.user_email);
-			$('[name="user_type"]').val(data.user_type);
-			$("#user_nama").prop("readonly", true);
-			$("#user_password").prop("readonly", true);
-			$("#modal_akun").modal("show"); // show bootstrap modal when complete loaded
-			$(".modal-title").text("Edit Akun"); // Set title to Bootstrap modal title
+			$('[name="siswa_id"]').val(data.siswa_id);
+			$('[name="siswa_nama"]').val(data.siswa_nama);
+			$('[name="siswa_nisn"]').val(data.siswa_nisn);
+			$('[name="siswa_nik"]').val(data.siswa_nik);
+			$('[name="siswa_kk"]').val(data.siswa_kk);
+			$('[name="siswa_tempatlahir"]').val(data.siswa_tempatlahir);
+			$('[name="siswa_tanggallahir"]').val(formatDate(data.siswa_tanggallahir));
+			$('[name="siswa_aktalahir"]').val(data.siswa_aktalahir);
+			$('[name="siswa_agama"]').val(data.siswa_agama);
+			$('[name="siswa_alamat"]').val(data.siswa_alamat);
+			$('[name="siswa_rt"]').val(data.siswa_rt);
+			$('[name="siswa_rw"]').val(data.siswa_rw);
+			$('[name="siswa_kelurahan"]').val(data.siswa_kelurahan);
+			$('[name="siswa_kecamatan"]').val(data.siswa_kecamatan);
+			$('[name="siswa_kabupaten"]').val(data.siswa_kabupaten);
+			$('[name="siswa_provinsi"]').val(data.siswa_provinsi);
+			$('[name="siswa_kodepos"]').val(data.siswa_kodepos);
+			$('[name="siswa_alattransport"]').val(data.siswa_alattransport);
+			$('[name="siswa_jenistinggal"]').val(data.siswa_jenistinggal);
+			$('[name="siswa_anakke"]').val(data.siswa_anakke);
+			$('[name="siswa_nokps"]').val(data.siswa_nokps);
+			$('[name="siswa_nokip"]').val(data.siswa_nokip);
+			$('[name="siswa_notelp"]').val(data.siswa_notelp);
+			$('[name="siswa_email"]').val(data.siswa_email);
+			$('[name="siswa_nama_ayah"]').val(data.siswa_nama_ayah);
+			$('[name="siswa_nik_ayah"]').val(data.siswa_nik_ayah);
+			$('[name="siswa_tahunlahir_ayah"]').val(data.siswa_tahunlahir_ayah);
+			$('[name="siswa_pekerjaan_ayah"]').val(data.siswa_pekerjaan_ayah);
+			$('[name="siswa_pendidikan_ayah"]').val(data.siswa_pendidikan_ayah);
+			$('[name="siswa_penghasilan_ayah"]').val(data.siswa_penghasilan_ayah);
+			$('[name="siswa_nama_ibu"]').val(data.siswa_nama_ibu);
+			$('[name="siswa_nik_ibu"]').val(data.siswa_nik_ibu);
+			$('[name="siswa_tahunlahir_ibu"]').val(data.siswa_tahunlahir_ibu);
+			$('[name="siswa_pekerjaan_ibu"]').val(data.siswa_pekerjaan_ibu);
+			$('[name="siswa_pendidikan_ibu"]').val(data.siswa_pendidikan_ibu);
+			$('[name="siswa_penghasilan_ibu"]').val(data.siswa_penghasilan_ibu);
+			$('[name="siswa_nama_wali"]').val(data.siswa_nama_wali);
+			$('[name="siswa_nik_wali"]').val(data.siswa_nik_wali);
+			$('[name="siswa_tahunlahir_wali"]').val(data.siswa_tahunlahir_wali);
+			$('[name="siswa_pekerjaan_wali"]').val(data.siswa_pekerjaan_wali);
+			$('[name="siswa_pendidikan_wali"]').val(data.siswa_pendidikan_wali);
+			$('[name="siswa_penghasilan_wali"]').val(data.siswa_penghasilan_wali);
+			if (data.siswa_jeniskelamin == "P") {
+				$('input:radio[name="siswa_jeniskelamin"]')
+					.filter('[value="Perempuan"]')
+					.attr("checked", true);
+			} else if (data.siswa_jeniskelamin == "L") {
+				$('input:radio[name="siswa_jeniskelamin"]')
+					.filter('[value="Laki-Laki"]')
+					.attr("checked", true);
+			}
+			if (data.siswa_kps == "YA") {
+				$('input:radio[name="siswa_kps"]')
+					.filter('[value="YA"]')
+					.attr("checked", true);
+				$("#siswa_nokps").prop("readonly", false);
+			} else if (data.siswa_kps == "TIDAK") {
+				$('input:radio[name="siswa_kps"]')
+					.filter('[value="TIDAK"]')
+					.attr("checked", true);
+				$("#siswa_nokps").prop("readonly", true);
+			}
+			if (data.siswa_kip == "YA") {
+				$('input:radio[name="siswa_kip"]')
+					.filter('[value="YA"]')
+					.attr("checked", true);
+				$("#siswa_nokip").prop("readonly", false);
+			} else if (data.siswa_kip == "TIDAK") {
+				$('input:radio[name="siswa_kip"]')
+					.filter('[value="TIDAK"]')
+					.attr("checked", true);
+				$("#siswa_nokip").prop("readonly", true);
+			}
+			save_method = "update";
+			$("#modal_siswa").modal("show"); // show bootstrap modal when complete loaded
+			$(".modal-title").text("Biodata " + data.siswa_nama); // Set title to Bootstrap modal title
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
 			alert("Error get data from ajax");
@@ -510,20 +567,11 @@ function edit_akun(id) {
 	});
 }
 
-function delete_group(id) {
-	if (confirm("Are you sure delete this data?")) {
-		// ajax delete data to database
-		$.ajax({
-			url: "delete_user_group/" + id,
-			type: "POST",
-			dataType: "JSON",
-			success: function (data) {
-				//if success reload ajax table
-				$("#modal_akun_group").modal("hide");
-			},
-			error: function (jqXHR, textStatus, errorThrown) {
-				alert("Error adding / update data");
-			},
-		});
-	}
+function formatDate(input) {
+	var datePart = input.match(/\d+/g),
+		year = datePart[0], // get only two digits
+		month = datePart[1],
+		day = datePart[2];
+
+	return day + "-" + month + "-" + year;
 }

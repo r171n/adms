@@ -24,11 +24,11 @@ class Siswa_model extends CI_Model
 						   siswa.siswa_id as siswa_id,
 						   ");
 		$this->db->from("siswa");
-		$this->db->join('users', 'users.user_id = siswa.siswa_id', 'left');
+		$this->db->join('users', 'users.user_id = siswa.siswa_id', 'right');
 		$this->db->join('kelas_siswa', 'kelas_siswa.siswa_id = siswa.siswa_id', 'left');
 		$this->db->join('ms_kelas', 'ms_kelas.kelas_id = kelas_siswa.kelas_id', 'left');
 		$this->db->where('users.user_type', 2);
-		$this->db->where('siswa.siswa_status', 0); //siswa status 0 = aktif, 1 = tidak aktif
+		$this->db->where('siswa.siswa_status', 1); //siswa status 1 = aktif, 0= tidak aktif
 
 		$i = 0;
 
@@ -149,7 +149,6 @@ class Siswa_model extends CI_Model
 	public function update()
 	{
 		$post = $this->input->post();
-		$this->siswa_id = $this->session->userdata('user_id');
 		$this->siswa_nama = $post["siswa_nama"];
 		$this->siswa_jeniskelamin = $post["siswa_jeniskelamin"];
 		$this->siswa_nisn = $post["siswa_nisn"];
@@ -196,7 +195,11 @@ class Siswa_model extends CI_Model
 		$this->siswa_pekerjaan_wali = $post["siswa_pekerjaan_wali"];
 		$this->siswa_updated_by = $this->session->userdata('user_id');
 		$this->siswa_updated_at = date("Y-m-d H:m:s", time());
-		return $this->db->update($this->_table, $this, array('siswa_id' => $this->session->userdata('user_id')));
+		if ($this->session->userdata('user_type') != 2) {
+			return $this->db->update($this->_table, $this, array('siswa_id' => $post["siswa_id"]));
+		} else {
+			return $this->db->update($this->_table, $this, array('siswa_id' => $this->session->userdata('user_id')));
+		};
 	}
 
 	public function delete($id)

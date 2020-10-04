@@ -31,9 +31,22 @@ class Kesiswaan extends CI_Controller
 		if ($this->menu_model->akses('kesiswaan/siswa') != 1) {
 			redirect('dashboard');
 		}
+		$agama = $this->db->get('app_agama');
+		$tempattinggal = $this->db->get('app_tempattinggal');
+		$transportasi = $this->db->get('app_transportasi');
+		$pendidikan = $this->db->get('app_pendidikan');
+		$pekerjaan = $this->db->get('app_pekerjaan');
+		$penghasilan = $this->db->get('app_penghasilan');
+
 		$data = array(
 			'namepage' => 'Daftar Siswa Aktif',
-			'js' => 'kesiswaan.js'
+			'js' => 'kesiswaan.js',
+			'agama' => $agama,
+			'tempattinggal' => $tempattinggal,
+			'transportasi' => $transportasi,
+			'pendidikan' => $pendidikan,
+			'pekerjaan' => $pekerjaan,
+			'penghasilan' => $penghasilan,
 		);
 		$this->template->render('siswa_list', $data);
 	}
@@ -57,9 +70,8 @@ class Kesiswaan extends CI_Controller
 			$row[] = $field->kelas_nama;
 			$row[] = $field->siswa_updated_at;
 
-			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void()" title="Edit" onclick="edit_akun(' . "'" . $field->siswa_id . "'" . ')">Edit</a>
-						<a class="btn btn-sm btn-success" href="javascript:void()" title="Group" onclick="edit_akun_group(' . "'" . $field->siswa_id . "'" . ')">Group</a>
-            			<a class="btn btn-sm btn-danger" href="javascript:void()" title="Hapus" onclick="delete_akun(' . "'" . $field->siswa_id . "'" . ')">Delete</a>';
+			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void()" title="Biodata" onclick="biodata(' . "'" . $field->siswa_id . "'" . ')">Biodata</a>
+						<a class="btn btn-sm btn-danger" href="javascript:void()" title="Registrasi" onclick="registrasi(' . "'" . $field->siswa_id . "'" . ')">Registrasi</a>';
 			$data[] = $row;
 		}
 
@@ -78,48 +90,60 @@ class Kesiswaan extends CI_Controller
 		if ($this->menu_model->akses('user/akun') != 1) {
 			redirect('dashboard');
 		}
-		$user = $this->User_model;
+		$user = $this->siswa_model;
 		$data = $user->getById($id);
 		echo json_encode($data->row());
 	}
 
-	public function save()
+	public function biodatasave()
 	{
 		//cek akses
-		if ($this->menu_model->akses('user/akun') != 1) {
+		if ($this->menu_model->akses('siswa/biodata') != 1) {
 			redirect('dashboard');
 		}
-		$user = $this->User_model;
-		$post = $this->input->post();
-		$data["user"] = $user->getByUsername($post["user_nama"]);
+		if ($this->session->userdata('user_type') == 2) {
+			//sebagai siswa
+			$siswa = $this->siswa_model;
+			$data["siswa"] = $siswa->getById($this->session->userdata('user_id'));
 
-		if ($data["user"]->num_rows() == 0) {
-			$user->save();
-			echo json_encode(array("status" => TRUE));
-		} else {
-			echo json_encode(array("status" => FALSE));
-		}
-	}
+			if ($data["siswa"]->num_rows() == 0) {
+				$siswa->save();
+				$post = $this->input->post();
+				$user_id = $this->session->userdata('user_id');
+				$this->user_email = $post["siswa_nama"];
+				$this->db->update("users", $this, array('user_id' => $user_id));
+				$this->session->set_flashdata('success', 'Berhasil Disimpan');
+			} else {
+				$siswa->update();
+				$post = $this->input->post();
+				$user_id = $this->session->userdata('user_id');
+				$this->user_email = $post["siswa_nama"];
+				$this->db->update("users", $this, array('user_id' => $user_id));
+				$this->session->set_flashdata('success', 'Berhasil Diperbarui');
+			}
 
-	public function update()
-	{
-		//cek akses
-		if ($this->menu_model->akses('user/akun') != 1) {
-			redirect('dashboard');
-		}
-		$user = $this->User_model;
-		$post = $this->input->post();
-		//$data["user"] = $user->getByUsername($post["user_nama"]);
-		$data["id"] = $user->getById($post["user_id"]);
-		// if ($data["user"]->num_rows() == 0) {
-		if ($data["id"]->num_rows() != 0) {
-			$user->update();
-			echo json_encode(array("status" => TRUE));
+			redirect('siswa/biodata');
 		} else {
-			echo json_encode(array("status" => FALSE));
+			//bukan sebagai siswa
+			$siswa = $this->siswa_model;
+			$siswa_id = $this->input->post('siswa_id');
+			$data["siswa"] = $siswa->getById($siswa_id);
+
+			if ($data["siswa"]->num_rows() == 0) {
+				$siswa->save();
+				$post = $this->input->post();
+				$user_id = $siswa_id;
+				$this->user_email = $post["siswa_nama"];
+				$this->db->update("users", $this, array('user_id' => $user_id));
+				echo json_encode(array("status" => TRUE));
+			} else {
+				$siswa->update();
+				$user_id = $siswa_id;
+				$post = $this->input->post();
+				$this->user_email = $post["siswa_nama"];
+				$this->db->update("users", $this, array('user_id' => $user_id));
+				echo json_encode(array("status" => TRUE));
+			}
 		}
-		// } else {
-		// 	echo json_encode(array("status" => FALSE));
-		// }
 	}
 }
