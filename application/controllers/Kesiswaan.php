@@ -53,7 +53,7 @@ class Kesiswaan extends CI_Controller
 
 	function get_data_siswa()
 	{
-		if ($this->menu_model->akses('user/akun') != 1) {
+		if ($this->menu_model->akses('kesiswaan/siswa') != 1) {
 			redirect('dashboard');
 		}
 		$list = $this->siswa_model->get_datatables();
@@ -69,9 +69,14 @@ class Kesiswaan extends CI_Controller
 			$row[] = $field->siswa_jeniskelamin;
 			$row[] = $field->kelas_nama;
 			$row[] = $field->siswa_updated_at;
-
-			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void()" title="Biodata" onclick="biodata(' . "'" . $field->siswa_id . "'" . ')">Biodata</a>
+			$walikelas = $this->db->get_where('ms_kelas', ["wali_user_id" => $this->session->userdata('user_id')]); //cek wali kelas
+			if ($walikelas->num_rows() != 0) {
+				$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void()" title="Biodata" onclick="biodata(' . "'" . $field->siswa_id . "'" . ')">Biodata</a>';
+			} else {
+				$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void()" title="Biodata" onclick="biodata(' . "'" . $field->siswa_id . "'" . ')">Biodata</a>
 						<a class="btn btn-sm btn-danger" href="javascript:void()" title="Registrasi" onclick="registrasi(' . "'" . $field->siswa_id . "'" . ')">Registrasi</a>';
+			}
+
 			$data[] = $row;
 		}
 
@@ -87,7 +92,7 @@ class Kesiswaan extends CI_Controller
 
 	public function get_data_edit($id)
 	{
-		if ($this->menu_model->akses('user/akun') != 1) {
+		if ($this->menu_model->akses('kesiswaan/siswa') != 1) {
 			redirect('dashboard');
 		}
 		$user = $this->siswa_model;
@@ -98,7 +103,7 @@ class Kesiswaan extends CI_Controller
 	public function biodatasave()
 	{
 		//cek akses
-		if ($this->menu_model->akses('siswa/biodata') != 1) {
+		if ($this->menu_model->akses('kesiswaan/siswa') != 1) {
 			redirect('dashboard');
 		}
 		if ($this->session->userdata('user_type') == 2) {

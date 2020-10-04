@@ -2,13 +2,18 @@
 						<div class="col-lg-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title"><?php echo $namepage; ?></h4>
+									<h4 class="card-title">
+										<?php echo $namepage; ?>
+										<?php
+										$walikelas = $this->db->get_where('ms_kelas', ["wali_user_id" => $this->session->userdata('user_id')]); //cek wali kelas
+										if ($walikelas->num_rows() != 0) {
+											echo "Kelas " . $walikelas->row()->kelas_nama;
+										}
+										?>
+									</h4>
 								</div>
 								<div class="card-content">
 									<div class="card-body">
-										<button class="btn bg-blue bg-accent-3 white" onclick="add_akun()"><i class="ft-plus"></i>Tambah Akun</button>
-										<br>
-										<br>
 										<table class="table table-striped table-bordered zero-configuration dataTable" id="table" role="grid" aria-describedby="table" style="width:100%">
 											<thead>
 												<tr>
@@ -166,7 +171,7 @@
 															<label class="col-md-3 label-control" for="siswa_agama">Agama</label>
 															<div class="col-md-9">
 																<select class="form-control" id="siswa_agama" name="siswa_agama">
-																	<option>Pilih</option>
+																	<option value="0">Pilih</option>
 																	<?php foreach ($agama->result() as $agama) : ?>
 																		<option value="<?php echo $agama->agama_id ?>"><?php echo $agama->agama_keterangan ?></option>
 																	<?php endforeach; ?>
@@ -261,7 +266,7 @@
 															<label class="col-md-3 label-control" for="siswa_jenistinggal">Tempat Tinggal</label>
 															<div class="col-md-9">
 																<select class="form-control" id="siswa_jenistinggal" name="siswa_jenistinggal">
-																	<option>Pilih</option>
+																	<option value="0">Pilih</option>
 																	<?php foreach ($tempattinggal->result() as $tempattinggal) : ?>
 																		<option value="<?php echo $tempattinggal->tempattinggal_id ?>"><?php echo $tempattinggal->tempattinggal_keterangan ?></option>
 																	<?php endforeach; ?>

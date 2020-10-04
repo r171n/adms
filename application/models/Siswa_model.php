@@ -15,6 +15,7 @@ class Siswa_model extends CI_Model
 
 	private function _get_datatables_query()
 	{
+		$walikelas = $this->db->get_where('ms_kelas', ["wali_user_id" => $this->session->userdata('user_id')]); //cek wali kelas
 		$this->db->select("users.user_email as user_email,
 						   users.user_nama as user_nama,
 						   siswa.siswa_nisn as siswa_nisn,
@@ -29,6 +30,10 @@ class Siswa_model extends CI_Model
 		$this->db->join('ms_kelas', 'ms_kelas.kelas_id = kelas_siswa.kelas_id', 'left');
 		$this->db->where('users.user_type', 2);
 		$this->db->where('siswa.siswa_status', 1); //siswa status 1 = aktif, 0= tidak aktif
+		if ($walikelas->num_rows() != 0) {
+			$this->db->where('ms_kelas.wali_user_id', $this->session->userdata('user_id'));
+		}
+
 
 		$i = 0;
 
@@ -98,7 +103,9 @@ class Siswa_model extends CI_Model
 		$post = $this->input->post();
 		$this->siswa_id = $this->session->userdata('user_id');
 		$this->siswa_nama = $post["siswa_nama"];
-		$this->siswa_jeniskelamin = $post["siswa_jeniskelamin"];
+		if (!empty($post["siswa_jeniskelamin"])) {
+			$this->siswa_jeniskelamin = $post["siswa_jeniskelamin"];
+		}
 		$this->siswa_nisn = $post["siswa_nisn"];
 		$this->siswa_nik = $post["siswa_nik"];
 		$this->siswa_kk = $post["siswa_kk"];
@@ -150,7 +157,9 @@ class Siswa_model extends CI_Model
 	{
 		$post = $this->input->post();
 		$this->siswa_nama = $post["siswa_nama"];
-		$this->siswa_jeniskelamin = $post["siswa_jeniskelamin"];
+		if (!empty($post["siswa_jeniskelamin"])) {
+			$this->siswa_jeniskelamin = $post["siswa_jeniskelamin"];
+		}
 		$this->siswa_nisn = $post["siswa_nisn"];
 		$this->siswa_nik = $post["siswa_nik"];
 		$this->siswa_kk = $post["siswa_kk"];
