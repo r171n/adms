@@ -15,7 +15,14 @@ class Siswa_model extends CI_Model
 
 	private function _get_datatables_query()
 	{
-
+		$this->db->select("users.user_email as user_email,
+						   users.user_nama as user_nama,
+						   siswa.siswa_nisn as siswa_nisn,
+						   siswa.siswa_jeniskelamin as siswa_jeniskelamin,
+						   ms_kelas.kelas_nama as kelas_nama, 
+						   siswa.siswa_updated_at as siswa_updated_at,
+						   siswa.siswa_id as siswa_id,
+						   ");
 		$this->db->from("siswa");
 		$this->db->join('users', 'users.user_id = siswa.siswa_id', 'left');
 		$this->db->join('kelas_siswa', 'kelas_siswa.siswa_id = siswa.siswa_id', 'left');
