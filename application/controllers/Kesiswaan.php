@@ -74,7 +74,7 @@ class Kesiswaan extends CI_Controller
 				$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void()" title="Biodata" onclick="biodata(' . "'" . $field->siswa_id . "'" . ')">Biodata</a>';
 			} else {
 				$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void()" title="Biodata" onclick="biodata(' . "'" . $field->siswa_id . "'" . ')">Biodata</a>
-						<a class="btn btn-sm btn-danger" href="javascript:void()" title="Registrasi" onclick="registrasi(' . "'" . $field->siswa_id . "'" . ')">Registrasi</a>';
+						<a class="btn btn-sm btn-danger" href="javascript:void()" title="Registrasi" onclick="registrasi(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'" . ')">Registrasi</a>';
 			}
 
 			$data[] = $row;
@@ -100,55 +100,15 @@ class Kesiswaan extends CI_Controller
 		echo json_encode($data->row());
 	}
 
-	public function biodatasave()
+	public function regsiswa()
 	{
 		//cek akses
 		if ($this->menu_model->akses('kesiswaan/siswa') != 1) {
 			redirect('dashboard');
 		}
-		if ($this->session->userdata('user_type') == 2) {
-			//sebagai siswa
-			$siswa = $this->siswa_model;
-			$data["siswa"] = $siswa->getById($this->session->userdata('user_id'));
-
-			if ($data["siswa"]->num_rows() == 0) {
-				$siswa->save();
-				$post = $this->input->post();
-				$user_id = $this->session->userdata('user_id');
-				$this->user_email = $post["siswa_nama"];
-				$this->db->update("users", $this, array('user_id' => $user_id));
-				$this->session->set_flashdata('success', 'Berhasil Disimpan');
-			} else {
-				$siswa->update();
-				$post = $this->input->post();
-				$user_id = $this->session->userdata('user_id');
-				$this->user_email = $post["siswa_nama"];
-				$this->db->update("users", $this, array('user_id' => $user_id));
-				$this->session->set_flashdata('success', 'Berhasil Diperbarui');
-			}
-
-			redirect('siswa/biodata');
-		} else {
-			//bukan sebagai siswa
-			$siswa = $this->siswa_model;
-			$siswa_id = $this->input->post('siswa_id');
-			$data["siswa"] = $siswa->getById($siswa_id);
-
-			if ($data["siswa"]->num_rows() == 0) {
-				$siswa->save();
-				$post = $this->input->post();
-				$user_id = $siswa_id;
-				$this->user_email = $post["siswa_nama"];
-				$this->db->update("users", $this, array('user_id' => $user_id));
-				echo json_encode(array("status" => TRUE));
-			} else {
-				$siswa->update();
-				$user_id = $siswa_id;
-				$post = $this->input->post();
-				$this->user_email = $post["siswa_nama"];
-				$this->db->update("users", $this, array('user_id' => $user_id));
-				echo json_encode(array("status" => TRUE));
-			}
-		}
+		$post = $this->input->post();
+		$this->siswa_status = $post["siswa_status"];
+		$this->db->update("siswa", $this, array('siswa_id' => $post["siswa_id"]));
+		echo json_encode(array("status" => TRUE));
 	}
 }

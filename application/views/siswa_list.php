@@ -619,3 +619,53 @@
 								</div>
 							</div>
 						</div>
+						<div class="modal fade text-left" data-backdrop="false" id="modal_registrasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="myModalLabel1">Registrasi Siswa</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form class="form" action="#" id="form_registrasi" novalidate>
+											<div class="form-body">
+												<div class="row">
+													<div class="col-md-12 col-sm-12">
+														<div class="form-group row">
+															<label class="col-md-3 label-control" for="user_group_nama">Nama Lengkap</label>
+															<div class="col-md-9 controls">
+																<input type="hidden" id="siswa_id" name="siswa_id">
+																<input type="text" id="siswa_nama" class="form-control" placeholder="Nama Lengkap" name="siswa_nama" value="" readonly>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12 col-sm-12">
+														<div class="form-group row">
+															<label class="col-md-3 label-control" for="siswa_status">Status</label>
+															<div class="col-md-9">
+
+																<select class="form-control" id="siswa_status" name="siswa_status">
+																	<option value="2">Mutasi</option>
+																	<option value="3">Dikeluarkan</option>
+																	<option value="4">Mengundurkan Diri</option>
+																	<option value="5">Putus Sekolah</option>
+																	<option value="6">Wafat</option>
+																	<option value="7">Hilang</option>
+																	<option value="8">Lulus</option>
+																</select>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn bg-blue bg-accent-3 white">Simpan</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>

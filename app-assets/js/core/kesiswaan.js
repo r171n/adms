@@ -567,6 +567,59 @@ function biodata(id) {
 	});
 }
 
+function registrasi(id, siswa_nama) {
+	$("#form_registrasi")[0].reset(); // reset form on modals
+	$("div").removeClass("error");
+	$(".help-block").hide();
+	$('[name="siswa_id"]').val(id);
+	$('[name="siswa_nama"]').val(siswa_nama);
+	$("#modal_registrasi").modal("show"); // show bootstrap modal when complete loaded
+	$(".modal-title").text("Registrasi Siswa " + siswa_nama); // Set title to Bootstrap modal title
+}
+
+$("#form_registrasi").submit(function (event) {
+	$(".help-block").show();
+	event.preventDefault();
+	var url;
+
+	if ($("#form_registrasi").jqBootstrapValidation()) {
+		// ajax adding data to database
+		$.ajax({
+			url: "regsiswa",
+			type: "POST",
+			data: $("#form_registrasi").serialize(),
+			dataType: "JSON",
+			success: function (data) {
+				//if success close modal and reload ajax table
+				if (data.status == true) {
+					toastr.success("Data Berhasil Disimpan", "BERHASIL ", {
+						positionClass: "toast-bottom-full-width",
+						containerId: "toast-bottom-full-width",
+						closeButton: true,
+					});
+					$("#modal_registrasi").modal("hide");
+					reload_table();
+				} else {
+					toastr.warning("Semua Form Wajib Diisi!", "Gagal Menyimpan ", {
+						positionClass: "toast-bottom-full-width",
+						containerId: "toast-bottom-full-width",
+						closeButton: true,
+					});
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert("Error adding / update data");
+			},
+		});
+	} else {
+		toastr.warning("Silahkan Isi Semua Form", "Gagal Menyimpan ", {
+			positionClass: "toast-bottom-full-width",
+			containerId: "toast-bottom-full-width",
+			closeButton: true,
+		});
+	}
+});
+
 function formatDate(input) {
 	var datePart = input.match(/\d+/g),
 		year = datePart[0], // get only two digits
