@@ -10,46 +10,52 @@
 						<strong>Login Berhasil!</strong> Selamat Datang Di Website Sistem Informasi Sekolah.
 					</div>
 					<div class="row">
-						<div class="col-xl-4 col-lg-4 col-12">
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
 							<div class="card">
 								<div class="card-content">
-									<div class="media align-items-stretch">
-										<div class="p-2 text-center bg-success bg-darken-2">
-											<i class="ft-user font-large-2 white"></i>
-										</div>
-										<div class="p-2 bg-gradient-x-success white media-body">
-											<h5>Peserta Didik</h5>
-											<h5 class="text-bold-400 mb-0"><?php echo $pesertadidik ?></h5>
+									<div class="card-body bg-gradient-x-blue">
+										<div class="media">
+											<div class="media-body text-left w-100">
+												<h3 class="white"><?php echo $pesertadidik ?></h3>
+												<span class="white">Siswa</span>
+											</div>
+											<div class="media-right media-middle">
+												<i class="ft-user white font-large-2 float-right"></i>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-xl-4 col-lg-4 col-12">
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
 							<div class="card">
 								<div class="card-content">
-									<div class="media align-items-stretch">
-										<div class="p-2 text-center bg-danger bg-darken-2">
-											<i class="ft-package font-large-2 white"></i>
-										</div>
-										<div class="p-2 bg-gradient-x-danger white media-body">
-											<h5>Rombel</h5>
-											<h5 class="text-bold-400 mb-0"><?php echo $kelas ?></h5>
+									<div class="card-body bg-gradient-x-primary">
+										<div class="media">
+											<div class="media-body text-left w-100">
+												<h3 class="white"><?php echo $kelas ?></h3>
+												<span class="white">Rombel</span>
+											</div>
+											<div class="media-right media-middle">
+												<i class="ft-package white font-large-2 float-right"></i>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-xl-4 col-lg-4 col-12">
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
 							<div class="card">
 								<div class="card-content">
-									<div class="media align-items-stretch">
-										<div class="p-2 text-center bg-warning bg-darken-2">
-											<i class="ft-inbox font-large-2 white"></i>
-										</div>
-										<div class="p-2 bg-gradient-x-warning white media-body">
-											<h5>Kompetensi Keahlian</h5>
-											<h5 class="text-bold-400 mb-0"> <?php echo $kompetensikeahlian ?></h5>
+									<div class="card-body bg-gradient-x-warning">
+										<div class="media">
+											<div class="media-body text-left w-100">
+												<h3 class="white"><?php echo $kompetensikeahlian ?></h3>
+												<span class="white">Jurusan</span>
+											</div>
+											<div class="media-right media-middle">
+												<i class="ft-inbox white font-large-2 float-right"></i>
+											</div>
 										</div>
 									</div>
 								</div>

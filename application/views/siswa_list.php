@@ -14,6 +14,9 @@
 								</div>
 								<div class="card-content">
 									<div class="card-body">
+										<a href="<?php echo base_url(); ?>kesiswaan/downloadbiodata" class=" btn btn-md bg-blue bg-darken-4 white"><i class="ft ft-download"></i> Download Data</a>
+										<br>
+										<br>
 										<table class="table table-striped table-bordered zero-configuration dataTable" id="table" role="grid" aria-describedby="table" style="width:100%">
 											<thead>
 												<tr>
@@ -622,7 +625,7 @@
 						<div class="modal fade text-left" data-backdrop="false" id="modal_registrasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 							<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
-									<div class="modal-header">
+									<div class="modal-header bg-warning">
 										<h4 class="modal-title" id="myModalLabel1">Registrasi Siswa</h4>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>

@@ -64,6 +64,57 @@ class Siswa_model extends CI_Model
 		}
 	}
 
+	private function _get_datatables_query_keluar()
+	{
+		$walikelas = $this->db->get_where('ms_kelas', ["wali_user_id" => $this->session->userdata('user_id')]); //cek wali kelas
+		$this->db->select("users.user_email as user_email,
+						   users.user_nama as user_nama,
+						   siswa.siswa_nisn as siswa_nisn,
+						   siswa.siswa_jeniskelamin as siswa_jeniskelamin,
+						   ms_kelas.kelas_nama as kelas_nama, 
+						   siswa.siswa_updated_at as siswa_updated_at,
+						   siswa.siswa_id as siswa_id,
+						   ");
+		$this->db->from("siswa");
+		$this->db->join('users', 'users.user_id = siswa.siswa_id', 'right');
+		$this->db->join('kelas_siswa', 'kelas_siswa.siswa_id = siswa.siswa_id', 'left');
+		$this->db->join('ms_kelas', 'ms_kelas.kelas_id = kelas_siswa.kelas_id', 'left');
+		$this->db->where('users.user_type', 2);
+		$this->db->where('siswa.siswa_status !=', 1); //siswa status 1 = aktif, 0= tidak aktif
+		if ($walikelas->num_rows() != 0) {
+			$this->db->where('ms_kelas.wali_user_id', $this->session->userdata('user_id'));
+		}
+
+
+		$i = 0;
+
+		foreach ($this->column_search as $item) // looping awal
+		{
+			if ($_POST['search']['value']) // jika datatable mengirimkan pencarian dengan metode POST
+			{
+
+				if ($i === 0) // looping awal
+				{
+					$this->db->group_start();
+					$this->db->like($item, $_POST['search']['value']);
+				} else {
+					$this->db->or_like($item, $_POST['search']['value']);
+				}
+
+				if (count($this->column_search) - 1 == $i)
+					$this->db->group_end();
+			}
+			$i++;
+		}
+
+		if (isset($_POST['order'])) {
+			$this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+		} else if (isset($this->order)) {
+			$order = $this->order;
+			$this->db->order_by(key($order), $order[key($order)]);
+		}
+	}
+
 	function get_datatables()
 	{
 		$this->_get_datatables_query();
@@ -73,9 +124,25 @@ class Siswa_model extends CI_Model
 		return $query->result();
 	}
 
+	function get_datatables_keluar()
+	{
+		$this->_get_datatables_query_keluar();
+		if ($_POST['length'] != -1)
+			$this->db->limit($_POST['length'], $_POST['start']);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	function count_filtered()
 	{
 		$this->_get_datatables_query();
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	function count_filtered_keluar()
+	{
+		$this->_get_datatables_query_keluar();
 		$query = $this->db->get();
 		return $query->num_rows();
 	}
@@ -209,6 +276,51 @@ class Siswa_model extends CI_Model
 		} else {
 			return $this->db->update($this->_table, $this, array('siswa_id' => $this->session->userdata('user_id')));
 		};
+	}
+
+	public function datadownload()
+	{
+		$walikelas = $this->db->get_where('ms_kelas', ["wali_user_id" => $this->session->userdata('user_id')]); //cek wali kelas
+		$this->db->select("siswa.*,
+						   users.user_email as user_email,
+						   users.user_nama as user_nama,
+						   ms_kelas.kelas_nama as kelas_nama,
+						   app_agama.agama_keterangan as agama_keterangan,
+						   app_tempattinggal.tempattinggal_keterangan as tempattinggal_keterangan,
+						   app_transportasi.transportasi_keterangan as transportasi_keterangan,
+						   pd_ayah.pendidikan_nama as pd_ayah,
+						   pk_ayah.pekerjaan_keterangan as pk_ayah,
+						   ph_ayah.penghasilan_keterangan as ph_ayah,
+						   pd_ibu.pendidikan_nama as pd_ibu,
+						   pk_ibu.pekerjaan_keterangan as pk_ibu,
+						   ph_ibu.penghasilan_keterangan as ph_ibu,
+						   pd_wali.pendidikan_nama as pd_wali,
+						   pk_wali.pekerjaan_keterangan as pk_wali,
+						   ph_wali.penghasilan_keterangan as ph_wali,
+						   ");
+		$this->db->from("siswa");
+		$this->db->join('users', 'users.user_id = siswa.siswa_id', 'right');
+		$this->db->join('kelas_siswa', 'kelas_siswa.siswa_id = siswa.siswa_id', 'left');
+		$this->db->join('ms_kelas', 'ms_kelas.kelas_id = kelas_siswa.kelas_id', 'left');
+		$this->db->join('app_agama', 'app_agama.agama_id = siswa.siswa_agama', 'left');
+		$this->db->join('app_tempattinggal', 'app_tempattinggal.tempattinggal_id = siswa.siswa_jenistinggal', 'left');
+		$this->db->join('app_transportasi', 'app_transportasi.transportasi_id = siswa.siswa_alattransport', 'left');
+		$this->db->join('app_pendidikan pd_ayah', 'pd_ayah.pendidikan_id = siswa.siswa_pendidikan_ayah', 'left');
+		$this->db->join('app_pekerjaan pk_ayah', 'pk_ayah.pekerjaan_id = siswa.siswa_pekerjaan_ayah', 'left');
+		$this->db->join('app_penghasilan ph_ayah', 'ph_ayah.penghasilan_id = siswa.siswa_penghasilan_ayah', 'left');
+		$this->db->join('app_pendidikan pd_ibu', 'pd_ibu.pendidikan_id = siswa.siswa_pendidikan_ibu', 'left');
+		$this->db->join('app_pekerjaan pk_ibu', 'pk_ibu.pekerjaan_id = siswa.siswa_pekerjaan_ibu', 'left');
+		$this->db->join('app_penghasilan ph_ibu', 'ph_ibu.penghasilan_id = siswa.siswa_penghasilan_ibu', 'left');
+		$this->db->join('app_pendidikan pd_wali', 'pd_wali.pendidikan_id = siswa.siswa_pendidikan_wali', 'left');
+		$this->db->join('app_pekerjaan pk_wali', 'pk_wali.pekerjaan_id = siswa.siswa_pekerjaan_wali', 'left');
+		$this->db->join('app_penghasilan ph_wali', 'ph_wali.penghasilan_id = siswa.siswa_penghasilan_wali', 'left');
+		$this->db->where('users.user_type', 2);
+		$this->db->where('siswa.siswa_status', 1); //siswa status 1 = aktif, 0= tidak aktif
+		if ($walikelas->num_rows() != 0) {
+			$this->db->where('ms_kelas.wali_user_id', $this->session->userdata('user_id'));
+		}
+		$query = $this->db->get();
+		return $query->result();
 	}
 
 	public function delete($id)
