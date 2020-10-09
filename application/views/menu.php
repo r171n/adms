@@ -43,7 +43,7 @@ $config = $this->db->get()->row();
 								<img src="<?php echo base_url(); ?>app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"><i></i></span>
 							<span class="user-name"><?php echo $this->session->userdata('user_nama'); ?></span>
 						</a>
-						<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href=""><i class="ft-user"></i> Pengaturan Akun</a>
+						<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="<?php echo base_url('auth/setting'); ?>"><i class="ft-user"></i> Pengaturan Akun</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="<?php echo base_url('auth/logout'); ?>"><i class="ft-power"></i> Logout</a>
 						</div>

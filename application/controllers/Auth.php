@@ -74,4 +74,49 @@ class Auth extends CI_Controller
 		session_destroy();
 		redirect('auth');
 	}
+
+	public function setting()
+	{
+		if ($this->session->userdata('user_nama') == "") {
+			redirect('auth');
+		}
+		$data = array(
+			'js' => 'user_setting.js',
+			'namepage' => 'Pengaturan Akun'
+		);
+		$this->template->render('user_setting', $data);
+	}
+
+	public function update()
+	{
+		if ($this->session->userdata('user_nama') == "") {
+			redirect('auth');
+		}
+		$user_nama = $this->session->userdata('user_nama');
+		$user_password = $this->input->post('user_password');
+		$password_baru = $this->input->post('password_baru');
+
+
+		if ($this->_verify_credentials($user_nama, $user_password) == true) {
+			//echo "oke";
+			$dt = array(
+				'user_password' => password_hash($password_baru, PASSWORD_DEFAULT)
+			);
+			$this->db->update("users", $dt, array('user_id' => $this->session->userdata('user_id')));
+			//redirect('dashboard');
+			$data = array(
+				'js' => 'user_setting.js',
+				'namepage' => 'Pengaturan Akun'
+			);
+			$this->session->set_flashdata('success', 'Password Berhasil Diperbarui');
+			redirect('auth/setting');
+		} else {
+			$data = array(
+				'js' => 'user_setting.js',
+				'namepage' => 'Pengaturan Akun'
+			);
+			$this->session->set_flashdata('msg_error', 'Password Lama Salah!');
+			redirect('auth/setting');
+		}
+	}
 }

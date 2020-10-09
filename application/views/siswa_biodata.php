@@ -13,6 +13,11 @@
 									<?php echo $this->session->flashdata('success'); ?>
 								</div>
 							<?php endif; ?>
+							<?php if ($this->session->flashdata('error')) : ?>
+								<div class="alert alert-warning" role="alert">
+									<?php echo $this->session->flashdata('error'); ?>
+								</div>
+							<?php endif; ?>
 							<?php if ($this->session->userdata('user_type') == 2) : ?>
 								<div class="">
 									<strong>Silahkan Lengkapi Biodata Dibawah Ini!</strong>
