@@ -14,6 +14,7 @@ class Kesiswaan extends CI_Controller
 		}
 		$this->load->model('menu_model');
 		$this->load->model('siswa_model');
+		$this->load->model('kelas_model');
 	}
 
 	public function index()
@@ -52,6 +53,27 @@ class Kesiswaan extends CI_Controller
 			'penghasilan' => $penghasilan,
 		);
 		$this->template->render('siswa_list', $data);
+	}
+
+	public function kelas()
+	{
+		//cek akses
+		if ($this->menu_model->akses('kesiswaan/kelas') != 1) {
+			redirect('dashboard');
+		}
+
+		$tingkat = $this->db->get('ms_tingkat');
+		$jurusan = $this->db->get('ms_jurusan');
+		$user = $this->db->get_where('users', array('user_type  !=' => '2'));
+
+		$data = array(
+			'namepage' => 'Rombel',
+			'js' => 'kelas.js',
+			'tingkat' => $tingkat,
+			'jurusan' => $jurusan,
+			'user' => $user,
+		);
+		$this->template->render('ms_kelas', $data);
 	}
 
 	public function siswakeluar()
@@ -156,6 +178,39 @@ class Kesiswaan extends CI_Controller
 		//output dalam format JSON
 		echo json_encode($output);
 	}
+
+	function get_data_kelas()
+	{
+		if ($this->menu_model->akses('kesiswaan/kelas') != 1) {
+			redirect('dashboard');
+		}
+		$list = $this->kelas_model->get_datatables();
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $field) {
+			$no++;
+			$row = array();
+			$row[] = $no;
+			$row[] = $field->kelas_nama;
+			$row[] = $field->tingkat_nama;
+			$row[] = $field->jurusan_nama;
+			$row[] = $field->user_email;
+			$row[] = '<a class="btn btn-sm bg-blue bg-accent-2 white" href="javascript:void()" title="Edit" onclick="edit(' . "'" . $field->kelas_id . "'" . ')">Edit</a>
+						<a class="btn btn-sm bg-red bg-darken-1 white" href="javascript:void()" title="Delete Kelas" onclick="delete_kelas(' . "'" . $field->kelas_id . "'," . '' . "'" . $field->user_email . "'" . ')">Delete</a>';
+
+			$data[] = $row;
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->kelas_model->count_all(),
+			"recordsFiltered" => $this->kelas_model->count_filtered(),
+			"data" => $data,
+		);
+		//output dalam format JSON
+		echo json_encode($output);
+	}
+
 	public function get_data_edit($id)
 	{
 		if ($this->menu_model->akses('kesiswaan/siswa') != 1) {
@@ -163,6 +218,15 @@ class Kesiswaan extends CI_Controller
 		}
 		$user = $this->siswa_model;
 		$data = $user->getById($id);
+		echo json_encode($data->row());
+	}
+
+	public function get_data_kelas_edit($id)
+	{
+		if ($this->menu_model->akses('kesiswaan/siswa') != 1) {
+			redirect('dashboard');
+		}
+		$data = $this->kelas_model->getById($id);
 		echo json_encode($data->row());
 	}
 
@@ -314,5 +378,82 @@ class Kesiswaan extends CI_Controller
 		header('Cache-Control: max-age=0');
 
 		$writer->save('php://output');
+	}
+
+	public function kelasupdate()
+	{
+		//cek akses
+		if ($this->menu_model->akses('kesiswaan/kelas') != 1) {
+			redirect('dashboard');
+		}
+		$post = $this->input->post();
+		if ($post["kelas_nama"] == "" || $post["wali_user_id"] == 0) {
+			$this->json['status'] = false;
+			$this->json['msg'] = "Semua Form Wajib Di Isi";
+			echo json_encode($this->json);
+		} else {
+			$kelas = $this->kelas_model;
+			$get = $kelas->getById($post["kelas_id"]);
+
+			if ($get->row()->kelas_nama == $post["kelas_nama"]) {
+				$kelas->update();
+				$this->json['status'] = TRUE;
+				$this->json['msg'] = "Data Berhasil Diperbarui!";
+				echo json_encode($this->json);
+			} else {
+				if ($kelas->getBynama($post["kelas_nama"])->num_rows() == 0) {
+					$kelas->update();
+					$this->json['status'] = TRUE;
+					$this->json['msg'] = "Data Berhasil Diperbarui!";
+					echo json_encode($this->json);
+				} else {
+					$this->json['status'] = false;
+					$this->json['msg'] = "Nama Sudah Digunakan!";
+					echo json_encode($this->json);
+				}
+			}
+		}
+	}
+
+	public function kelassave()
+	{
+		//cek akses
+		if ($this->menu_model->akses('kesiswaan/kelas') != 1) {
+			redirect('dashboard');
+		}
+		$post = $this->input->post();;
+		if ($post["kelas_nama"] == "" || $post["wali_user_id"] == 0) {
+			$this->json['status'] = false;
+			$this->json['msg'] = "Semua Form Wajib Di Isi";
+			echo json_encode($this->json);
+		} else {
+			$kelas = $this->kelas_model;
+
+			if ($kelas->getBynama($post["kelas_nama"])->num_rows() == 0) {
+				$kelas->save();
+				$this->json['status'] = TRUE;
+				$this->json['msg'] = "Data Berhasil Diperbarui!";
+				echo json_encode($this->json);
+			} else {
+				$this->json['status'] = false;
+				$this->json['msg'] = "Nama Sudah Digunakan!";
+				echo json_encode($this->json);
+			}
+		}
+	}
+
+	public function delete_kelas($id)
+	{
+		if ($this->db->get_where('kelas_siswa', array('kelas_id' => $id))->num_rows() == 0) {
+			$this->db->where('kelas_id', $id);
+			$this->db->delete('ms_kelas');
+			$this->json['status'] = TRUE;
+			$this->json['msg'] = "Data Berhasil Dihapus!";
+			echo json_encode($this->json);
+		} else {
+			$this->json['status'] = FALSE;
+			$this->json['msg'] = "Rombel Masih Aktif, Masih Terdapat Siswa Di Rombel Tesebut";
+			echo json_encode($this->json);
+		}
 	}
 }

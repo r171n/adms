@@ -22,6 +22,7 @@ $config = $this->db->get()->row();
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
 	<!-- BEGIN VENDOR CSS-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/css/vendors.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/vendors/css/forms/selects/select2.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/vendors/css/extensions/unslider.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/vendors/css/weather-icons/climacons.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>app-assets/fonts/meteocons/style.css">
