@@ -10,7 +10,7 @@
 						<strong>Login Berhasil!</strong> Selamat Datang Di Website Sistem Informasi Sekolah.
 					</div>
 					<div class="row">
-						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 							<div class="card">
 								<div class="card-content">
 									<div class="card-body bg-gradient-x-blue">
@@ -27,7 +27,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 							<div class="card">
 								<div class="card-content">
 									<div class="card-body bg-gradient-x-primary">
@@ -44,7 +44,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 							<div class="card">
 								<div class="card-content">
 									<div class="card-body bg-gradient-x-warning">

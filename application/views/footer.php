@@ -8,9 +8,9 @@ $config = $this->db->get()->row();
 </div>
 </div>
 <!-- ////////////////////////////////////////////////////////////////////////////-->
-<footer class="footer footer-static bg-gradient-x-blue white navbar-border">
+<footer class="footer fixed-bottom bg-gradient-x-blue white navbar-border">
 	<p class="clearfix white lighten-2 text-sm-center mb-0 px-2">
-		<span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2020 <a class="text-bold-800 black darken-2" href=""><?php echo $config->cf_nama; ?> </a>, All rights reserved. </span>
+		<span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2020 <a class="text-bold-800 black darken-2" href=""><?php echo $config->cf_nama; ?> </a>, </span>
 		<span class="float-md-right d-block d-md-inline-block d-none d-lg-block"><a class="text-bold-800 black darken-2" href="http://www.cumacoder.com">www.cumacoder.com </a></span>
 	</p>
 </footer>
@@ -18,10 +18,10 @@ $config = $this->db->get()->row();
 <script src="<?php echo base_url(); ?>app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
-<script src="<?php echo base_url(); ?>app-assets/vendors/js/charts/raphael-min.js" type="text/javascript"></script>
+<!-- <script src="<?php echo base_url(); ?>app-assets/vendors/js/charts/raphael-min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>app-assets/vendors/js/charts/morris.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>app-assets/vendors/js/extensions/unslider-min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>app-assets/vendors/js/timeline/horizontal-timeline.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>app-assets/vendors/js/timeline/horizontal-timeline.js" type="text/javascript"></script> -->
 <script src="<?php echo base_url(); ?>app-assets/vendors/js/pickers/dateTime/moment-with-locales.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>app-assets/vendors/js/pickers/dateTime/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>app-assets/vendors/js/extensions/toastr.min.js" type="text/javascript"></script>
