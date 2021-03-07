@@ -657,7 +657,16 @@
 																	<option value="6">Wafat</option>
 																	<option value="7">Hilang</option>
 																	<option value="8">Lulus</option>
+																	<option value="1">Aktif</option>
 																</select>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12 col-sm-12">
+														<div class="form-group row">
+															<label class="col-md-3 label-control" for="siswa_tgl_nonaktif">Tanggal Non Aktif</label>
+															<div class="col-md-9">
+																<input type="text" id="siswa_tgl_nonaktif" class="form-control" placeholder="Tanggal Non Aktif" name="siswa_tgl_nonaktif" value="" required>
 															</div>
 														</div>
 													</div>

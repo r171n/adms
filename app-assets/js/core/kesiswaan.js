@@ -567,12 +567,13 @@ function biodata(id) {
 	});
 }
 
-function registrasi(id, siswa_nama) {
+function registrasi(id, siswa_nama, siswa_tgl_nonaktif) {
 	$("#form_registrasi")[0].reset(); // reset form on modals
 	$("div").removeClass("error");
 	$(".help-block").hide();
 	$('[name="siswa_id"]').val(id);
 	$('[name="siswa_nama"]').val(siswa_nama);
+	$('[name="siswa_tgl_nonaktif"]').val(siswa_tgl_nonaktif);
 	$("#modal_registrasi").modal("show"); // show bootstrap modal when complete loaded
 	$(".modal-title").text("Registrasi Siswa " + siswa_nama); // Set title to Bootstrap modal title
 }

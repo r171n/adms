@@ -17,4 +17,8 @@
 		locale: "id",
 		format: "DD-MM-YYYY",
 	});
+	$("#siswa_tgl_nonaktif").datetimepicker({
+		locale: "id",
+		format: "DD-MM-YYYY",
+	});
 })(window, document, jQuery);

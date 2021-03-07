@@ -124,8 +124,13 @@ class Kesiswaan extends CI_Controller
 			if ($walikelas->num_rows() != 0) {
 				$row[] = '<a class="btn btn-sm bg-blue bg-accent-2 white" href="javascript:void()" title="Biodata" onclick="biodata(' . "'" . $field->siswa_id . "'" . ')">Biodata</a>';
 			} else {
+				if($field->siswa_tgl_nonaktif == "0000-00-00"){
+					$tgl_non = "";
+				} else{
+					$tgl_non = date("d-m-Y", strtotime($field->siswa_tgl_nonaktif));
+				}
 				$row[] = '<a class="btn btn-sm bg-blue bg-accent-2 white" href="javascript:void()" title="Biodata" onclick="biodata(' . "'" . $field->siswa_id . "'" . ')">Biodata</a>
-						<a class="btn btn-sm bg-amber bg-darken-3 white" href="javascript:void()" title="Registrasi" onclick="registrasi(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'" . ')">Registrasi</a>';
+						<a class="btn btn-sm bg-amber bg-darken-3 white" href="javascript:void()" title="Registrasi" onclick="registrasi(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'," . '' . "'" . $tgl_non . "'" . ')">Registrasi</a>';
 			}
 
 			$data[] = $row;
@@ -238,6 +243,7 @@ class Kesiswaan extends CI_Controller
 		}
 		$post = $this->input->post();
 		$this->siswa_status = $post["siswa_status"];
+		$this->siswa_tgl_nonaktif = date("Y-m-d", strtotime($post["siswa_tgl_nonaktif"]));
 		$this->db->update("siswa", $this, array('siswa_id' => $post["siswa_id"]));
 		echo json_encode(array("status" => TRUE));
 	}

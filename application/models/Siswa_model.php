@@ -23,6 +23,7 @@ class Siswa_model extends CI_Model
 						   ms_kelas.kelas_nama as kelas_nama, 
 						   siswa.siswa_updated_at as siswa_updated_at,
 						   siswa.siswa_id as siswa_id,
+						   siswa.siswa_tgl_nonaktif as siswa_tgl_nonaktif,
 						   ");
 		$this->db->from("siswa");
 		$this->db->join('users', 'users.user_id = siswa.siswa_id', 'right');
