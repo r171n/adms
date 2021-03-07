@@ -435,7 +435,7 @@ $("#form_siswa").submit(function (event) {
 	if ($("#form_siswa").jqBootstrapValidation()) {
 		// ajax adding data to database
 		$.ajax({
-			url: "biodatasave",
+			url: "../siswa/biodatasave",
 			type: "POST",
 			data: $("#form_siswa").serialize(),
 			dataType: "JSON",

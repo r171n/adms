@@ -88,10 +88,24 @@ class Siswa extends CI_Controller
 
 			redirect('siswa/biodata');
 		} else {
-			$data = array(
-				'namepage' => 'Biodata Siswa'
-			);
-			$this->template->render('untuk bukan siswa', $data);
+			$siswa = $this->siswa_model;
+			$data["siswa"] = $siswa->getById($this->input->post('siswa_id'));
+
+			if ($data["siswa"]->num_rows() == 0) {
+				$siswa->save();
+				$post = $this->input->post();
+				$user_id = $this->input->post('siswa_id');
+				$this->user_email = $post["siswa_nama"];
+				$this->db->update("users", $this, array('user_id' => $user_id));
+				echo json_encode(array("status" => TRUE));
+			} else {
+				$siswa->update();
+				$post = $this->input->post();
+				$user_id = $this->input->post('siswa_id');
+				$this->user_email = $post["siswa_nama"];
+				$this->db->update("users", $this, array('user_id' => $user_id));
+				echo json_encode(array("status" => TRUE));
+			}
 		}
 	}
 }
