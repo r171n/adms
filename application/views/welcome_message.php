@@ -6,8 +6,8 @@
 					$this->db->select('
 										A.kelas_nama, 
 										COUNT(siswa_nama) as total_siswa,
-										COUNT(case when c.siswa_jeniskelamin="L" then 1 end) as jumlah_laki_laki,
-										COUNT(case when c.siswa_jeniskelamin="P" then 1 end) as jumlah_perempuan
+										COUNT(case when C.siswa_jeniskelamin="L" then 1 end) as jumlah_laki_laki,
+										COUNT(case when C.siswa_jeniskelamin="P" then 1 end) as jumlah_perempuan
 									');
 					$this->db->join('kelas_siswa AS B', 'A.kelas_id = B.kelas_id');
 					$this->db->join('siswa AS C', 'B.siswa_id = C.siswa_id');
