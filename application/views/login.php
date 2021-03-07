@@ -37,7 +37,7 @@ $config = $this->db->get()->row();
 	<!-- END Custom CSS-->
 </head>
 
-<body class="vertical-layout vertical-menu 1-column   menu-expanded blank-page blank-page" data-open="click" data-menu="vertical-menu" data-col="1-column">
+<body class="vertical-layout vertical-menu 1-column bg-gradient-y-blue white menu-expanded blank-page blank-page" data-open="click" data-menu="vertical-menu" data-col="1-column">
 	<!-- ////////////////////////////////////////////////////////////////////////////-->
 	<div class="app-content content">
 		<div class="content-wrapper">
