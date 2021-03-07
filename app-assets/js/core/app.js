@@ -3,6 +3,11 @@
 	var $html = $("html");
 	var $body = $("body");
 
+	$('#goal-list-scroll').perfectScrollbar({
+        wheelPropagation: true
+    });
+
+
 	$(window).on("load", function () {
 		var rtl;
 		var compactMenu = false; // Set it to true, if you want default menu to be compact
