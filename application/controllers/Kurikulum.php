@@ -150,4 +150,22 @@ class Kurikulum extends CI_Controller
 		$this->json['msg'] = "Data Berhasil Dihapus!";
 		echo json_encode($this->json);
 	}
+
+	public function jadwal()
+	{
+		//cek akses
+		if ($this->menu_model->akses('kurikulum/jadwal') != 1) {
+			redirect('dashboard');
+		}
+		$jadwal = $this->db->get('ms_jadwal');
+		$user = $this->db->get_where('users', array('user_type  !=' => '2'));
+
+		$data = array(
+			'namepage' => 'Jadwal Pelajaran',
+			'js' => 'kurikulum_jadwal.js',
+			'jadwal' => $jadwal,
+			'user' => $user,
+		);
+		$this->template->render('kurikulum_jadwal', $data);
+	}
 }
