@@ -353,6 +353,7 @@
 
 	$(".select2").select2({
 		tags: true,
+		dropdownParent: $("#modal")
 	});
 })(window, document, jQuery);
 
@@ -369,7 +370,7 @@ $(document).ready(function () {
 			[50, 100, 250, 500, "All"],
 		],
 		ajax: {
-			url: "./get_data_mata_pelajaran",
+			url: "./get_data_jadwal",
 			type: "POST",
 		},
 
@@ -386,16 +387,24 @@ $(document).ready(function () {
 });
 
 function add() {
-	save_method = "add";
 	$("#form")[0].reset(); // reset form on modals
+	$("#jadwal_guru_id").select2("val", "0");
+	$("#jadwal_kelas_id").select2("val", "0");
+	get_jam_pelajaran_by_hari();
+	get_mata_pelajaran_by_kelas();
+	save_method = "add";
 	$("div").removeClass("error");
 	$(".help-block").hide();
 	$("#modal").modal("show"); // show bootstrap modal
-	$(".modal-title").text("Tambah Mata Pelajaran"); // Set Title to Bootstrap modal title
+	$(".modal-title").text("Tambah Jadwal Mengajar"); // Set Title to Bootstrap modal title
 }
 
-$('#jadwal_guru_id').on('change', function() {
-	alert( this.value );
+$('#jadwal_hari_id').on('change', function() {
+	get_jam_pelajaran_by_hari();
+});
+
+$('#jadwal_kelas_id').on('change', function() {
+	get_mata_pelajaran_by_kelas();
 });
 
 $("#form").submit(function (event) {
@@ -403,9 +412,9 @@ $("#form").submit(function (event) {
 	event.preventDefault();
 	var url;
 	if (save_method == "update") {
-		url = "matapelajaranupdate"
+		url = "jadwalupdate"
 	} else {
-		url = "matapelajaransave"
+		url = "jadwalsave"
 	}
 
 	if ($("#form").jqBootstrapValidation()) {
@@ -475,11 +484,53 @@ function edit(id) {
 	});
 }
 
-function delete_mata_pelajaran(id) {
-	if (confirm("Are you sure delete this data?")) {
+function get_jam_pelajaran_by_hari() {
+	hari_id =  $('#jadwal_hari_id').val();
+	$('#jadwal_jam_pelajaran_id').empty();
+	//$('#jadwal_jam_pelajaran_id').remove();
+	//Ajax Load data from ajax
+	$.ajax({
+		url: "./get_data_jam_pelajaran_by_hari/" + hari_id,
+		type: "GET",
+		dataType: "JSON",
+		success: function (data) {
+			$('#jadwal_jam_pelajaran_id').append('<option value=' + 0 + '>Pilih</option>');
+			$.each(data, function (key, value) {
+				$('#jadwal_jam_pelajaran_id').append('<option value=' + value.jam_pelajaran_id + '>' + value.jam_pelajaran_nama + '</option>');
+			});
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert("Error get data from ajax");
+		},
+	});
+}
+
+function get_mata_pelajaran_by_kelas() {
+	kelas_id =  $('#jadwal_kelas_id').val();
+	$('#jadwal_mata_pelajaran_id').empty();
+	//$('#jadwal_mata_pelajaran_id').remove();
+	//Ajax Load data from ajax
+	$.ajax({
+		url: "./get_data_mata_pelajaran_by_kelas/" + kelas_id,
+		type: "GET",
+		dataType: "JSON",
+		success: function (data) {
+			$('#jadwal_mata_pelajaran_id').append('<option value=' + 0 + '>Pilih</option>');
+			$.each(data, function (key, value) {
+				$('#jadwal_mata_pelajaran_id').append('<option value=' + value.mata_pelajaran_id + '>' + value.mata_pelajaran_nama + '</option>');
+			});
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert("Error get data from ajax");
+		},
+	});
+}
+
+function delete_jadwal(id) {
+	if (confirm("Apakah Anda Yakin Ingin Menghapus Data")) {
 		// ajax delete data to database
 		$.ajax({
-			url: "delete_mata_pelajaran/" + id,
+			url: "delete_jadwal/" + id,
 			type: "POST",
 			dataType: "JSON",
 			success: function (data) {

@@ -81,6 +81,11 @@ class Mata_pelajaran_model extends CI_Model
 		return $this->db->get_where($this->table, ["mata_pelajaran_id" => $id]);
 	}
 
+	public function getByTingkat($id)
+	{
+		return $this->db->get_where($this->table, ["mata_pelajaran_tingkat_id" => $id]);
+	}
+
 	public function getBykode($kode)
 	{
 		return $this->db->get_where($this->table, ["mata_pelajaran_kode" => $kode]);
