@@ -195,6 +195,7 @@ class Siswa_model extends CI_Model
 		$this->siswa_kps = ($post["siswa_kps"] == "" ? 'TIDAK' : $post["siswa_kps"]);
 		$this->siswa_kip = ($post["siswa_kip"] == "" ? 'TIDAK' : $post["siswa_kip"]);
 		$this->siswa_nokip = $post["siswa_nokip"];
+		$this->siswa_asalsekolah = $post["siswa_asalsekolah"];
 		$this->siswa_notelp = $post["siswa_notelp"];
 		$this->siswa_email = $post["siswa_email"];
 		$this->siswa_nokps = $post["siswa_nokps"];
@@ -249,6 +250,7 @@ class Siswa_model extends CI_Model
 		$this->siswa_kps = ($post["siswa_kps"] == "" ? 'TIDAK' : $post["siswa_kps"]);
 		$this->siswa_kip = ($post["siswa_kip"] == "" ? 'TIDAK' : $post["siswa_kip"]);
 		$this->siswa_nokip = $post["siswa_nokip"];
+		$this->siswa_asalsekolah = $post["siswa_asalsekolah"];
 		$this->siswa_notelp = $post["siswa_notelp"];
 		$this->siswa_email = $post["siswa_email"];
 		$this->siswa_nokps = $post["siswa_nokps"];
