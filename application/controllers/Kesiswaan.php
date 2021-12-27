@@ -302,6 +302,7 @@ class Kesiswaan extends CI_Controller
 		$sheet->setCellValue('AQ' . $baris, 'Pendidikan Wali');
 		$sheet->setCellValue('AR' . $baris, 'Pekerjaan Wali');
 		$sheet->setCellValue('AS' . $baris, 'Penghasilan Wali');
+		$sheet->setCellValue('AT' . $baris, 'Asal Sekolah');
 
 		$baris++;
 		foreach ($data as $dt) {
@@ -350,6 +351,7 @@ class Kesiswaan extends CI_Controller
 			$sheet->setCellValue('AQ' . $baris, $dt->pd_wali);
 			$sheet->setCellValue('AR' . $baris, $dt->pk_wali);
 			$sheet->setCellValue('AS' . $baris, $dt->ph_wali);
+			$sheet->setCellValue('AT' . $baris, $dt->siswa_asalsekolah);
 			$baris++; // Tambah 1 setiap kali looping
 		}
 		$sheet->getColumnDimension('A')->setAutoSize(true);
@@ -373,7 +375,7 @@ class Kesiswaan extends CI_Controller
 		$sheet->getColumnDimension('Y')->setAutoSize(true);
 		$sheet->getColumnDimension('Z')->setAutoSize(true);
 		$sheet->getColumnDimension('Z')->setAutoSize(true);
-		$sheet->getStyle('A1:AS1')->getFont()->setBold(true);
+		$sheet->getStyle('A1:AT1')->getFont()->setBold(true);
 
 		$writer = new Xlsx($spreadsheet);
 
