@@ -506,6 +506,7 @@ function biodata(id) {
 			$('[name="siswa_anakke"]').val(data.siswa_anakke);
 			$('[name="siswa_nokps"]').val(data.siswa_nokps);
 			$('[name="siswa_nokip"]').val(data.siswa_nokip);
+			$('[name="siswa_asalsekolah"]').val(data.siswa_asalsekolah);
 			$('[name="siswa_notelp"]').val(data.siswa_notelp);
 			$('[name="siswa_email"]').val(data.siswa_email);
 			$('[name="siswa_nama_ayah"]').val(data.siswa_nama_ayah);

@@ -366,6 +366,16 @@
 														</div>
 													</div>
 												</div>
+												<div class="row">
+													<div class="col-md-12 col-sm-12">
+														<div class="form-group row">
+															<label class="col-md-3 label-control" for="siswa_asalsekolah">Asal Sekolah</label>
+															<div class="col-md-9">
+																<input type="text" id="siswa_asalsekolah" class="form-control" placeholder="Asal Sekolah" name="siswa_asalsekolah" value="" required>
+															</div>
+														</div>
+													</div>
+												</div>												
 												<h4 class="form-section"><i class="ft-phone"></i> Kontak</h4>
 												<div class="row">
 													<div class="col-md-12 col-sm-12">
