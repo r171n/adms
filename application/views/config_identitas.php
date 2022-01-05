@@ -79,6 +79,19 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="cf_kop_sekolah">Gambar Kop Sekolah</label>
+									<div class="col-md-5">
+										<input type="file" name="cf_kop_sekolah" class="form-control-file" id="cf_kop_sekolah">
+									</div>
+									<div class="col-md-4">
+										<?php if ($cekdata == 1) if ($dataconfig->cf_kop_sekolah != "") echo "<img class='brand-logo' alt='stack admin logo' src='" . base_url() . "app-assets/images/kop/" . $dataconfig->cf_kop_sekolah . "' height='100px'>"; ?>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="form-actions">
 							<button type="submit" class="btn btn-primary">
 								<i class="fa fa-check-square-o"></i> Simpan

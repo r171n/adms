@@ -23,6 +23,7 @@ class Config_model extends CI_Model
 		$this->cf_telephone = $post["cf_telephone"];
 		$this->cf_email = $post["cf_email"];
 		$this->cf_logo = $post["cf_logo"];
+		$this->cf_logo = $post["cf_kop_sekolah"];
 		$this->cf_created_by = $this->session->userdata('user_id');
 		$this->cf_created_at = (date("Y-m-d H:m:s", time()));
 		return $this->db->insert($this->_table, $this);
@@ -38,7 +39,29 @@ class Config_model extends CI_Model
 			$this->cf_email = $post["cf_email"];
 			$this->cf_updated_by = $this->session->userdata('user_id');
 			$this->cf_updated_at = date("Y-m-d H:m:s", time());
-			return $this->db->update($this->_table, $this, array('cf_id' => 1));
+			//return $this->db->update($this->_table, $this, array('cf_id' => 1));
+			if (empty($_FILES['cf_kop_sekolah']['name'])) {
+				return $this->db->update($this->_table, $this, array('cf_id' => 1));
+			} else {
+				$config['upload_path'] = "./app-assets/images/kop";
+				$config['allowed_types'] = 'jpg|jpeg|png';
+				$config['max_size'] = '2048';
+				$config['overwrite'] = true;
+				$config['file_name'] = "kop";
+	
+				$this->load->library('upload', $config);
+				if ($this->upload->do_upload("cf_kop_sekolah")) {
+					$data = array('upload_data' => $this->upload->data());
+					// $this->cf_nama = $post["cf_nama"];
+					// $this->cf_alamat = $post["cf_alamat"];
+					// $this->cf_telephone = $post["cf_telephone"];
+					// $this->cf_email = $post["cf_email"];
+					$this->cf_kop_sekolah = $data['upload_data']['file_name'];
+					$this->cf_updated_by = $this->session->userdata('user_id');
+					$this->cf_updated_at = date("Y-m-d H:m:s", time());
+					return $this->db->update($this->_table, $this, array('cf_id' => 1));
+				}
+			}
 		} else {
 			$config['upload_path'] = "./app-assets/images/logo";
 			$config['allowed_types'] = 'jpg|jpeg|png';
@@ -56,7 +79,24 @@ class Config_model extends CI_Model
 				$this->cf_logo = $data['upload_data']['file_name'];
 				$this->cf_updated_by = $this->session->userdata('user_id');
 				$this->cf_updated_at = date("Y-m-d H:m:s", time());
-				return $this->db->update($this->_table, $this, array('cf_id' => 1));
+				if (empty($_FILES['cf_kop_sekolah']['name'])) {
+					return $this->db->update($this->_table, $this, array('cf_id' => 1));
+				} else {
+					//unset($config);
+					$config['upload_path'] = "./app-assets/images/kop";
+					$config['allowed_types'] = 'jpg|jpeg|png';
+					$config['max_size'] = '2048';
+					$config['overwrite'] = true;
+					$config['file_name'] = "kop";
+
+					$this->upload->initialize($config);
+					$this->load->library('upload', $config);
+					if ($this->upload->do_upload("cf_kop_sekolah")) {
+						$data = array('upload_data2' => $this->upload->data());
+						$this->cf_kop_sekolah = $data['upload_data2']['file_name'];
+						return $this->db->update($this->_table, $this, array('cf_id' => 1));
+					}
+				}
 			}
 		}
 	}
