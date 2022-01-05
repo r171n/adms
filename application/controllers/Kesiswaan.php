@@ -29,6 +29,13 @@ class Kesiswaan extends CI_Controller
 		$this->template->render('user_list', $data);
 	}
 
+	public function testmpdf()
+	{
+		$mpdf = new \Mpdf\Mpdf();
+		$mpdf->WriteHTML('<h1>Hello world!</h1>');
+		$mpdf->Output();;
+	}
+
 	public function siswa()
 	{
 		//cek akses
@@ -168,7 +175,8 @@ class Kesiswaan extends CI_Controller
 			if ($walikelas->num_rows() != 0) {
 				$row[] = '';
 			} else {
-				$row[] = '<a class="btn btn-sm bg-amber bg-darken-3 white" href="javascript:void()" title="Registrasi" onclick="registrasi(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'" . ')">Registrasi</a>';
+				$row[] = '<a class="btn btn-sm bg-blue bg-darken-3 white" href="javascript:void()" title="Surat Keterangan Pindah" onclick="registrasi(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'" . ')">Surat Keterangan Pindah</a> 
+						  <a class="btn btn-sm bg-amber bg-darken-3 white" href="javascript:void()" title="Registrasi" onclick="registrasi(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'" . ')">Registrasi</a>';
 			}
 
 			$data[] = $row;
