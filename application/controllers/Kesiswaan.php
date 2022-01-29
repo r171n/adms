@@ -29,6 +29,30 @@ class Kesiswaan extends CI_Controller
 		$this->template->render('user_list', $data);
 	}
 
+	function tgl_indo($tanggal){
+		$bulan = array (
+			1 =>   'Januari',
+			'Februari',
+			'Maret',
+			'April',
+			'Mei',
+			'Juni',
+			'Juli',
+			'Agustus',
+			'September',
+			'Oktober',
+			'November',
+			'Desember'
+		);
+		$pecahkan = explode('-', $tanggal);
+		
+		// variabel pecahkan 0 = tanggal
+		// variabel pecahkan 1 = bulan
+		// variabel pecahkan 2 = tahun
+	 
+		return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+	}
+
 	public function testmpdf()
 	{
 		$mpdf = new \Mpdf\Mpdf();
@@ -175,7 +199,7 @@ class Kesiswaan extends CI_Controller
 			if ($walikelas->num_rows() != 0) {
 				$row[] = '';
 			} else {
-				$row[] = '<a class="btn btn-sm bg-blue bg-darken-3 white" href="javascript:void()" title="Surat Keterangan Pindah" onclick="registrasi(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'" . ')">Surat Keterangan Pindah</a> 
+				$row[] = '<a class="btn btn-sm bg-blue bg-darken-3 white" href="javascript:void()" title="Surat Keterangan Pindah" onclick="cetaksuratketeranganpindah(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'" . ')">Surat Keterangan Pindah</a> 
 						  <a class="btn btn-sm bg-amber bg-darken-3 white" href="javascript:void()" title="Registrasi" onclick="registrasi(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'" . ')">Registrasi</a>';
 			}
 
@@ -521,5 +545,157 @@ class Kesiswaan extends CI_Controller
 				echo json_encode(array("status" => TRUE));
 			}
 		}
+	}
+
+	public function cetaksuratketeranganpindah($idsiswa)
+	{
+		$siswa = $this->siswa_model->getById($idsiswa)->row();
+		$nis = $this->db->get_where('users', ["user_id" => $idsiswa])->row();
+		
+		$this->db->from("kelas_siswa");
+		$this->db->join('ms_kelas', 'ms_kelas.kelas_id = kelas_siswa.kelas_id', 'left');
+		$this->db->join('ms_jurusan', 'ms_jurusan.jurusan_id = ms_kelas.jurusan_id', 'left');
+		$this->db->join('ms_tingkat', 'ms_tingkat.tingkat_id = ms_kelas.tingkat_id', 'left');
+		$this->db->where('kelas_siswa.siswa_id', $idsiswa);
+		$kelas = $this->db->get()->row();
+
+		$this->db->select('*');
+		$this->db->from('config');
+		$this->db->where('config.cf_id', 1);
+		$config = $this->db->get()->row();
+
+		$nama_dokumen='Surat_Keterangan_Pindah';
+		$mpdfConfig = array(
+			'mode' => 'utf-8', 
+			'format' => 'A4',
+		);
+		$mpdf->tabSpaces = 6;
+		$mpdf = new \Mpdf\Mpdf($mpdfConfig);		
+		ob_start();
+		?>
+		
+		<style>
+			h1{text-align: center ; font-size:16pt};
+			.page {
+				margin-top: 100mm; 
+				margin-bottom: 100mm; 
+				margin-left: 300mm; 
+				margin-right: 200mm; 
+			}
+			.nosurat{ text-align: center;line-height:0.1;};
+			.p_utama{ text-align: justify;line-height:1.5;};
+			.p_sub{ text-indent: 50px;  display:inline-block;text-align: justify;line-height:1.5;};
+			.tab1 {
+				tab-size: 50;
+			}
+		</style>
+		<body style="font-family: times new roman; font-size: 12pt;">
+				<img src="<?php echo base_url(); ?>app-assets/images/kop/<?php echo $config->cf_kop_sekolah; ?>">
+				<h1><b><u>SURAT KETERANGAN PINDAH</u></b></h1>
+				<div class="nosurat">Nomor : 421 /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ Pendik / <?php echo date("Y"); ?> </div>
+				<br>
+				<p class="p_utama">
+					Yang bertanda tangan dibawah ini Kepala <?php echo $config->cf_nama; ?>, menerangkan bahwa :
+				</p>
+				<table>
+					<tr>
+						<td>&nbsp;&nbsp;&nbsp;</td>
+						<td>Nama</td>
+						<td>:</td>
+						<td><?php echo $siswa->siswa_nama; ?></td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;&nbsp;</td>
+						<td>No. Induk Siswa / NISN</td>
+						<td>:</td>
+						<td> <?php echo $nis->user_nama; ?>/<?php echo $siswa->siswa_nisn; ?></td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;&nbsp;</td>
+						<td>Jurusan</td>
+						<td>:</td>
+						<td><?php echo $kelas->jurusan_nama; ?></td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;&nbsp;</td>
+						<td>Tingkat</td>
+						<td>:</td>
+						<td><?php echo $kelas->tingkat_nama; ?></td>
+					</tr>
+				</table>
+				<p>
+					Anak Dari:
+				</p>
+				<table>
+					<tr>
+						<td>&nbsp;&nbsp;&nbsp;</td>
+						<td>Nama Orang Tua &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>:</td>
+						<td><?php echo $siswa->siswa_nama_ayah; ?></td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;&nbsp;</td>
+						<td>Alamat Orang Tua</td>
+						<td>:</td>
+						<td><?php echo $siswa->siswa_alamat; ?></td>
+					</tr>
+				</table>
+				<p class="p_utama">
+					Benar nama tersebuat di atas diterima di <?php echo $config->cf_nama; ?>, dan akan Pindah Ke Sekolah Lain atas permintaan orang tua siswa yang bersangkutan.
+				<br>
+				<br>
+
+					Dan Sejak diterbitkan Surat Keterangan Pindah ini, Hak dan Kewajibannya tidak ada lagi, serta <?php echo $config->cf_nama; ?> tidak dapat menerima kembali.
+				<br>
+				<br>
+
+					Demikianlah Surat Keterangan ini dibuat, dan untuk dapat dipergunakan sebagaimana mestinya.
+				</p>
+				<p>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $config->cf_kota ?>, <?php echo $this->tgl_indo(date('Y-m-d'))?>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo "Kepala";?>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u><b><?php echo $config->cf_nama_kepala_sekolah ?></b></u>
+					<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NIP.<?php echo $config->cf_nip_kepala_sekolah ?>
+				</p>
+				<br>
+				<br>
+					Tembusan:
+					<ol>
+						<li>1 Lembar Untuk Sekolah Yang Di Tuju</li>
+						<li>1 Lembar Untuk Arsip Sekolah</li>
+					</ol>
+		</body>
+		<?php
+		$html = ob_get_contents();
+		ob_end_clean();
+		$mpdf->WriteHTML(utf8_encode($html));
+		$mpdf->Output($nama_dokumen.".pdf" ,'I');
+		$mpdf->Output();
 	}
 }

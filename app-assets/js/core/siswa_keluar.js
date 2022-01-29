@@ -577,6 +577,16 @@ function registrasi(id, siswa_nama) {
 	$(".modal-title").text("Registrasi Siswa " + siswa_nama); // Set title to Bootstrap modal title
 }
 
+function cetaksuratketeranganpindah(id, siswa_nama) {
+	$("#form_surat_keterangan_pindah")[0].reset(); // reset form on modals
+	$("div").removeClass("error");
+	$(".help-block").hide();
+	$('[name="siswa_id"]').val(id);
+	$('[name="siswa_nama"]').val(siswa_nama);
+	$("#modal_cetak_surat_keluar").modal("show"); // show bootstrap modal when complete loaded
+	$(".modal-title").text("Cetak Surat Keterangan Pindah " + siswa_nama); // Set title to Bootstrap modal title
+}
+
 $("#form_registrasi").submit(function (event) {
 	$(".help-block").show();
 	event.preventDefault();
@@ -617,6 +627,18 @@ $("#form_registrasi").submit(function (event) {
 			containerId: "toast-bottom-full-width",
 			closeButton: true,
 		});
+	}
+});
+
+$("#form_surat_keterangan_pindah").submit(function (event) {
+	var idsiswa = $("#siswa_id").val();
+	var win = window.open('./cetaksuratketeranganpindah/' + idsiswa, '_blank');
+	if (win) {
+		//Browser has allowed it to be opened
+		win.focus();
+	} else {
+		//Browser has blocked it
+		alert('Please allow popups for this website');
 	}
 });
 
