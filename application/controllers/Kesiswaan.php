@@ -122,6 +122,7 @@ class Kesiswaan extends CI_Controller
 		$pendidikan = $this->db->get('app_pendidikan');
 		$pekerjaan = $this->db->get('app_pekerjaan');
 		$penghasilan = $this->db->get('app_penghasilan');
+		$rombel = $this->db->get('ms_kelas');
 
 		$data = array(
 			'namepage' => 'Daftar Siswa Keluar ',
@@ -132,6 +133,7 @@ class Kesiswaan extends CI_Controller
 			'pendidikan' => $pendidikan,
 			'pekerjaan' => $pekerjaan,
 			'penghasilan' => $penghasilan,
+			'rombel' => $rombel
 		);
 		$this->template->render('siswa_list', $data);
 	}
