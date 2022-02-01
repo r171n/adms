@@ -316,6 +316,11 @@
 		} else {
 			$("#siswa_nokip").prop("readonly", true);
 		}
+
+		$(".select2").select2({
+			tags: true,
+			dropdownParent: $("#modal_rombel")
+		});
 	});
 
 	// Update manual scroller when window is resized
@@ -579,6 +584,20 @@ function registrasi(id, siswa_nama, siswa_tgl_nonaktif) {
 	$(".modal-title").text("Registrasi Siswa " + siswa_nama); // Set title to Bootstrap modal title
 }
 
+function rombel(id, siswa_nama,nis,kelas_id) {
+	$("#form_registrasi_rombel")[0].reset(); // reset form on modals
+	$("div").removeClass("error");
+	$(".help-block").hide();
+	$('[name="siswa_id"]').val(id);
+	$('[name="siswa_nama"]').val(siswa_nama);
+	$('[name="siswa_nis"]').val(nis);
+	if(kelas_id != ""){
+		$('[name="kelas_id"]').val(kelas_id).change();
+	}
+	$("#modal_rombel").modal("show"); // show bootstrap modal when complete loaded
+	$(".modal-title").text("Registrasi " + siswa_nama + " Ke Rombel"); // Set title to Bootstrap modal title
+}
+
 $("#form_registrasi").submit(function (event) {
 	$(".help-block").show();
 	event.preventDefault();
@@ -607,6 +626,110 @@ $("#form_registrasi").submit(function (event) {
 						containerId: "toast-bottom-full-width",
 						closeButton: true,
 					});
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert("Error adding / update data");
+			},
+		});
+	} else {
+		toastr.warning("Silahkan Isi Semua Form", "Gagal Menyimpan ", {
+			positionClass: "toast-bottom-full-width",
+			containerId: "toast-bottom-full-width",
+			closeButton: true,
+		});
+	}
+});
+
+$("#form_registrasi_rombel").submit(function (event) {
+	$(".help-block").show();
+	event.preventDefault();
+	var url;
+
+	if ($("#form_registrasi_rombel").jqBootstrapValidation()) {
+		// ajax adding data to database
+		$.ajax({
+			url: "regrombel",
+			type: "POST",
+			data: $("#form_registrasi_rombel").serialize(),
+			dataType: "JSON",
+			success: function (data) {
+				//if success close modal and reload ajax table
+				if (data.status == true) {
+					toastr.success("Data Berhasil Disimpan", "BERHASIL ", {
+						positionClass: "toast-bottom-full-width",
+						containerId: "toast-bottom-full-width",
+						closeButton: true,
+					});
+					$("#modal_rombel").modal("hide");
+					reload_table();
+				} else {
+					toastr.warning("Semua Form Wajib Diisi!", "Gagal Menyimpan ", {
+						positionClass: "toast-bottom-full-width",
+						containerId: "toast-bottom-full-width",
+						closeButton: true,
+					});
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert("Error adding / update data");
+			},
+		});
+	} else {
+		toastr.warning("Silahkan Isi Semua Form", "Gagal Menyimpan ", {
+			positionClass: "toast-bottom-full-width",
+			containerId: "toast-bottom-full-width",
+			closeButton: true,
+		});
+	}
+});
+
+function tambah_siswa() {
+	save_method = "add";
+	$("#form_tambah_siswa")[0].reset(); // reset form on modals
+	$("div").removeClass("error");
+	$(".help-block").hide();
+	$("#modal_tambah_siswa").modal("show"); // show bootstrap modal when complete loaded
+	$(".modal-title").text("Tambah Siswa"); // Set title to Bootstrap modal title
+}
+
+$("#form_tambah_siswa").submit(function (event) {
+	$(".help-block").show();
+	event.preventDefault();
+	var url;
+	if (save_method == "add") {
+		url = "tambah_siswa";
+	} else {
+		url = "update";
+	}
+
+	if ($("#form_tambah_siswa").jqBootstrapValidation()) {
+		// ajax adding data to database
+		$.ajax({
+			url: url,
+			type: "POST",
+			data: $("#form_tambah_siswa").serialize(),
+			dataType: "JSON",
+			success: function (data) {
+				//if success close modal and reload ajax table
+				if (data.status == true) {
+					toastr.success("Akun Berhasil Ditambahkan", "BERHASIL ", {
+						positionClass: "toast-bottom-full-width",
+						containerId: "toast-bottom-full-width",
+						closeButton: true,
+					});
+					$("#modal_tambah_siswa").modal("hide");
+					reload_table;
+				} else {
+					toastr.warning(
+						"NIS Sudah Digunakan Sebelumnya, Silahkan Cek ATAU Gunakan NIS yang Lainnya!",
+						"Gagal Menyimpan ",
+						{
+							positionClass: "toast-bottom-full-width",
+							containerId: "toast-bottom-full-width",
+							closeButton: true,
+						}
+					);
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {

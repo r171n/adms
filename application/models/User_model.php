@@ -107,6 +107,20 @@ class User_model extends CI_Model
 		return $this->db->insert($this->_table, $this);
 	}
 
+	public function add_siswa()
+	{
+		$post = $this->input->post();
+		$this->user_nama = $post["user_nama"];
+		$this->user_email = $post["user_email"];
+		$this->user_password = password_hash($post["user_password"], PASSWORD_DEFAULT);
+		$this->user_type = 2;
+		$this->user_status = 1;
+		$this->user_created_by = $this->session->userdata('user_id');
+		$this->user_created_at = (date("Y-m-d H:m:s", time()));
+		$this->db->insert($this->_table, $this);
+		return $this->db->insert_id();
+	}
+
 	public function update()
 	{
 		$post = $this->input->post();

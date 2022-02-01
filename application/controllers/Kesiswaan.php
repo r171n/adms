@@ -15,6 +15,7 @@ class Kesiswaan extends CI_Controller
 		$this->load->model('menu_model');
 		$this->load->model('siswa_model');
 		$this->load->model('kelas_model');
+		$this->load->model('User_model');
 	}
 
 	public function index()
@@ -72,6 +73,7 @@ class Kesiswaan extends CI_Controller
 		$pendidikan = $this->db->get('app_pendidikan');
 		$pekerjaan = $this->db->get('app_pekerjaan');
 		$penghasilan = $this->db->get('app_penghasilan');
+		$rombel = $this->db->get('ms_kelas');
 
 		$data = array(
 			'namepage' => 'Daftar Siswa Aktif',
@@ -82,6 +84,7 @@ class Kesiswaan extends CI_Controller
 			'pendidikan' => $pendidikan,
 			'pekerjaan' => $pekerjaan,
 			'penghasilan' => $penghasilan,
+			'rombel' => $rombel,
 		);
 		$this->template->render('siswa_list', $data);
 	}
@@ -149,7 +152,11 @@ class Kesiswaan extends CI_Controller
 			$row[] = $field->user_nama;
 			$row[] = $field->siswa_nisn;
 			$row[] = $field->siswa_jeniskelamin;
-			$row[] = $field->kelas_nama;
+			if($field->kelas_nama == ""){
+				$row[] = '<a class="black bg-amber white" href="javascript:void()" title="Rombel" onclick="rombel(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'," . '' . "'" . $field->user_nama . "'," . '' . "'" . $field->kelas_id . "'" . ')">Rombel</a>';
+			}else{
+				$row[] = '<a class="black" href="javascript:void()" title="Rombel" onclick="rombel(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'," . '' . "'" . $field->user_nama . "'," . '' . "'" . $field->kelas_id . "'" . ')">'.$field->kelas_nama.'</a>';
+			}
 			$row[] = $field->siswa_updated_at;
 			$walikelas = $this->db->get_where('ms_kelas', ["wali_user_id" => $this->session->userdata('user_id')]); //cek wali kelas
 			if ($walikelas->num_rows() != 0) {
@@ -278,6 +285,29 @@ class Kesiswaan extends CI_Controller
 		$this->siswa_tgl_nonaktif = date("Y-m-d", strtotime($post["siswa_tgl_nonaktif"]));
 		$this->db->update("siswa", $this, array('siswa_id' => $post["siswa_id"]));
 		echo json_encode(array("status" => TRUE));
+	}
+
+	public function regrombel()
+	{
+		//cek akses
+		if ($this->menu_model->akses('kesiswaan/siswa') != 1) {
+			redirect('dashboard');
+		}
+		$post = $this->input->post();
+		if ($this->db->get_where('kelas_siswa', array('siswa_id' => $post["siswa_id"]))->num_rows() == 0) {
+			$this->kelas_id = $post["kelas_id"];
+			$this->siswa_id = $post["siswa_id"];
+			$this->klssw_created_by = $this->session->userdata('user_id');
+			$this->klssw_created_at = (date("Y-m-d H:m:s", time()));
+			$this->db->insert("kelas_siswa", $this); //tambah group
+			echo json_encode(array("status" => TRUE));
+		} else {
+			$this->kelas_id = $post["kelas_id"];
+			$this->klssw_updated_by = $this->session->userdata('user_id');
+			$this->klssw_updated_at = (date("Y-m-d H:m:s", time()));
+			$this->db->update("kelas_siswa", $this, array('siswa_id' => $post["siswa_id"]));
+			echo json_encode(array("status" => TRUE));
+		}
 	}
 
 	function downloadbiodata()
@@ -697,5 +727,41 @@ class Kesiswaan extends CI_Controller
 		$mpdf->WriteHTML(utf8_encode($html));
 		$mpdf->Output($nama_dokumen.".pdf" ,'I');
 		$mpdf->Output();
+	}
+
+	public function tambah_siswa()
+	{
+		//cek akses
+		if ($this->menu_model->akses('user/akun') != 1) {
+			redirect('dashboard');
+		}
+		$user = $this->User_model;
+		$post = $this->input->post();
+		$data["user"] = $user->getByUsername($post["user_nama"]);
+
+		if ($data["user"]->num_rows() == 0) {
+			$user_id = $user->add_siswa();
+			$this->group_id = 3;
+			$this->user_id = $user_id;
+			$this->set_by = $this->session->userdata('user_id');
+			$this->set_time = (date("Y-m-d H:m:s", time()));
+			$this->db->trans_start();
+			$this->db->insert("ms_user_group", $this); //tambah group
+			$this->db->trans_complete();
+
+			$datasiswa = array(
+								'siswa_id' => $user_id,
+								'siswa_nama' => $post["user_email"],
+								'siswa_tanggallahir' => '2000-01-01',
+								'siswa_status' => 1,
+								'siswa_created_by' => $this->session->userdata('user_id'),
+								'siswa_created_at' => (date("Y-m-d H:m:s", time()))
+						);
+
+			$this->db->insert("siswa", $datasiswa); //tambah biodata
+			echo json_encode(array("status" => TRUE));
+		} else {
+			echo json_encode(array("status" => FALSE));
+		}
 	}
 }

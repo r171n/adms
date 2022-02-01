@@ -21,6 +21,7 @@ class Siswa_model extends CI_Model
 						   siswa.siswa_nisn as siswa_nisn,
 						   siswa.siswa_jeniskelamin as siswa_jeniskelamin,
 						   ms_kelas.kelas_nama as kelas_nama, 
+						   ms_kelas.kelas_id as kelas_id, 
 						   siswa.siswa_updated_at as siswa_updated_at,
 						   siswa.siswa_id as siswa_id,
 						   siswa.siswa_tgl_nonaktif as siswa_tgl_nonaktif,
@@ -73,6 +74,7 @@ class Siswa_model extends CI_Model
 						   siswa.siswa_nisn as siswa_nisn,
 						   siswa.siswa_jeniskelamin as siswa_jeniskelamin,
 						   ms_kelas.kelas_nama as kelas_nama, 
+						   ms_kelas.kelas_id as kelas_id, 
 						   siswa.siswa_updated_at as siswa_updated_at,
 						   siswa.siswa_id as siswa_id,
 						   ");

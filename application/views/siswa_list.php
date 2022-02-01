@@ -14,6 +14,7 @@
 								</div>
 								<div class="card-content">
 									<div class="card-body">
+										<a class="btn btn-md bg-success bg-darken-4 white" href="javascript:void()" title="Biodata" onclick="tambah_siswa()"><i class="ft ft-plus"></i> Tamah Siswa</a>
 										<a href="<?php echo base_url(); ?>kesiswaan/downloadbiodata" class=" btn btn-md bg-blue bg-darken-4 white"><i class="ft ft-download"></i> Download Data</a>
 										<br>
 										<br>
@@ -691,6 +692,60 @@
 								</div>
 							</div>
 						</div>
+						<div class="modal fade text-left" data-backdrop="false" id="modal_rombel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header bg-warning">
+										<h4 class="modal-title" id="myModalLabel1">Registrasi Siswa Ke Rombel</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form class="form" action="#" id="form_registrasi_rombel" novalidate>
+											<div class="form-body">
+												<div class="row">
+													<div class="col-md-12 col-sm-12">
+														<div class="form-group row">
+															<label class="col-md-3 label-control" for="user_group_nama">Nama Lengkap</label>
+															<div class="col-md-9 controls">
+																<input type="hidden" id="siswa_id" name="siswa_id">
+																<input type="text" id="siswa_nama" class="form-control" placeholder="Nama Lengkap" name="siswa_nama" value="" readonly>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12 col-sm-12">
+														<div class="form-group row">
+															<label class="col-md-3 label-control" for="user_group_nis">NIS</label>
+															<div class="col-md-9 controls">
+																<input type="text" id="siswa_nis" class="form-control" placeholder="NIS" name="siswa_nis" value="" readonly>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12 col-sm-12">
+													<div class="form-group row">
+														<label class="col-md-3 label-control" for="rombel">Rombel</label>
+														<div class="col-md-9">
+															<select class="select2 form-control select2-hidden-accessible" name="kelas_id" id="kelas_id" style="width: 100%">
+																<option value="0">Pilih Rombel</option>
+																<?php foreach ($rombel->result() as $rombel) : ?>
+																	<option value="<?php echo $rombel->kelas_id ?>"><?php echo $rombel->kelas_nama ?></option>
+																<?php endforeach; ?>
+															</select>
+														</div>
+													</div>
+												</div>
+												</div>
+											</div>
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn bg-blue bg-accent-3 white">Simpan</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="modal fade text-left" data-backdrop="false" id="modal_cetak_surat_keluar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 							<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
@@ -744,6 +799,53 @@
 									</div>
 									<div class="modal-footer">
 										<button type="submit" class="btn bg-blue bg-accent-3 white">Cetak</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal fade text-left" data-backdrop="false" id="modal_tambah_siswa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="myModalLabel1">Basic Modal</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form class="form" action="#" id="form_tambah_siswa" novalidate>
+											<div class="form-body">
+												<div class="col-md-12 col-sm-12">
+													<div class="form-group row">
+														<label class="col-md-3 label-control" for="user_email">Nama Lengkap</label>
+														<div class="col-md-9 controls">
+															<input type="hidden" name="user_id" />
+															<input type="text" id="user_email" class="form-control" placeholder="Nama Lengkap" name="user_email" value="" required data-validation-required-message="Nama Lengkap Wajib Diisi">
+														</div>
+													</div>
+												</div>
+												<div class="col-md-12 col-sm-12">
+													<div class="form-group row">
+														<label class="col-md-3 label-control" for="user_nama">NIS</label>
+														<div class="col-md-9 controls">
+															<input type="text" id="user_nama" class="form-control" placeholder="User" name="user_nama" value="" required data-validation-required-message="User Wajib Diisi">
+														</div>
+													</div>
+												</div>
+												<div class="col-md-12 col-sm-12">
+													<div class="form-group row">
+														<label class="col-md-3 label-control" for="user_password">Password</label>
+														<div class="col-md-9 controls">
+															<input type="text" id="user_password" class="form-control" placeholder="Password" name="user_password" value="" required data-validation-required-message="Password Wajib Diisi">
+														</div>
+													</div>
+												</div>
+											</div>
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn bg-blue bg-accent-3 white">Simpan</button>
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
 										</form>
 									</div>
