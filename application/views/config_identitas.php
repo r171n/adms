@@ -69,6 +69,26 @@
 						<div class="row">
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group row">
+									<label class="col-md-3 label-control" for="cf_nama_kepala_sekolah">Nama Kepala Sekolah</label>
+									<div class="col-md-9">
+										<input type="text" id="cf_nama_kepala_sekolah" class="form-control" placeholder="Nama Kepala Sekolah" name="cf_nama_kepala_sekolah" value="<?php if ($cekdata == 1) echo $dataconfig->cf_nama_kepala_sekolah; ?>" required>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="cf_nip_kepala_sekolah">NIP Kepala Sekolah</label>
+									<div class="col-md-9">
+										<input type="text" id="cf_nip_kepala_sekolah" class="form-control" placeholder="NIP Kepala Sekolah" name="cf_nip_kepala_sekolah" value="<?php if ($cekdata == 1) echo $dataconfig->cf_nip_kepala_sekolah; ?>" required>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
 									<label class="col-md-3 label-control" for="cf_logo">Logo Sekolah</label>
 									<div class="col-md-5">
 										<input type="file" name="cf_logo" class="form-control-file" id="cf_logo">

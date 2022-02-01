@@ -37,6 +37,8 @@ class Config_model extends CI_Model
 			$this->cf_alamat = $post["cf_alamat"];
 			$this->cf_telephone = $post["cf_telephone"];
 			$this->cf_email = $post["cf_email"];
+			$this->cf_nama_kepala_sekolah = $post["cf_nama_kepala_sekolah"];
+			$this->cf_nip_kepala_sekolah = $post["cf_nip_kepala_sekolah"];
 			$this->cf_updated_by = $this->session->userdata('user_id');
 			$this->cf_updated_at = date("Y-m-d H:m:s", time());
 			//return $this->db->update($this->_table, $this, array('cf_id' => 1));
@@ -76,6 +78,8 @@ class Config_model extends CI_Model
 				$this->cf_alamat = $post["cf_alamat"];
 				$this->cf_telephone = $post["cf_telephone"];
 				$this->cf_email = $post["cf_email"];
+				$this->cf_nama_kepala_sekolah = $post["cf_nama_kepala_sekolah"];
+				$this->cf_nip_kepala_sekolah = $post["cf_nip_kepala_sekolah"];
 				$this->cf_logo = $data['upload_data']['file_name'];
 				$this->cf_updated_by = $this->session->userdata('user_id');
 				$this->cf_updated_at = date("Y-m-d H:m:s", time());
