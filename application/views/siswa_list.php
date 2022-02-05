@@ -771,32 +771,16 @@
 															</div>
 														</div>
 													</div>
-													<!-- <div class="col-md-12 col-sm-12">
+												</div>
+												<div class="row">
+													<div class="col-md-12 col-sm-12">
 														<div class="form-group row">
-															<label class="col-md-3 label-control" for="siswa_status">Status</label>
-															<div class="col-md-9">
-
-																<select class="form-control" id="siswa_status" name="siswa_status">
-																	<option value="2">Mutasi</option>
-																	<option value="3">Dikeluarkan</option>
-																	<option value="4">Mengundurkan Diri</option>
-																	<option value="5">Putus Sekolah</option>
-																	<option value="6">Wafat</option>
-																	<option value="7">Hilang</option>
-																	<option value="8">Lulus</option>
-																	<option value="1">Aktif</option>
-																</select>
+															<label class="col-md-3 label-control" for="user_group_nama">Pindah Ke</label>
+															<div class="col-md-9 controls">
+																<input type="text" id="pindah_ke" class="form-control" placeholder="Nama Sekolah Tujuan" name="pindah_ke" value="">
 															</div>
 														</div>
-													</div> -->
-													<!-- <div class="col-md-12 col-sm-12">
-														<div class="form-group row">
-															<label class="col-md-3 label-control" for="siswa_tgl_nonaktif">Tanggal Non Aktif</label>
-															<div class="col-md-9">
-																<input type="text" id="siswa_tgl_nonaktif" class="form-control" placeholder="Tanggal Non Aktif" name="siswa_tgl_nonaktif" value="" required>
-															</div>
-														</div>
-													</div> -->
+													</div>
 												</div>
 											</div>
 									</div>

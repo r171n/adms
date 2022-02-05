@@ -631,14 +631,25 @@ $("#form_registrasi").submit(function (event) {
 });
 
 $("#form_surat_keterangan_pindah").submit(function (event) {
-	var idsiswa = $("#siswa_id").val();
-	var win = window.open('./cetaksuratketeranganpindah/' + idsiswa, '_blank');
-	if (win) {
-		//Browser has allowed it to be opened
-		win.focus();
+	// var idsiswa = $("#siswa_id").val();
+	// var pindah_ke = $("#pindah_ke").val();
+	// var win = window.open('./cetaksuratketeranganpindah/' + idsiswa +'/'+pindah_ke, '_blank');
+	if ($("#form_surat_keterangan_pindah").jqBootstrapValidation()) {
+		// ajax adding data to database
+		$.ajax({
+			url: "cetaksuratketeranganpindah",
+			type: "POST",
+			data: $("#form_surat_keterangan_pindah").serialize(),
+			dataType: "JSON",
+			success: function (data) {
+			},
+		});
 	} else {
-		//Browser has blocked it
-		alert('Please allow popups for this website');
+		toastr.warning("Silahkan Isi Semua Form", "Gagal Menyimpan ", {
+			positionClass: "toast-bottom-full-width",
+			containerId: "toast-bottom-full-width",
+			closeButton: true,
+		});
 	}
 });
 

@@ -585,8 +585,10 @@ class Kesiswaan extends CI_Controller
 		}
 	}
 
-	public function cetaksuratketeranganpindah($idsiswa)
+	public function cetaksuratketeranganpindah()
 	{
+		$idsiswa = $this->input->post('siswa_id');
+		$sekolah_tujuan =  $this->input->post('pindah_ke');
 		$siswa = $this->siswa_model->getById($idsiswa)->row();
 		$nis = $this->db->get_where('users', ["user_id" => $idsiswa])->row();
 		
@@ -602,7 +604,7 @@ class Kesiswaan extends CI_Controller
 		$this->db->where('config.cf_id', 1);
 		$config = $this->db->get()->row();
 
-		$nama_dokumen='Surat_Keterangan_Pindah';
+		$nama_dokumen='Surat_Keterangan_Pindah_'.$siswa->siswa_nama;
 		$mpdfConfig = array(
 			'mode' => 'utf-8', 
 			'format' => 'A4',
@@ -679,7 +681,10 @@ class Kesiswaan extends CI_Controller
 					</tr>
 				</table>
 				<p class="p_utama">
-					Benar nama tersebuat di atas diterima di <?php echo $config->cf_nama; ?>, dan akan Pindah Ke Sekolah Lain atas permintaan orang tua siswa yang bersangkutan.
+					Benar nama tersebuat di atas diterima di <?php echo $config->cf_nama; ?>, 
+					<?php if($sekolah_tujuan == ""){?>dan akan Pindah Ke Sekolah Lain atas permintaan orang tua siswa yang bersangkutan.
+						<?php }else{ ?>
+					dan akan Pindah Ke <?php echo " ".$sekolah_tujuan." atas permintaan orang tua siswa yang bersangkutan.";}?>
 				<br>
 				<br>
 
@@ -734,7 +739,12 @@ class Kesiswaan extends CI_Controller
 		ob_end_clean();
 		$mpdf->WriteHTML(utf8_encode($html));
 		$mpdf->Output($nama_dokumen.".pdf" ,'I');
-		$mpdf->Output();
+		if($mpdf->Output()){
+			echo json_encode(array("status" => TRUE));
+		} else{
+			echo json_encode(array("status" => FALSE));
+		}
+		
 	}
 
 	public function tambah_siswa()
