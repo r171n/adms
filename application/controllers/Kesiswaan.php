@@ -154,14 +154,14 @@ class Kesiswaan extends CI_Controller
 			$row[] = $field->user_nama;
 			$row[] = $field->siswa_nisn;
 			$row[] = $field->siswa_jeniskelamin;
-			if($field->kelas_nama == ""){
-				$row[] = '<a class="black bg-amber white" href="javascript:void()" title="Rombel" onclick="rombel(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'," . '' . "'" . $field->user_nama . "'," . '' . "'" . $field->kelas_id . "'" . ')">Rombel</a>';
-			}else{
-				$row[] = '<a class="black" href="javascript:void()" title="Rombel" onclick="rombel(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'," . '' . "'" . $field->user_nama . "'," . '' . "'" . $field->kelas_id . "'" . ')">'.$field->kelas_nama.'</a>';
-			}
-			$row[] = $field->siswa_updated_at;
 			$walikelas = $this->db->get_where('ms_kelas', ["wali_user_id" => $this->session->userdata('user_id')]); //cek wali kelas
 			if ($walikelas->num_rows() != 0) {
+				if($field->kelas_nama == ""){
+					$row[] = '';
+				}else{
+					$row[] = $field->kelas_nama;
+				}
+				$row[] = $field->siswa_updated_at;
 				$row[] = '<a class="btn btn-sm bg-blue bg-accent-2 white" href="javascript:void()" title="Biodata" onclick="biodata(' . "'" . $field->siswa_id . "'" . ')">Biodata</a>';
 			} else {
 				if($field->siswa_tgl_nonaktif == "0000-00-00"){
@@ -169,6 +169,12 @@ class Kesiswaan extends CI_Controller
 				} else{
 					$tgl_non = date("d-m-Y", strtotime($field->siswa_tgl_nonaktif));
 				}
+				if($field->kelas_nama == ""){
+					$row[] = '<a class="black bg-amber white" href="javascript:void()" title="Rombel" onclick="rombel(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'," . '' . "'" . $field->user_nama . "'," . '' . "'" . $field->kelas_id . "'" . ')">Rombel</a>';
+				}else{
+					$row[] = '<a class="black" href="javascript:void()" title="Rombel" onclick="rombel(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'," . '' . "'" . $field->user_nama . "'," . '' . "'" . $field->kelas_id . "'" . ')">'.$field->kelas_nama.'</a>';
+				}
+				$row[] = $field->siswa_updated_at;
 				$row[] = '<a class="btn btn-sm bg-blue bg-accent-2 white" href="javascript:void()" title="Biodata" onclick="biodata(' . "'" . $field->siswa_id . "'" . ')">Biodata</a>
 						<a class="btn btn-sm bg-amber bg-darken-3 white" href="javascript:void()" title="Registrasi" onclick="registrasi(' . "'" . $field->siswa_id . "'," . '' . "'" . $field->user_email . "'," . '' . "'" . $tgl_non . "'" . ')">Registrasi</a>';
 			}

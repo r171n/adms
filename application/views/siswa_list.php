@@ -14,7 +14,10 @@
 								</div>
 								<div class="card-content">
 									<div class="card-body">
+										<?php 			$walikelas = $this->db->get_where('ms_kelas', ["wali_user_id" => $this->session->userdata('user_id')]); //cek wali kelas?>
+										<?php if ($walikelas->num_rows() == 0) {?>
 										<a class="btn btn-md bg-success bg-darken-4 white" href="javascript:void()" title="Biodata" onclick="tambah_siswa()"><i class="ft ft-plus"></i> Tamah Siswa</a>
+										<?php }?>
 										<a href="<?php echo base_url(); ?>kesiswaan/downloadbiodata" class=" btn btn-md bg-blue bg-darken-4 white"><i class="ft ft-download"></i> Download Data</a>
 										<br>
 										<br>
